@@ -1,0 +1,28 @@
+.uitslagen-container {
+    width: 100%;
+}
+
+.uitslagen-container .uitslagen-subcontainer h2 {
+    font-weight: bold;
+}
+
+.uitslagen-container .uitslagen-subcontainer table {
+    width: 100%;
+}
+
+.uitslagen-container .uitslagen-subcontainer table>thead>tr>th {
+    background-color: #d3d3d3;
+}
+
+.uitslagen-container .uitslagen-subcontainer .datum {
+    width: 10%;
+}
+
+.uitslagen-container .uitslagen-subcontainer .wedstrijd {
+    width: 75%;
+}
+
+.uitslagen-container .uitslagen-subcontainer .link {
+    width: 15%;
+    text-align: center;
+}

@@ -1,0 +1,88 @@
+.sponsor-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
+.sponsor-card {
+    padding: 0.5vw;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 1vw;
+}
+
+.sponsor-card.bordered {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #041d3d;
+}
+
+.sponsor-card.goud {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.sponsor-card.random {
+    background-color: white;
+}
+
+.sponsor-card .slogan p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22.8px;
+}
+
+.sponsor-card .logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1vw;
+    margin-top: 1vw;
+}
+
+.sponsor-card .logo img {
+    max-height: 200px;
+    height: 100%;
+}
+
+.sponsor-card .value-wrapper {
+    display: flex;
+    margin-bottom: 2vw;
+    color: #041d3d;
+}
+
+.sponsor-card .value-wrapper .value {
+    margin-left: 1vw;
+}
+
+.sponsor-container .sponsor-card {
+    padding: 1vw;
+}
+
+.sponsor-container .sponsor-card .logo {
+    margin-bottom: 2vw;
+}
+
+.sponsor-container .sponsor-card .logo img {
+    max-height: 150px;
+}
+
+@media only screen and (min-width: 1400px) {
+    .sponsor-container .sponsor-card {
+        width: 30%;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .sponsor-container .sponsor-card {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 1399px) {
+    .sponsor-container .sponsor-card {
+        width: 45%;
+    }
+}

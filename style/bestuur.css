@@ -1,0 +1,41 @@
+.werkgroep-container {
+    border-radius: 1vw;
+    background-color: #ffebb3;
+    padding: 1vw;
+    margin-bottom: 2vw;
+}
+
+.werkgroep-container h3 {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #666;
+    margin-bottom: 1vw;
+}
+
+.werkgroep-info-wrapper .value-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.werkgroep-info-wrapper .value-wrapper .icon {
+    margin-right: 1vw;
+}
+
+.werkgroep-info-wrapper .werkgroep-info .sub-werkgroep {
+    margin-left: 1vw;
+    margin-bottom: 1vw;
+}
+
+.werkgroep-info-wrapper .werkgroep-info .sub-werkgroep .value-wrapper {
+    margin-left: 0.5vw;
+}
+
+.werkgroep-listing {
+    margin-left: 1vw;
+}
+
+.bestuurders-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}

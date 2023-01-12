@@ -1,0 +1,38 @@
+.klassement {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1vw;
+}
+
+.klassement .klassement-info {
+    max-width: 350px;
+}
+
+.klassement .button-wrapper {
+    min-width: 120px;
+    padding: 0.5vw;
+    display: inline-block;
+}
+
+.klassement .button-wrapper>a {
+    color: #041d3d;
+    letter-spacing: 0px;
+    font-size: 16px;
+    background-color: #ffebb3;
+    border-radius: 100px;
+    border-width: 0px;
+    display: inline-block;
+}
+
+.klassement .button-wrapper .icon-wrapper {
+    display: flex;
+    flex-direction: row;
+    padding: .3em 1em;
+}
+
+.klassement .button-wrapper .icon-wrapper .text {
+    text-align: left;
+    margin-right: 1vw;
+}

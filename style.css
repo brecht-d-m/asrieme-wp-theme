@@ -1,0 +1,84 @@
+/*
+ Theme Name:     Divi Child Theme
+ Theme URI:      https://www.elegantthemes.com/gallery/divi/
+ Description:    Divi Child Theme
+ Author:         Elegant Themes
+ Author URI:     https://www.elegantthemes.com
+ Template:       Divi
+ Version:        1.0.0
+*/
+
+
+/* =Theme customization starts here
+------------------------------------------------------- */
+
+.bordered-box {
+    border: 1px solid #041D3D;
+    border-radius: 1vw;
+    padding: 0.5vw;
+}
+
+.bordered-box figure img {
+    border-radius: 1vw;
+}
+
+#lidgeld-price-table .et_pb_pricing_table_wrap {
+    align-items: center !important;
+}
+
+#steunen-price-table .et_pb_pricing_table_wrap {
+    justify-content: space-between;
+}
+
+.categorie-table tr th {
+    padding: 9px 24px;
+}
+
+.categorie-table tr td {
+    padding: 6px 24px;
+}
+
+.info_container {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    display: flex;
+    flex-direction: row;
+}
+
+.info_container.bordered {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 1vw;
+    padding: 1vw;
+}
+
+.info_container.center {
+    align-items: center;
+}
+
+.info_container.top {
+    align-items: flex-start;
+}
+
+
+/* Icon styling */
+
+.info-container .icon-wrapper {
+    margin-right: 1vw;
+}
+
+.info-container .icon-wrapper.small>span {
+    font-size: 18px;
+}
+
+.info-container .icon-wrapper.big>span {
+    font-size: 45px;
+}
+
+.info-container .value-wrapper {
+    display: flex;
+}
+
+.info-container .value-wrapper .icon {
+    margin-right: 1vw;
+}

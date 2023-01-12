@@ -1,0 +1,295 @@
+/** Uitgebreid **/
+
+.activiteiten-container.uitgebreid {
+    position: relative;
+    z-index: 1;
+    padding: 0 1rem .25rem 1rem;
+}
+
+.activiteiten-container.uitgebreid .activiteit {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem 1rem .5rem;
+    margin: 1rem 0;
+    -webkit-transition: all 350ms ease-in-out;
+    -o-transition: all 350ms ease-in-out;
+    transition: all 350ms ease-in-out;
+    -webkit-box-shadow: 2px 2px 5px rgba(128, 128, 128, .5);
+    box-shadow: 2px 2px 5px rgba(128, 128, 128, .5);
+    background-color: #f2f2f2;
+    text-decoration: none;
+    color: #020f22;
+    line-height: 1.35em;
+}
+
+.activiteiten-container.uitgebreid .activiteit::before {
+    -webkit-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    content: '';
+    position: absolute;
+    left: -.5rem;
+    top: 0;
+    height: 100%;
+    width: 1rem;
+    z-index: -2;
+}
+
+.activiteiten-container.uitgebreid .activiteit.piste::before {
+    background-color: #f44336;
+}
+
+.activiteiten-container.uitgebreid .activiteit.veld::before {
+    background-color: #4caf50;
+}
+
+.activiteiten-container.uitgebreid .activiteit.jeugd::before {
+    background-color: #00bcd4;
+}
+
+.activiteiten-container.uitgebreid .activiteit.jogging::before {
+    background-color: #cfd8dc;
+}
+
+.activiteiten-container.uitgebreid .activiteit:hover {
+    -webkit-box-shadow: 8px 8px 5px #b3b3b3;
+    box-shadow: 8px 8px 5px #b3b3b3;
+}
+
+.activiteiten-container.uitgebreid .activiteit:hover.wedstrijd {
+    background-color: rgba(3, 28, 63, 0);
+}
+
+.activiteiten-container.uitgebreid .activiteit:hover.wedstrijd::before {
+    width: 100%;
+    left: 0;
+}
+
+.activiteiten-container.uitgebreid .activiteit:hover.wedstrijd.piste {
+    color: #f2f2f2;
+}
+
+.activiteiten-container.uitgebreid .activiteit {
+    text-decoration: none;
+    color: #020f22;
+    padding: 1rem 2rem 1rem .5rem;
+    margin: 1rem 0;
+    -webkit-transition: all 350ms ease-in-out;
+    -o-transition: all 350ms ease-in-out;
+    transition: all 350ms ease-in-out;
+    -webkit-box-shadow: 2px 2px 5px rgba(179, 179, 179, .5);
+    box-shadow: 2px 2px 5px rgba(179, 179, 179, .5);
+}
+
+.activiteiten-container.uitgebreid .activiteit::before {
+    -webkit-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    content: '';
+    position: absolute;
+    left: -.5rem;
+    top: 0;
+    height: 100%;
+    width: 1rem;
+    z-index: -2;
+}
+
+.activiteiten-container.uitgebreid .activiteit::after {
+    -webkit-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: .5rem;
+    width: 0;
+    z-index: -1;
+}
+
+.activiteiten-container.uitgebreid .activiteit.wedstrijd {
+    background-color: #0847a1;
+    color: #f2f2f2;
+}
+
+.activiteiten-container.uitgebreid .activiteit.wedstrijd.piste::before {
+    background-color: #f44336;
+}
+
+.activiteiten-container.uitgebreid .activiteit.wedstrijd.veld::before {
+    background-color: #4caf50;
+}
+
+.activiteiten-container.uitgebreid .activiteit.wedstrijd.jeugd::before {
+    background-color: #00bcd4;
+}
+
+.activiteiten-container.uitgebreid .activiteit.wedstrijd.jogging::before {
+    background-color: #cfd8dc;
+}
+
+.activiteiten-container.uitgebreid .activiteit.evenement {
+    background-color: #ffebb3;
+    color: #0d0d0d;
+}
+
+.activiteiten-container.uitgebreid .activiteit.evenement::before {
+    background-color: #e6a800;
+}
+
+.activiteiten-container.uitgebreid .activiteit.piste::after {
+    background-color: #f44336;
+}
+
+.activiteiten-container.uitgebreid .activiteit.veld::after {
+    background-color: #4caf50;
+}
+
+.activiteiten-container.uitgebreid .activiteit.jeugd::after {
+    background-color: #00bcd4;
+}
+
+.activiteiten-container.uitgebreid .activiteit.jogging::after {
+    background-color: #cfd8dc;
+}
+
+.activiteiten-container.uitgebreid .activiteit:hover {
+    -webkit-box-shadow: 8px 8px 5px rgba(179, 179, 179, .25);
+    box-shadow: 8px 8px 5px rgba(179, 179, 179, .25);
+}
+
+.activiteiten-container.uitgebreid .activiteit:hover.wedstrijd {
+    background-color: rgba(3, 28, 63, 0);
+}
+
+.activiteiten-container.uitgebreid .activiteit:hover.wedstrijd::before {
+    background-color: #031c3f;
+    width: 100%;
+    left: 0;
+}
+
+.activiteiten-container.uitgebreid .activiteit:hover.wedstrijd::after {
+    width: 100%;
+}
+
+.activiteiten-container.uitgebreid .activiteit:hover.evenement {
+    background-color: rgba(230, 168, 0, 0);
+}
+
+.activiteiten-container.uitgebreid .activiteit:hover.evenement::before {
+    width: 100%;
+    left: 0;
+}
+
+.activiteiten-container.uitgebreid .activiteit-header {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.activiteiten-container.uitgebreid .activiteit-header>div {
+    vertical-align: middle;
+    flex: 1;
+}
+
+.activiteiten-container.uitgebreid .activiteit-header .datum {
+    font-size: 1rem;
+    text-transform: capitalize;
+    font-variant: small-caps;
+}
+
+.activiteiten-container.uitgebreid .activiteit-header .type {
+    font-size: .8rem;
+    margin-right: -1rem;
+    text-align: right;
+    text-transform: uppercase;
+    font-variant: small-caps;
+}
+
+.activiteiten-container.uitgebreid .activiteit-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.activiteiten-container.uitgebreid .activiteit-body .titel {
+    margin: 1.2rem .5rem .5rem 0;
+    font-size: 1.4rem;
+    font-variant: small-caps;
+}
+
+.activiteiten-container.uitgebreid .activiteit-body .samenvatting {
+    padding: 0;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+
+/** Minimaal **/
+
+.activiteiten-container.minimaal .activiteit-blok {
+    margin: 1rem 0;
+}
+
+.activiteiten-container.minimaal .activiteit-blok .activiteit {
+    display: block;
+    text-decoration: none;
+    padding: 0.5vw;
+    transition: all 350ms ease-in-out;
+    border: 1px solid #041D3D;
+    border-radius: 1vw;
+    color: #041d3d
+}
+
+.activiteiten-container.minimaal .activiteit-blok .activiteit .activiteit-info .activiteit-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0.75vw;
+}
+
+.activiteiten-container.minimaal .activiteit-blok .activiteit:hover,
+.activiteiten-container.minimaal .activiteit-blok .activiteit:focus {
+    background-color: #445e85;
+}
+
+.activiteiten-container.minimaal .activiteit-blok .activiteit:hover,
+.activiteiten-container.minimaal .activiteit-blok .activiteit:focus {
+    color: #e4e7ed;
+}
+
+.activiteiten-container.minimaal .activiteit-blok .activiteit-body .titel {
+    margin: 0.2vw;
+    font-size: 1.25rem;
+}
+
+.activiteit.detail-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.activiteit.detail-info .icon {
+    margin-right: 1vw;
+    color: #ffc62b;
+}
+
+.activiteit-info-container .activiteit-info-card {
+    border-radius: 1vw;
+    margin-bottom: 1vw;
+    background-color: #ffebb3;
+    padding: 1vw;
+}
+
+.activiteit-info-container .activiteit-info-card .title {
+    display: flex;
+    flex-direction: row;
+}
+
+.activiteit-info-container .activiteit-info-card .title .icon {
+    margin-right: 1vw;
+}
+
+.activiteit-info-container .activiteit-info-card .content>ul {
+    margin-left: 1.5vw;
+    padding: 0vw;
+}

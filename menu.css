@@ -1,0 +1,49 @@
+/* Add Strava to social icons */
+.et-social-vimeo a.icon:before {
+	content: "\f428";
+	font-family: "Font Awesome 5 Brands";
+}
+/* Add Flickr to social icons */
+.et-social-twitter a.icon:before {
+	content: "\f16e";
+	font-family: "Font Awesome 5 Brands";
+}
+
+/* Custom nav width for sub-menus */
+@media only screen and (min-width: 981px) {
+    .sub-menu {
+	    min-width: 270px;
+    }
+    #menu-hoofdmenu li ul li a {
+        width: 280px;
+	}
+}
+
+/* ------------------------------
+   Make menu more mobile-friendly
+   ------------------------------ */
+/* X icon in expanded mobile menu */
+.mobile_nav.opened .mobile_menu_bar:before {
+    content: '4d';
+}
+/* Make mobile menu fullwidth */
+.et_mobile_menu {
+    min-width: 100vw;
+    margin-left: -25vw;
+}
+.et_pb_menu_inner_container {
+    position: static !important;
+}
+/* Make the mobile menu full height */
+.et_mobile_menu {
+    min-height: 100vh !important;
+    min-height: -webkit-fill-available;
+    padding-top: 50px !important;
+}
+/* Make mobile menu scrollable */
+.et_mobile_menu {   
+    overflow-y: scroll !important;
+    max-height: 80vh !important;
+    -overflow-scrolling: touch !important;
+    -webkit-overflow-scrolling: touch !important;
+}

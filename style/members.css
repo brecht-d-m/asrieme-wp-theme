@@ -1,0 +1,94 @@
+.member-card-inner {
+    background-color: #f8f8f8;
+    /* A little bit smaller than the trainer card, so the background color shows nice */
+    width: 95%;
+    height: 95%;
+    /* Make inner elements display next to eachother */
+    margin: 0.25vw;
+    padding: 0.5vw;
+    display: flex;
+    align-items: flex-start;
+}
+
+.member-card .foto-wrapper {
+    /* Make image display in the center */
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-right: 1vw;
+}
+
+.member-card .foto-wrapper .square.sm {
+    /* Give image some fixed settings */
+    min-width: 100px;
+    max-width: 100px;
+    min-height: 100px;
+    max-height: 100px;
+}
+
+.member-card .foto-wrapper .square.bg {
+    /* Give image some fixed settings */
+    min-width: 150px;
+    max-width: 150px;
+    min-height: 150px;
+    max-height: 150px;
+}
+
+.member-card .foto-wrapper .rectangle.sm {
+    /* Give image some fixed settings */
+    min-width: 120px;
+    max-width: 120px;
+    min-height: 180px;
+    max-height: 180px;
+}
+
+.member-card .foto-wrapper .ratio-unknown {
+    /* Give image some fixed settings */
+    min-width: 120px;
+    max-width: 120px;
+    height: auto;
+}
+
+.member-card .foto-wrapper>img {
+    width: 100%;
+    height: auto;
+}
+
+.member-card .info-wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.member-card .info-wrapper .naam {
+    padding-bottom: 0vw;
+    margin-bottom: 0vw;
+    font-weight: bold;
+}
+
+.member-card .info-wrapper .functie {
+    border-bottom: 1px solid;
+    border-color: rgb(170, 170, 170);
+    margin-bottom: 0.5vw;
+    color: #aaaaaa;
+}
+
+.member-card .info-wrapper .functie-info {
+    margin-bottom: 1vw;
+}
+
+.member-card .info-wrapper .contact-info-container .value-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.member-card .info-wrapper .contact-info-container .value-wrapper .value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.member-card .info-wrapper .contact-info-container .value-wrapper .icon {
+    margin-right: 0.5vw;
+}
