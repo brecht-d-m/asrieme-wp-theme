@@ -13,11 +13,11 @@ function activiteit_datum_container_func() {
         return '';
     }
 
-    $activiteit_datum = format_activiteit_datum( $activiteit_datum );
+    $activiteit_datum = _format_activiteit_datum( $activiteit_datum );
     return
-        "<div class='activiteit detail-info datum'>
+        "<div class='activiteit value-wrapper'>
             <div class='icon'><i class='fas fa-calendar-alt'></i></div>
-            <h2 class='datum'>$activiteit_datum</h2>
+            <h2 class='value datum'>$activiteit_datum</h2>
         </div>";
 }
 add_shortcode( 'activiteit_datum_container', 'activiteit_datum_container_func' );
@@ -36,9 +36,9 @@ function activiteit_tijd_container_func() {
     }
 
     return
-        "<div class='activiteit detail-info tijd'>
+        "<div class='activiteit value-wrapper'>
             <div class='icon'><i class='fas fa-clock'></i></div>
-            <h2 class='tijd'>$activiteit_tijd</h2>
+            <h2 class='value tijd'>$activiteit_tijd</h2>
         </div>";
 }
 add_shortcode( 'activiteit_tijd_container', 'activiteit_tijd_container_func' );
@@ -50,15 +50,15 @@ function pre_activiteit_container_func() {
     // Enkel renderen als evenement nog niet is geweest
     if ( date('Ymd') <= $activiteit_datum ) {
         if ( get_field( 'inschrijvingsinfo_activiteit_heeftInschrijvingsinfo' )) {
-            $activiteit_info_container .= create_inschrijvings_container();
+            $activiteit_info_container .= _create_inschrijvings_container();
         }
 
         if ( get_field( 'locatieinfo_activiteit_heeftLocatieinfo' )) {
-            $activiteit_info_container .= create_locatie_container();
+            $activiteit_info_container .= _create_locatie_container();
         }
 
         if ( get_field( 'contactpersoon_activiteit_heeftContactpersoon' )) { 
-            $activiteit_info_container .= create_contact_container();
+            $activiteit_info_container .= _create_contact_container();
         }
     }
 
@@ -73,7 +73,7 @@ function pre_activiteit_container_func() {
 }
 add_shortcode( 'pre_activiteit_container', 'pre_activiteit_container_func' );
 
-function create_inschrijvings_container() {
+function _create_inschrijvings_container() {
     $container_content = '';
     
     $heeft_uiterste_datum = get_field( 'inschrijvingsinfo_activiteit_heeftUitersteInschrijfdatum' );
@@ -94,7 +94,7 @@ function create_inschrijvings_container() {
         $inschrijvings_info = 'Om deel te nemen is inschrijven verplicht.';
     }
     
-    if( !empty( $inschrijvings_info )) {
+    if( !empty( $inschrijvings_info ) ) {
         $container_content .= "<div>$inschrijvings_info</div>";
     }
 
@@ -109,25 +109,25 @@ function create_inschrijvings_container() {
             <a href='$inschrijving_link' target='_blank'>Inschrijven</a>
         </div>";
 
-    return create_info_container( 'Inschrijven', 'fa-user-plus', $container_content );
+    return _create_info_container( 'Inschrijven', 'fa-user-plus', $container_content );
 }
 
-function create_locatie_container() {
+function _create_locatie_container() {
     $adres = get_field( 'locatieinfo_activiteit_adres' );
-    return create_info_container( 'Locatie', 'fa-map-marker', $adres );
+    return _create_info_container( 'Locatie', 'fa-map-marker', $adres );
 }
 
-function create_contact_container() {
+function _create_contact_container() {
     $contact = get_field( 'contactpersoon_activiteit_contactpersoon' );
     $naam = ($contact != NULL) ? get_field( 'lid_naam', $contact ) : '';
     $mail = ($contact != NULL) ? get_field( 'lid_email', $contact ) : '';
 
     $container_content = empty( $mail ) ? '' : " (<a href='mailto:$mail'>$mail</a>)";
     $container_content = "Voor meer info kan je contact opnemen met $naam$container_content.";
-    return create_info_container( 'Contact', 'fa-question-circle', $container_content );
+    return _create_info_container( 'Contact', 'fa-question-circle', $container_content );
 }
 
-function create_info_container( $title, $title_icon, $content ) {
+function _create_info_container( $title, $title_icon, $content ) {
     return
         "<div class='activiteit-info-card'>
             <div class='title'>
@@ -147,7 +147,7 @@ function post_activiteit_container_func() {
     }
     
     // Enkel wedstrijd is ondersteund op dit moment
-    return post_wedstrijd_container( $activiteit_id );
+    return _post_wedstrijd_container( $activiteit_id );
 }
 add_shortcode( 'post_activiteit_container', 'post_activiteit_container_func' );
 
@@ -182,7 +182,7 @@ function activiteiten_container_func( $atts ) {
         }
     }
 
-    $volgende_activiteiten = get_activiteiten( $post_types_filter, $activiteit_types_filter, $a['aantal'] );
+    $volgende_activiteiten = _get_activiteiten( $post_types_filter, $activiteit_types_filter, $a['aantal'] );
     $minimaal = $a['minimaal'];
     switch ( $activiteit_klasse ) {
         case 'evenement':
@@ -200,10 +200,10 @@ function activiteiten_container_func( $atts ) {
 }
 add_shortcode( 'activiteiten_container', 'activiteiten_container_func' );
 
-function get_activiteiten( array $post_types_filter, array $activiteit_types_filter, int $aantal = 5 ) : array {
+function _get_activiteiten( array $post_types_filter, array $activiteit_types_filter, int $aantal = 5 ) : array {
     $volgende_activiteiten = array();
 
-    $activiteit_args = get_activiteiten_args( $post_types_filter, $activiteit_types_filter, $aantal );
+    $activiteit_args = _get_activiteiten_args( $post_types_filter, $activiteit_types_filter, $aantal );
     $activiteit_query = new WP_Query( $activiteit_args );
     if ( $activiteit_query->have_posts() ) {
         while ( $activiteit_query->have_posts() ) {
@@ -228,7 +228,7 @@ function get_activiteiten( array $post_types_filter, array $activiteit_types_fil
     return $volgende_activiteiten;
 }
 
-function get_activiteiten_args( array $post_types_filter, array $activiteit_types_filter, int $aantal ) : array {
+function _get_activiteiten_args( array $post_types_filter, array $activiteit_types_filter, int $aantal ) : array {
     $activiteit_args = array(
         'post_type'      => $post_types_filter,
         'meta_query'     => array(
@@ -284,7 +284,7 @@ function create_activiteiten_container( array $volgende_activiteiten, bool $mini
         $type_slug    = $activiteit['typeSlug'];
         $type_naam    = $activiteit['typeNaam'];
         $titel        = $activiteit['titel'];
-        $datum        = format_activiteit_datum( $activiteit['datum'], $minimaal );
+        $datum        = _format_activiteit_datum( $activiteit['datum'], $minimaal );
         $tijd         = $activiteit['tijd'];
         $link         = $activiteit['link'];
         $samenvatting = $activiteit['samenvatting'];
@@ -318,7 +318,7 @@ function create_activiteiten_container( array $volgende_activiteiten, bool $mini
         </div>";
 }
 
-function format_activiteit_datum( string $datum, bool $minimaal = false ) : string {
+function _format_activiteit_datum( string $datum, bool $minimaal = false ) : string {
     $datum = DateTime::createFromFormat( 'Ymd', $datum )->getTimestamp();
     $date_format = $minimaal ? 'd MMM' : 'd MMMM yy';
     $format = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, 'Europe/Brussels', IntlDateFormatter::GREGORIAN, $date_format );

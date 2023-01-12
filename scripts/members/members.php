@@ -57,7 +57,6 @@ function _create_foto_element( Member $member, Member_Card_Properties $member_ca
         $foto = 'https://asrieme.be/wp-content/uploads/2020/09/asrieme-logo-full-color-rgb.png';
         $foto_aspect_ratio = "ratio-unknown";
     }
-
     
     return
         "<img src='$foto' alt='$naam' class='rounded $foto_aspect_ratio $foto_grootte'>";
@@ -67,6 +66,7 @@ function _create_value_wrapper( string $value, string $type, string $fa_icon ) :
     if ( empty( $value ) ) {
         return '';
     }
+    
     return 
         "<div class='value-wrapper'>
             <div class='icon'><i class='fas fa-$fa_icon'></i></div>
