@@ -2,11 +2,9 @@
 
 require_once __DIR__ . '/../members/class-member.php';
 require_once __DIR__ . '/../members/class-member-card-properties.php';
-require_once __DIR__ . '/../members/members.php';
 
 use Member\Member;
 use Member\Member_Card_Properties;
-use function Member\generate_member_card;
 
 /**
  * Geeft de naam terug van het lid of het lid van de functie. Er zijn 2
@@ -39,13 +37,13 @@ function lid_naam_func( $atts ) {
 add_shortcode( 'lid_naam', 'lid_naam_func' );
 
 function _get_naam( $veld, $functie ) {
-    if ( !empty( $functie )) {
+    if ( ! empty( $functie ) ) {
         return _get_naam_clubfunctie( $functie );
     }
 
-    if ( !empty( $veld )) { 
+    if ( ! empty( $veld ) ) { 
         $lid_id = get_field( $veld );
-    } else if ( empty( $veld ) && empty( $functie )) {
+    } else if ( empty( $veld ) && empty( $functie ) ) {
         $lid_id = get_field( 'pagina_contact' );
         if ( empty ( $lid_id )) {
             return '';
@@ -119,17 +117,17 @@ function lid_mail_func( $atts ) {
 add_shortcode( 'lid_mail', 'lid_mail_func' );
 
 function _get_mail( $veld, $functie ) {
-    if ( !empty( $functie )) {
+    if ( ! empty( $functie ) ) {
         return _get_mail_clubfunctie( $functie );
     }
 
-    if ( !empty( $veld )) { 
+    if ( ! empty( $veld ) ) { 
         $lid_id = get_field( $veld );
-    } else if ( empty( $veld ) && empty( $functie )) {
+    } else if ( empty( $veld ) && empty( $functie ) ) {
         $lid_id = get_field( 'pagina_contact' );
     }
 
-    if ( empty ($lid_id )) {
+    if ( empty ($lid_id ) ) {
         return '';
     }
     
@@ -157,7 +155,7 @@ function _get_mail_clubfunctie( $functie ) {
         $mail = get_field( 'clubfunctie_mail' );
     }
     wp_reset_postdata();
-    return !empty ( $mail ) ? $mail : '' ;
+    return ! empty ( $mail ) ? $mail : '' ;
 }
 
 /**
@@ -203,22 +201,22 @@ function lid_container_func( $atts ) {
     $card_properties->set_card_relative_width( 'col-lg-12' );
 
     $member = new Member();
-    $member->set_naam( _get_naam( $a['veld'], $a['functie'] ) )
-            ->set_foto( _get_meta( $a['veld'], $a['functie'], 'fotoLink' ) )
-            ->set_functie( _get_functie( $a['veld'], $a['functie'] ) )
-            ->set_functie_beschrijving( get_field( 'pagina_contactInfo' ) )
-            ->set_mail( _get_mail( $a['veld'], $a['functie'] ) )
-            ->set_telefoon( _get_meta( $a['veld'], $a['functie'], 'telefoon' ) );
-    return generate_member_card( $member, $card_properties );
+    $member->set_naam( _get_naam( $a['veld'], $a['functie'] ) );
+    $member->set_foto( _get_meta( $a['veld'], $a['functie'], 'fotoLink' ) );
+    $member->set_functie( _get_functie( $a['veld'], $a['functie'] ) );
+    $member->set_functie_beschrijving( get_field( 'pagina_contactInfo' ) );
+    $member->set_mail( _get_mail( $a['veld'], $a['functie'] ) );
+    $member->set_telefoon( _get_meta( $a['veld'], $a['functie'], 'telefoon' ) );
+    return $member->create_member_card( $card_properties );
 }
 add_shortcode( 'lid_container', 'lid_container_func' );
 
 function _get_functie( $veld, $functie ) {
-    if ( !empty( $functie )) {
+    if ( ! empty( $functie ) ) {
         return _get_titel_clubfunctie( $functie );
     }
 
-    if ( !empty( $veld )) { 
+    if ( ! empty( $veld ) ) { 
         $lid_id = get_field( $veld );
     } else if ( empty( $veld ) && empty( $functie )) {
         $lid_id = get_field( 'pagina_contact' );
@@ -233,7 +231,7 @@ function _get_functie( $veld, $functie ) {
     if ( $post_type == 'clubfunctie' ) {
         $value = get_the_title( $lid_id );
     }
-    return !empty( $value ) ? $value : '';
+    return ! empty( $value ) ? $value : '';
 }
 
 // Helperfunctie om de titel van een clubfunctie te weten te komen
@@ -256,12 +254,12 @@ function _get_titel_clubfunctie( $functie ) {
 }
 
 function _get_meta( $veld, $functie, $key ) {
-    if ( !empty( $functie )) {
+    if ( ! empty( $functie ) ) {
         $value = _get_meta_value_clubfunctie( $functie, $key );
-        return !empty( $value ) ? $value : '';
+        return ! empty( $value ) ? $value : '';
     }
 
-    if ( !empty( $veld )) { 
+    if ( ! empty( $veld ) ) { 
         $lid_id = get_field( $veld );
     } else if ( empty( $veld ) && empty( $functie )) {
         $lid_id = get_field( 'pagina_contact' );
@@ -279,7 +277,7 @@ function _get_meta( $veld, $functie, $key ) {
     } else if ( $post_type == 'lid' ) {
         $value = get_field( 'lid_'.$key, $lid_id );
     }
-    return !empty( $value ) ? $value : '';
+    return ! empty( $value ) ? $value : '';
 }
 
 // Helperfunctie om een metavalue van een een lid van een clubfunctie 

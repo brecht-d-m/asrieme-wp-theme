@@ -16,9 +16,9 @@ function create_wedstrijden_container( $volgende_wedstrijden, $wedstrijd_type, $
 function post_wedstrijd_container( $wedstrijd_id ) {
     $post_wedstrijd_container = '';
     if ( $wedstrijd_id != NULL ) {
-        $post_wedstrijd_container .= create_resultaat_container( $wedstrijd_id );
-        $post_wedstrijd_container .= create_verslag_container( $wedstrijd_id );
-        $post_wedstrijd_container .= create_album_container( $wedstrijd_id );
+        $post_wedstrijd_container .= _create_resultaat_container( $wedstrijd_id );
+        $post_wedstrijd_container .= _create_verslag_container( $wedstrijd_id );
+        $post_wedstrijd_container .= _create_album_container( $wedstrijd_id );
     }
 
     return
@@ -27,34 +27,34 @@ function post_wedstrijd_container( $wedstrijd_id ) {
         </div>";
 }
 
-function create_resultaat_container( $wedstrijd_id ) {
-    $uitslagen_links = create_info_listing( 'wedstrijduitslag', $wedstrijd_id );
-    if ( empty( $uitslagen_links )) {
+function _create_resultaat_container( $wedstrijd_id ) {
+    $uitslagen_links = _create_info_listing( 'wedstrijduitslag', $wedstrijd_id );
+    if ( empty( $uitslagen_links ) ) {
         return '';
     }
     $container_content = "<ul>$uitslagen_links</ul>";
-    return create_info_container( 'Uitslag', 'fa-trophy', $container_content );
+    return _create_info_container( 'Uitslag', 'fa-trophy', $container_content );
 }
 
-function create_verslag_container( $wedstrijd_id ) {
-    $verslagen_links = create_info_listing( 'wedstrijdverslag', $wedstrijd_id );
-    if ( empty( $verslagen_links )) {
+function _create_verslag_container( $wedstrijd_id ) {
+    $verslagen_links = _create_info_listing( 'wedstrijdverslag', $wedstrijd_id );
+    if ( empty( $verslagen_links ) ) {
         return '';
     }
     $container_content = "<ul>$verslagen_links</ul>";
-    return create_info_container( 'Verslagen', 'fa-pen', $container_content );
+    return _create_info_container( 'Verslagen', 'fa-pen', $container_content );
 }
 
-function create_album_container( $wedstrijd_id ) {
-    $album_links = create_info_listing( 'wedstrijdalbum', $wedstrijd_id );
-    if ( empty( $album_links )) {
+function _create_album_container( $wedstrijd_id ) {
+    $album_links = _create_info_listing( 'wedstrijdalbum', $wedstrijd_id );
+    if ( empty( $album_links ) ) {
         return '';
     }
     $container_content = "<ul>$album_links</ul>";
-    return create_info_container( 'Fotoalbums', 'fa-images', $container_content );
+    return _create_info_container( 'Fotoalbums', 'fa-images', $container_content );
 }
 
-function create_info_listing( $post_type, $wedstrijd_id ) {
+function _create_info_listing( $post_type, $wedstrijd_id ) {
     $wedstrijd_args = array(
         'posts_per_page' => -1,
         'post_type'      => $post_type,
@@ -72,7 +72,7 @@ function create_info_listing( $post_type, $wedstrijd_id ) {
 
             $post_title = get_the_title();
             $post_url = get_field( $post_type.'_link' );
-            if ( empty( $post_url )) {
+            if ( empty( $post_url ) ) {
                 $post_url = get_the_permalink();
             }
 
@@ -107,7 +107,7 @@ function laatste_uitslagen_container_func () {
         $uitslag_map = array();
         while ( $query->have_posts() ) {
             $query->the_post();
-            $uitslag = create_uitslag_array();
+            $uitslag = _create_uitslag_array();
             $jaar = $uitslag['jaar'];
             if ( !array_key_exists( $jaar, $uitslag_map )) {
                 $uitslag_map[$jaar] = array();
@@ -115,7 +115,7 @@ function laatste_uitslagen_container_func () {
             array_push( $uitslag_map[$jaar], $uitslag );
         }
         wp_reset_postdata();
-        return create_uitslagen_tabellen( $uitslag_map );
+        return _create_uitslagen_tabellen( $uitslag_map );
     } else {
         wp_reset_postdata();
         return 
@@ -126,7 +126,7 @@ function laatste_uitslagen_container_func () {
 }
 add_shortcode( 'laatste_uitslagen_container', 'laatste_uitslagen_container_func' );
 
-function create_uitslag_array() {
+function _create_uitslag_array() {
     $wedstrijd_id = get_field( 'wedstrijduitslag_wedstrijd' );
     $uitslag_datum = get_field( 'activiteit_datum', $wedstrijd_id );
     $datum = DateTime::createFromFormat( 'Ymd', $uitslag_datum );
@@ -143,7 +143,7 @@ function create_uitslag_array() {
     );
 }
 
-function create_uitslagen_tabellen( $uitslagen_mapping ) {
+function _create_uitslagen_tabellen( $uitslagen_mapping ) {
     $uitslag_container = '';
     foreach( $uitslagen_mapping as $jaar => $jaar_uitslagen_mapping ) {
         $uitslagen = '';

@@ -1,5 +1,6 @@
 <?php
 
+/** Evenementen Container */
 function create_evenementen_container( $volgende_evenementen, $evenement_type, $minimaal ) {
     $type_mapping = array(
         'algemeen'  => 'evenementen',

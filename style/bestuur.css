@@ -1,32 +1,31 @@
-.werkgroep-container {
-    border-radius: 1vw;
+.werkgroep-card .werkgroep-card-inner {
     background-color: #ffebb3;
     padding: 1vw;
-    margin-bottom: 2vw;
+    margin: 1vw;
 }
 
-.werkgroep-container h3 {
+.werkgroep-card h3 {
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: #666;
     margin-bottom: 1vw;
 }
 
-.werkgroep-info-wrapper .value-wrapper {
+.werkgroep-card .value-wrapper {
     display: flex;
     flex-direction: row;
 }
 
-.werkgroep-info-wrapper .value-wrapper .icon {
+.werkgroep-card .value-wrapper .icon {
     margin-right: 1vw;
 }
 
-.werkgroep-info-wrapper .werkgroep-info .sub-werkgroep {
+.werkgroep-card .info-wrapper .sub-werkgroep-info {
     margin-left: 1vw;
     margin-bottom: 1vw;
 }
 
-.werkgroep-info-wrapper .werkgroep-info .sub-werkgroep .value-wrapper {
+.werkgroep-card .info-wrapper .sub-werkgroep-info .value-wrapper {
     margin-left: 0.5vw;
 }
 
