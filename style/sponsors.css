@@ -29,7 +29,7 @@
 }
 
 .sponsor-card.goud .sponsor-card-inner:hover {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .sponsor-card.zilver .sponsor-card-inner:hover,

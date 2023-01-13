@@ -46,8 +46,7 @@ function sponsors_container_func ( $atts ) {
     if ( $query->have_posts() ) {
         while ( $query->have_posts() ) {
             $query->the_post();
-            $sponsor = _create_sponsor( $type );
-            array_push( $sponsors, $sponsor );
+            array_push( $sponsors, _create_sponsor( $type ) );
         }
     }
     wp_reset_postdata();

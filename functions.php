@@ -10,8 +10,13 @@ function my_theme_enqueue_styles() {
         wp_get_theme()->get('Version')
     );
     
+    // Custom font package
+    wp_register_style('fonts-social-style', get_stylesheet_directory_uri().'/fonts/custom.css');
+    wp_enqueue_style('fonts-social-style');
+    // Custom menu theme
     wp_register_style('menu-style', get_stylesheet_directory_uri().'/menu.css');
     wp_enqueue_style('menu-style');
+    
     wp_register_style('members-style', get_stylesheet_directory_uri().'/style/members.css');
     wp_enqueue_style('members-style');
 
@@ -36,15 +41,15 @@ add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 /* General php-functions */
 /* --------------------- */
 
-include 'scripts/documenten.php';
-include 'scripts/klassementen.php';
 include 'scripts/activiteiten/activiteiten.php';
 include 'scripts/activiteiten/wedstrijden.php';
 include 'scripts/activiteiten/evenementen.php';
 include 'scripts/clubwerking/bestuur.php';
 include 'scripts/clubwerking/leden.php';
 include 'scripts/clubwerking/sponsors.php';
-include 'scripts/trainers.php';
+include 'scripts/lopen/trainers.php';
+include 'scripts/lopen/klassementen.php';
+include 'scripts/documenten.php';
 include 'scripts/socials.php';
 include 'scripts/posts.php';
 

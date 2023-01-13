@@ -8,6 +8,10 @@
     align-items: center;
 }
 
+.social-button:hover {
+    background-color: #ffebb3;
+}
+
 .social-button>a {
     color: #041d3d;
     font-size: 18px;

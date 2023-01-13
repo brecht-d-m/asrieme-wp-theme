@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/../members/class-member.php';
 require_once __DIR__ . '/../members/class-member-card-properties.php';
-require_once __DIR__ . '/../members/members.php';
 require_once 'class-werkgroep.php';
 
 use Member\Member;
