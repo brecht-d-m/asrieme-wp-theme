@@ -1,8 +1,8 @@
 <?php
 
-require_once 'members/class-member.php';
-require_once 'members/class-member-card-properties.php';
-require_once 'members/members.php';
+require_once __DIR__ . '/../members/class-member.php';
+require_once __DIR__ . '/../members/class-member-card-properties.php';
+require_once __DIR__ . '/../members/members.php';
 
 use Member\Member;
 use Member\Member_Card_Properties;
@@ -245,11 +245,11 @@ add_shortcode( 'bestuurders_container', 'bestuurders_container_func' );
 
 function _create_bestuurder_card( int $lid_id, Member_Card_Properties $card_properties, string $functie = '', string $mail = '') {
     $bestuurder = new Member();
-    $bestuurder->set_naam( get_the_title( $lid_id ) )
-            ->set_foto( get_field( 'lid_fotoLink', $lid_id ) )
-            ->set_functie( $functie )
-            ->set_mail( $mail )
-            ->set_telefoon( get_field( 'lid_telefoon', $lid_id ) );
+    $bestuurder->set_naam( get_the_title( $lid_id ) );
+    $bestuurder->set_foto( get_field( 'lid_fotoLink', $lid_id ) );
+    $bestuurder->set_functie( $functie );
+    $bestuurder->set_mail( $mail );
+    $bestuurder->set_telefoon( get_field( 'lid_telefoon', $lid_id ) );
     return generate_member_card( $bestuurder, $card_properties );
 }
 

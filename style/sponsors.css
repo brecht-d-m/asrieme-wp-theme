@@ -1,88 +1,75 @@
 .sponsor-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: stretch;
     margin-top: 1vw;
     margin-bottom: 1vw;
 }
 
-.sponsor-card {
+.sponsor-card .sponsor-card-inner {
+    /* A little bit smaller than the trainer card, so the background color shows nice */
+    width: 95%;
+    height: 95%;
+    /* Make inner elements display next to eachother */
+    margin: 0.5vw;
     padding: 0.5vw;
-    margin: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 1vw;
 }
 
-.sponsor-card.bordered {
-    border-width: 1px;
-    border-style: solid;
-    border-color: #041d3d;
-}
-
-.sponsor-card.goud {
+.sponsor-card.goud .sponsor-card-inner {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-.sponsor-card.random {
-    background-color: white;
+.sponsor-card.random .sponsor-card-inner {
+    background-color: #ffffff;
 }
 
-.sponsor-card .slogan p {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 22.8px;
+.sponsor-card .sponsor-card-inner>a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    text-decoration: none;
 }
 
-.sponsor-card .logo {
+.sponsor-card.goud .sponsor-card-inner:hover {
+    background-color: #ffffff;
+}
+
+.sponsor-card.zilver .sponsor-card-inner:hover,
+.sponsor-card.brons .sponsor-card-inner:hover,
+.sponsor-card.shirt .sponsor-card-inner:hover {
+    background-color: #f8f8f8;
+}
+
+.sponsor-card .logo-wrapper {
     display: flex;
     justify-content: center;
     margin-bottom: 1vw;
     margin-top: 1vw;
 }
 
-.sponsor-card .logo img {
+.sponsor-card .logo-wrapper>img {
     max-height: 200px;
     height: 100%;
 }
 
-.sponsor-card .value-wrapper {
+.sponsor-card .info-wrapper .value-wrapper {
     display: flex;
     margin-bottom: 2vw;
     color: #041d3d;
 }
 
-.sponsor-card .value-wrapper .value {
+.sponsor-card .info-wrapper .value-wrapper .value {
     margin-left: 1vw;
 }
 
-.sponsor-container .sponsor-card {
-    padding: 1vw;
+.sponsor-card .info-wrapper .value-wrapper .value .slogan>p {
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 22.8px;
 }
 
-.sponsor-container .sponsor-card .logo {
+.sponsor-container .sponsor-card .logo-wrapper {
     margin-bottom: 2vw;
 }
 
-.sponsor-container .sponsor-card .logo img {
+.sponsor-container .sponsor-card .logo-wrapper>img {
     max-height: 150px;
-}
-
-@media only screen and (min-width: 1400px) {
-    .sponsor-container .sponsor-card {
-        width: 30%;
-    }
-}
-
-@media only screen and (max-width: 900px) {
-    .sponsor-container .sponsor-card {
-        width: 80%;
-    }
-}
-
-@media only screen and (max-width: 1399px) {
-    .sponsor-container .sponsor-card {
-        width: 45%;
-    }
 }

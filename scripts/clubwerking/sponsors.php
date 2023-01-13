@@ -1,20 +1,19 @@
 <?php
 
-function sponsor_willekeurig_func ( $atts ) {
-    $a = shortcode_atts( array(
-		'bordered' => false
-	), $atts );
-    $bordered = $a['bordered'];
+require_once 'class-sponsor.php';
+require_once 'class-sponsor-card-properties.php';
 
-    $sponsor_args = array(
-        'post_type'      => 'sponsor',
-        'posts_per_page' => 1,
-        'orderby'        => 'rand'
-    );
-    $query = new WP_Query( $sponsor_args );
-    if ($query->have_posts()) {
+use Sponsor\Sponsor;
+use Sponsor\Sponsor_Card_Properties;
+
+function sponsor_willekeurig_func ( $atts ) {
+    $a = shortcode_atts( array( 'bordered' => false ), $atts );
+
+    // Don't filter on sponsor type and return max 1 sponsor
+    $query = new WP_Query( _get_sponsors_args( '', 1 ) );
+    if ( $query->have_posts() ) {
         $query->the_post();
-        $sponsor = create_sponsor_array( 'random' );
+        $sponsor = _create_sponsor( 'random' );
     }
     wp_reset_postdata();
 
@@ -22,39 +21,33 @@ function sponsor_willekeurig_func ( $atts ) {
         return '';
     }
 
-    //return create_sponsor_card( $sponsor, false, $bordered );
-    return '';
+    $card_properties = new Sponsor_Card_Properties();
+    $card_properties->set_gebruik_extra_info( false );
+    $card_properties->set_bordered( $a['bordered'] );
+    $card_properties->set_card_relative_width( 'col-lg-12' );
+    return $sponsor->create_sponsor_card( $card_properties );
 }
 add_shortcode( 'sponsor_willekeurig', 'sponsor_willekeurig_func' );
 
 function sponsors_container_func ( $atts ) {
     $a = shortcode_atts( array(
         'bordered' => false,
-		'type' => ''
-	), $atts );
-    $bordered = $a['bordered'];
+        'type' => '' ), $atts );
+
     $type = $a['type'];
-    if ( !empty ( $type )) {
+    if ( !empty ( $type ) ) {
         $sponsor_type = 'sponsor_'.$type;
     } else {
         $sponsor_type = '';
     }
 
-    $sponsor_args = array(
-        'post_type'      => 'sponsor',
-        'posts_per_page' => -1,
-        'orderby'        => 'rand',
-        'order'          => 'ASC'
-    );
     $sponsors = array();
-    $query = new WP_Query( $sponsor_args );
+    $query = new WP_Query( _get_sponsors_args( $sponsor_type, -1 ) );
     if ( $query->have_posts() ) {
         while ( $query->have_posts() ) {
             $query->the_post();
-            if ( get_field( 'sponsor_type' )->slug == $sponsor_type || empty( $sponsor_type ) ) {
-                $sponsor = create_sponsor_array( $type );
-                array_push( $sponsors, $sponsor );
-            }
+            $sponsor = _create_sponsor( $type );
+            array_push( $sponsors, $sponsor );
         }
     }
     wp_reset_postdata();
@@ -63,27 +56,35 @@ function sponsors_container_func ( $atts ) {
         return '';
     }
 
+    $card_properties = new Sponsor_Card_Properties();
+    $card_properties->set_gebruik_extra_info( true );
+    $card_properties->set_bordered( $a['bordered'] );
+    $card_properties->set_card_relative_width( 'col-lg-4' );
+
     $sponsor_container = '';
     foreach ($sponsors as $s => $sponsor ) {
-        $sponsor_container .= create_sponsor_card( $sponsor, true, $bordered );
+        $sponsor_container .= $sponsor->create_sponsor_card( $card_properties );
     }
 
-    return "<div class='sponsor-container'>$sponsor_container</div>";
+    return 
+        "<div class='sponsors-container row'>
+            $sponsor_container
+        </div>";
 }
 add_shortcode( 'sponsors_container', 'sponsors_container_func' );
 
-function get_sponsors_args( $sponsor_type ) {
+function _get_sponsors_args( string $sponsor_type, int $aantal ) : array {
     $sponsor_args = array(
         'post_type'      => 'sponsor',
-        'posts_per_page' => -1,
-        'orderby'        => 'rand',
-        'order'          => 'ASC'
+        'posts_per_page' => $aantal,
+        'orderby'        => 'rand'
     );
 
-    if ( !empty( $sponsor_type )) {
+    if ( !empty( $sponsor_type ) ) {
         $tax_query = array(
             array(
-                'taxonomy'  => 'type_sponsor',
+                // TODO rename taxonomy
+                'taxonomy'  => 'sponsortype',
                 'terms'     => $sponsor_type,
                 'field'     => 'slug',
                 'operator'  => 'IN'
@@ -95,64 +96,14 @@ function get_sponsors_args( $sponsor_type ) {
     return $sponsor_args;
 }
 
-function create_sponsor_array( $type ) {
-    return array(
-        'naam'   => get_the_title(),
-        'logo'   => get_field('sponsor_fotoLink'),
-        'link'   => get_field('sponsor_link'),
-        'slogan' => get_field('sponsor_slogan'),
-        'type'   => $type
-    );
-}
-
-function create_sponsor_card( $sponsor, $gebruik_info, $bordered ) {
-    $naam = $sponsor['naam'];
-    $logo = $sponsor['logo'];
-    if ( !empty( $logo ) ) {
-        $header = "<div class='logo'><img src='$logo'></div>";
-    } else {
-        $header = "<h3 class='titel'>$naam</h3>";
-    }
-
-    $slogan = $sponsor['slogan'];
-    if ( !empty( $slogan ) && $gebruik_info ) {
-        $slogan = 
-            "<div class='slogan value-wrapper'>
-                <div><i class='fas fa-info-circle'></i></div>
-                <div class='value'><p>$slogan</p></div>
-            </div>";
-        
-    } else {
-        $slogan = '';
-    }
-
-    $link = $sponsor['link'];
-    if ( !empty( $link ) && $gebruik_info ) {
-        $link =
-            "<div class='link value-wrapper'>
-                <div><i class='fas fa-link'></i></div>
-                <div class='value'><a href='$link' target='_blank'>$naam</a></div>
-            </div>";
-    } else {
-        $link = '';
-    }
-
-    $sponsor_container = '';
-    if ( !$gebruik_info ) {
-        $sponsor_container = 
-            "<a href='$link' class='sponsor-container-link' title='$naam'>
-                $header
-            </a>";
-    } else {
-        $sponsor_container = $header.$slogan.$link;
-    }
-
-    $type = $sponsor['type'];
-    $bordered = $bordered ? 'bordered' : '';
-    return 
-        "<div class='sponsor-card $bordered $type'>
-            $sponsor_container
-        </div>";
+function _create_sponsor( string $sponsor_type ) : Sponsor {
+    $sponsor = new Sponsor();
+    $sponsor->set_naam( get_the_title() );
+    $sponsor->set_logo( get_field('sponsor_fotoLink') );
+    $sponsor->set_link( get_field('sponsor_link') );
+    $sponsor->set_slogan( get_field('sponsor_slogan') );
+    $sponsor->set_type( $sponsor_type );
+    return $sponsor;
 }
 
 ?>

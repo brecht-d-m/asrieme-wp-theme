@@ -39,7 +39,7 @@ add_shortcode( 'activiteit_datum_container', 'activiteit_datum_container_func' )
  *    wordt wedstrijdverslag_wedstrijd genomen om aan  de id te geraken)
  *  - ofwel de huidige post een activiteit is
  */
-function activiteit_tijd_container_func() {
+function activiteit_tijd_container_func() : string {
     if ( get_post_type() == 'wedstrijdverslag') {
         $activiteit_id = get_field( 'wedstrijdverslag_wedstrijd' );
         $activiteit_datum = get_field( 'activiteit_tijd', $activiteit_id );
@@ -59,26 +59,32 @@ function activiteit_tijd_container_func() {
 }
 add_shortcode( 'activiteit_tijd_container', 'activiteit_tijd_container_func' );
 
-/** Pre-Activiteit Shortcode **/
-function pre_activiteit_container_func() {
+/**
+ * Creeert een container met de info over de activiteit:
+ *  - Inschrijvingsinfo
+ *  - Locatieinfo
+ *  - Contactinfo
+ * Dit zal worden gerendert als de activiteit nog niet heeft plaats gevonden. 
+ */
+function pre_activiteit_container_func() : string {
     $activiteit_info_container = '';
     $activiteit_datum = get_field( 'activiteit_datum' );
     // Enkel renderen als evenement nog niet is geweest
-    if ( date('Ymd') <= $activiteit_datum ) {
-        if ( get_field( 'inschrijvingsinfo_activiteit_heeftInschrijvingsinfo' )) {
-            $activiteit_info_container .= _create_inschrijvings_container();
+    if ( date( 'Ymd' ) <= $activiteit_datum ) {
+        if ( get_field( 'inschrijvingsinfo_activiteit_heeftInschrijvingsinfo' ) ) {
+            $activiteit_info_container .= _create_inschrijvings_card();
         }
 
-        if ( get_field( 'locatieinfo_activiteit_heeftLocatieinfo' )) {
-            $activiteit_info_container .= _create_locatie_container();
+        if ( get_field( 'locatieinfo_activiteit_heeftLocatieinfo' ) ) {
+            $activiteit_info_container .= _create_locatie_card();
         }
 
-        if ( get_field( 'contactpersoon_activiteit_heeftContactpersoon' )) { 
-            $activiteit_info_container .= _create_contact_container();
+        if ( get_field( 'contactpersoon_activiteit_heeftContactpersoon' ) ) { 
+            $activiteit_info_container .= _create_contact_card();
         }
     }
 
-    if ( empty( $activiteit_info_container )) {
+    if ( empty( $activiteit_info_container ) ) {
         return '';
     }
 
@@ -89,14 +95,15 @@ function pre_activiteit_container_func() {
 }
 add_shortcode( 'pre_activiteit_container', 'pre_activiteit_container_func' );
 
-function _create_inschrijvings_container() {
+function _create_inschrijvings_card() : string {
     $container_content = '';
     
     $heeft_uiterste_datum = get_field( 'inschrijvingsinfo_activiteit_heeftUitersteInschrijfdatum' );
     if ( $heeft_uiterste_datum ) {
         $uiterste_datum = get_field( 'inschrijvingsinfo_activiteit_uitersteInschrijfdatum' );
         $date = DateTime::createFromFormat( 'Ymd', $uiterste_datum )->getTimestamp();
-        $formatter = new IntlDateFormatter('nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, 'Europe/Brussels', IntlDateFormatter::GREGORIAN, 'd MMMM');
+        // Formatteer datum als: dag in cijfers en maand voluitgeschreven
+        $formatter = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, 'Europe/Brussels', IntlDateFormatter::GREGORIAN, 'd MMMM' );
         $formatted_uiterste_datum = $formatter->format($date);
     }
 
@@ -121,34 +128,34 @@ function _create_inschrijvings_container() {
 
     $inschrijving_link = get_field( 'inschrijvingsinfo_activiteit_inschrijvingslink' );
     $container_content .=
-        "<div class='actie_knop'>
+        "<div class='actie-knop'>
             <a href='$inschrijving_link' target='_blank'>Inschrijven</a>
         </div>";
 
-    return _create_info_container( 'Inschrijven', 'fa-user-plus', $container_content );
+    return _create_info_card( 'Inschrijven', 'fa-user-plus', $container_content );
 }
 
-function _create_locatie_container() {
+function _create_locatie_card() : string {
     $adres = get_field( 'locatieinfo_activiteit_adres' );
-    return _create_info_container( 'Locatie', 'fa-map-marker', $adres );
+    return _create_info_card( 'Locatie', 'fa-map-marker', $adres );
 }
 
-function _create_contact_container() {
+function _create_contact_card() : string {
     $contact = get_field( 'contactpersoon_activiteit_contactpersoon' );
-    $naam = ($contact != NULL) ? get_field( 'lid_naam', $contact ) : '';
-    $mail = ($contact != NULL) ? get_field( 'lid_email', $contact ) : '';
+    $naam = ( $contact != NULL ) ? get_field( 'lid_naam', $contact ) : '';
+    $mail = ( $contact != NULL ) ? get_field( 'lid_email', $contact ) : '';
 
     $container_content = empty( $mail ) ? '' : " (<a href='mailto:$mail'>$mail</a>)";
     $container_content = "Voor meer info kan je contact opnemen met $naam$container_content.";
-    return _create_info_container( 'Contact', 'fa-question-circle', $container_content );
+    return _create_info_card( 'Contact', 'fa-question-circle', $container_content );
 }
 
-function _create_info_container( $title, $title_icon, $content ) {
+function _create_info_card( $titel, $titel_icoon, $content ) {
     return
         "<div class='activiteit-info-card'>
-            <div class='title'>
-                <div class='icon'><i class='fas $title_icon'></i></div>
-                <h2>$title</h2>
+            <div class='titel'>
+                <div class='icon'><i class='fas $titel_icoon'></i></div>
+                <h2>$titel</h2>
             </div>
             <div class='content'>$content</div>
         </div>";

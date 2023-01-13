@@ -1,8 +1,8 @@
 <?php
 
-require_once 'members/class-member.php';
-require_once 'members/class-member-card-properties.php';
-require_once 'members/members.php';
+require_once __DIR__ . '/../members/class-member.php';
+require_once __DIR__ . '/../members/class-member-card-properties.php';
+require_once __DIR__ . '/../members/members.php';
 
 use Member\Member;
 use Member\Member_Card_Properties;

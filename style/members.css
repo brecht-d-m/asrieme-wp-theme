@@ -70,16 +70,19 @@
     border-color: rgb(170, 170, 170);
     margin-bottom: 0.5vw;
     color: #aaaaaa;
+    font-size: 1rem;
 }
 
-.member-card .info-wrapper .functie-info {
+.member-card .info-wrapper .functie-beschrijving {
     margin-bottom: 1vw;
+    font-size: 1rem;
 }
 
 .member-card .info-wrapper .contact-info-container .value-wrapper {
     display: flex;
     flex-direction: row;
     width: 100%;
+    font-size: 0.95rem;
 }
 
 .member-card .info-wrapper .contact-info-container .value-wrapper .value {
@@ -89,4 +92,8 @@
 
 .member-card .info-wrapper .contact-info-container .value-wrapper .icon {
     margin-right: 0.5vw;
+}
+
+.member-card .info-wrapper .contact-info-container .value-wrapper .icon>i {
+    color: #808080;
 }

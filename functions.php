@@ -38,13 +38,13 @@ add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 
 include 'scripts/documenten.php';
 include 'scripts/klassementen.php';
-include 'scripts/sponsors.php';
 include 'scripts/activiteiten/activiteiten.php';
 include 'scripts/activiteiten/wedstrijden.php';
 include 'scripts/activiteiten/evenementen.php';
-include 'scripts/bestuur.php';
+include 'scripts/clubwerking/bestuur.php';
+include 'scripts/clubwerking/leden.php';
+include 'scripts/clubwerking/sponsors.php';
 include 'scripts/trainers.php';
-include 'scripts/leden.php';
 include 'scripts/socials.php';
 include 'scripts/posts.php';
 
