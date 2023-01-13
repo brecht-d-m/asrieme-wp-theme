@@ -1,7 +1,15 @@
 <?php 
 
-/** Activiteit datum Shortcode **/
-function activiteit_datum_container_func() {
+/**
+ * Creeert een container met de datum van de activiteit. 
+ *
+ * Dit kan opgeroepen worden via de [activiteit_datum_container] shortcode.
+ * Om de activiteit te weten, wordt:
+ *  - ofwel aangenomen dat de huidige post een wedstrijdverslag is (en dan 
+ *    wordt wedstrijdverslag_wedstrijd genomen om aan  de id te geraken)
+ *  - ofwel de huidige post een activiteit is
+ */
+function activiteit_datum_container_func() : string {
     if ( get_post_type() == 'wedstrijdverslag' ) {
         $activiteit_id = get_field( 'wedstrijdverslag_wedstrijd' );
         $activiteit_datum = get_field( 'activiteit_datum', $activiteit_id );
@@ -22,7 +30,15 @@ function activiteit_datum_container_func() {
 }
 add_shortcode( 'activiteit_datum_container', 'activiteit_datum_container_func' );
 
-/** Activiteit tijd Shortcode **/
+/**
+ * Creeert een container met de tijd van de activiteit. 
+ *
+ * Dit kan opgeroepen worden via de [activiteit_tijd_container] shortcode.
+ * Om de activiteit te weten, wordt:
+ *  - ofwel aangenomen dat de huidige post een wedstrijdverslag is (en dan 
+ *    wordt wedstrijdverslag_wedstrijd genomen om aan  de id te geraken)
+ *  - ofwel de huidige post een activiteit is
+ */
 function activiteit_tijd_container_func() {
     if ( get_post_type() == 'wedstrijdverslag') {
         $activiteit_id = get_field( 'wedstrijdverslag_wedstrijd' );
@@ -289,7 +305,7 @@ function create_activiteiten_container( array $volgende_activiteiten, bool $mini
         $link         = $activiteit['link'];
         $samenvatting = $activiteit['samenvatting'];
 
-        $slug = explode("_", $type_slug);
+        $slug = explode( '_', $type_slug );
         $activiteit_klasse = $slug[0];
         $activiteit_type   = $slug[1];
 

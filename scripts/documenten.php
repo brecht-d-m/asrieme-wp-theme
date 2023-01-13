@@ -8,22 +8,22 @@ function documenten_container_func( $atts ) {
 
     $target = $a['target'];
     $veld_documenten = $a['veld'];
-    if ( empty( $veld_documenten )) {
+    if ( empty( $veld_documenten ) ) {
         return '';
     }
 
     $document_links = get_field( $veld_documenten );
-    $exploded_links = explode( "\n", $document_links );
+    $exploded_links = explode( '\n', $document_links );
 
     $listed_documents = '';
     foreach ( $exploded_links as $attachment_link ) {
         $uploads = wp_get_upload_dir();
         $attachment = trim( str_replace( $uploads['baseurl'].'/', '', $attachment_link ) );
         $attachment_args = array(
-            'post_type'        => 'attachment',
-            'post_status'      => 'any',
-            'posts_per_page'   => 1,
-            'meta_query'       => array(
+            'post_type'      => 'attachment',
+            'post_status'    => 'any',
+            'posts_per_page' => 1,
+            'meta_query'     => array(
 				array(
 					'value'   => $attachment,
 					'compare' => 'LIKE',
@@ -49,11 +49,11 @@ function documenten_container_func( $atts ) {
     }
 
     return
-            "<div class='document-container'>
-                <ul>
-                    $listed_documents
-                </ul>
-            </div>";
+        "<div class='document-container'>
+            <ul>
+                $listed_documents
+            </ul>
+        </div>";
 
 
 }
