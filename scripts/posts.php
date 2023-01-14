@@ -7,11 +7,11 @@ function post_subtitel_func() {
 add_shortcode( 'post_subtitel', 'post_subtitel_func' );
 
 function laatste_posts_container_func () {
-    return laatste_posts( 'post', 'Laatste nieuws' );
+    return _laatste_posts( 'post', 'Laatste nieuws' );
 }
 add_shortcode( 'laatste_posts_container', 'laatste_posts_container_func' );
 
-function laatste_posts( $post_type, $label_titel ) {
+function _laatste_posts( $post_type, $label_titel ) {
     $posts_titels = '';
     $posts_args = array(
         'posts_per_page' => 5,
@@ -36,7 +36,7 @@ function laatste_posts( $post_type, $label_titel ) {
         }
 
         $posts_titels =
-            "<div class='laatste-posts-container'>
+            "<div class='laatste-posts-container rounded'>
                 <h2><strong>$label_titel</strong></h2>
                 <div class='posts'>
                     $posts_titels
