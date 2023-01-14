@@ -82,8 +82,7 @@ function _get_sponsors_args( string $sponsor_type, int $aantal ) : array {
     if ( !empty( $sponsor_type ) ) {
         $tax_query = array(
             array(
-                // TODO rename taxonomy
-                'taxonomy'  => 'sponsortype',
+                'taxonomy'  => 'type_sponsor',
                 'terms'     => $sponsor_type,
                 'field'     => 'slug',
                 'operator'  => 'IN'

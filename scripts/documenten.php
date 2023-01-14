@@ -2,9 +2,9 @@
 
 function documenten_container_func( $atts ) {
     $a = shortcode_atts( array(
-		'veld'   => '',
+        'veld'   => '',
         'target' => ''
-	), $atts );
+    ), $atts );
 
     $target = $a['target'];
     $veld_documenten = $a['veld'];
@@ -24,12 +24,12 @@ function documenten_container_func( $atts ) {
             'post_status'    => 'any',
             'posts_per_page' => 1,
             'meta_query'     => array(
-				array(
-					'value'   => $attachment,
-					'compare' => 'LIKE',
-					'key'     => '_wp_attached_file',
-				)
-			)
+                array(
+                    'value'   => $attachment,
+                    'compare' => 'LIKE',
+                    'key'     => '_wp_attached_file',
+                )
+            )
         ); 
 
         $attachment_result = new WP_Query( $attachment_args );
