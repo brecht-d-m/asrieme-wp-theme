@@ -13,7 +13,8 @@ function documenten_container_func( $atts ) {
     }
 
     $document_links = get_field( $veld_documenten );
-    $exploded_links = explode( '\n', $document_links );
+    $document_links = str_replace( "\r", '', $document_links );
+    $exploded_links = explode( "\n", $document_links );
 
     $listed_documents = '';
     foreach ( $exploded_links as $attachment_link ) {

@@ -216,6 +216,7 @@ function _get_functie( $veld, $functie ) {
         return _get_titel_clubfunctie( $functie );
     }
 
+    echo "$functie";
     if ( ! empty( $veld ) ) { 
         $lid_id = get_field( $veld );
     } else if ( empty( $veld ) && empty( $functie )) {
@@ -237,7 +238,7 @@ function _get_functie( $veld, $functie ) {
 // Helperfunctie om de titel van een clubfunctie te weten te komen
 // Input is de slugnaam van de functie
 function _get_titel_clubfunctie( $functie ) {
-    $functie = '';
+    $functie_naam = '';
     $args = array(
         'post_type'      => 'clubfunctie', 
         'posts_per_page' => 1,
@@ -247,10 +248,10 @@ function _get_titel_clubfunctie( $functie ) {
     $query = new WP_Query( $args );
     if ( $query->have_posts() ) {
         $query->the_post();
-        $functie = get_the_title();
+        $functie_naam = get_the_title();
     }
     wp_reset_postdata();
-    return $functie;
+    return $functie_naam;
 }
 
 function _get_meta( $veld, $functie, $key ) {
