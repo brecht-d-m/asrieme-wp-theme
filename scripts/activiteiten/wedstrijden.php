@@ -9,16 +9,16 @@ function create_wedstrijden_container( $volgende_wedstrijden, $wedstrijd_type, $
         'jogging' => 'joggings'
     );
     $multiple_label = array_key_exists( $wedstrijd_type, $type_mapping ) ? $type_mapping[$wedstrijd_type] : 'wedstrijden';
-    return create_activiteiten_container( $volgende_wedstrijden, $minimaal, $multiple_label );
+    return _create_activiteiten_container( $volgende_wedstrijden, $minimaal, $multiple_label );
 }
 
 /** Post-Wedstrijden Container**/
-function post_wedstrijd_container( $wedstrijd_id ) {
+function _post_wedstrijd_container( $wedstrijd_id ) {
     $post_wedstrijd_container = '';
     if ( $wedstrijd_id != NULL ) {
-        $post_wedstrijd_container .= _create_resultaat_container( $wedstrijd_id );
-        $post_wedstrijd_container .= _create_verslag_container( $wedstrijd_id );
-        $post_wedstrijd_container .= _create_album_container( $wedstrijd_id );
+        $post_wedstrijd_container .= _create_resultaat_card( $wedstrijd_id );
+        $post_wedstrijd_container .= _create_verslag_card( $wedstrijd_id );
+        $post_wedstrijd_container .= _create_album_card( $wedstrijd_id );
     }
 
     return
@@ -27,31 +27,31 @@ function post_wedstrijd_container( $wedstrijd_id ) {
         </div>";
 }
 
-function _create_resultaat_container( $wedstrijd_id ) {
+function _create_resultaat_card( $wedstrijd_id ) {
     $uitslagen_links = _create_info_listing( 'wedstrijduitslag', $wedstrijd_id );
     if ( empty( $uitslagen_links ) ) {
         return '';
     }
     $container_content = "<ul>$uitslagen_links</ul>";
-    return _create_info_container( 'Uitslag', 'fa-trophy', $container_content );
+    return _create_info_card( 'Uitslag', 'fa-trophy', $container_content );
 }
 
-function _create_verslag_container( $wedstrijd_id ) {
+function _create_verslag_card( $wedstrijd_id ) {
     $verslagen_links = _create_info_listing( 'wedstrijdverslag', $wedstrijd_id );
     if ( empty( $verslagen_links ) ) {
         return '';
     }
     $container_content = "<ul>$verslagen_links</ul>";
-    return _create_info_container( 'Verslagen', 'fa-pen', $container_content );
+    return _create_info_card( 'Verslagen', 'fa-pen', $container_content );
 }
 
-function _create_album_container( $wedstrijd_id ) {
+function _create_album_card( $wedstrijd_id ) {
     $album_links = _create_info_listing( 'wedstrijdalbum', $wedstrijd_id );
     if ( empty( $album_links ) ) {
         return '';
     }
     $container_content = "<ul>$album_links</ul>";
-    return _create_info_container( 'Fotoalbums', 'fa-images', $container_content );
+    return _create_info_card( 'Fotoalbums', 'fa-images', $container_content );
 }
 
 function _create_info_listing( $post_type, $wedstrijd_id ) {

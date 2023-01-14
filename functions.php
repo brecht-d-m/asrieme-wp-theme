@@ -16,6 +16,11 @@ function my_theme_enqueue_styles() {
     // Custom menu theme
     wp_register_style('menu-style', get_stylesheet_directory_uri().'/menu.css');
     wp_enqueue_style('menu-style');
+    // Back button
+    wp_register_style('back-button-style', get_stylesheet_directory_uri().'/style/back-button.css');
+    wp_enqueue_style('back-button-style');
+    wp_register_style('info-container-style', get_stylesheet_directory_uri().'/style/info-container.css');
+    wp_enqueue_style('info-container-style');
     
     wp_register_style('members-style', get_stylesheet_directory_uri().'/style/members.css');
     wp_enqueue_style('members-style');

@@ -215,7 +215,7 @@ function activiteiten_container_func( $atts ) {
             $activiteiten_container = create_wedstrijden_container( $volgende_activiteiten, $activiteit_type, $minimaal );
             break;
         default:
-            $activiteiten_container = create_activiteiten_container( $volgende_activiteiten, $minimaal, 'activiteiten' );
+            $activiteiten_container = _create_activiteiten_container( $volgende_activiteiten, $minimaal, 'activiteiten' );
             break;
     }
 
@@ -292,7 +292,7 @@ function _get_activiteiten_args( array $post_types_filter, array $activiteit_typ
     return $activiteit_args;
 }
 
-function create_activiteiten_container( array $volgende_activiteiten, bool $minimaal, string $multiple_label ) {
+function _create_activiteiten_container( array $volgende_activiteiten, bool $minimaal, string $multiple_label ) {
     if ( empty( $volgende_activiteiten )) {
         return 
             "<div class='activiteit-container'>

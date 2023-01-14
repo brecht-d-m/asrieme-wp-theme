@@ -1,0 +1,48 @@
+.back-button-container {
+    margin-right: 1vw;
+}
+
+.back-button-container>a:hover {
+    background-color: #ffebb3;
+}
+
+.back-button-container>a {
+    padding: .3em 1em;
+    border-radius: 100px;
+    background-color: #ffc72b;
+    display: flex;
+    flex-direction: row;
+    color: #041d3d !important;
+    text-decoration: none;
+    letter-spacing: 0px;
+    font-size: 16px;
+}
+
+.back-button-container .icon {
+    padding-right: 1vw;
+}
+
+.back-button-container .titel {
+    max-width: 0;
+    -webkit-transition: max-width 1s;
+    transition: max-width 1s;
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.back-button-container>a:hover .titel {
+    max-width: 10rem;
+}
+
+.pagina-subtitel {
+    font-weight: 700;
+    font-variant: small-caps;
+    padding-top: 0px;
+    margin-top: 0px;
+    color: #ffffff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

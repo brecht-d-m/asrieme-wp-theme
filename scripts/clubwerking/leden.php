@@ -189,7 +189,9 @@ function lid_container_func( $atts ) {
         'veld'         => '',
         'functie'      => '' ), $atts );
 
-    if ( empty( $veld ) 
+    $veld = $a['veld'];
+    $functie = $a['functie'];
+    if ( empty( $a['veld'] ) 
             && empty( $functie ) 
             && empty( get_field( 'pagina_contact' ) ) ) {
         return '';
@@ -201,12 +203,13 @@ function lid_container_func( $atts ) {
     $card_properties->set_card_relative_width( 'col-lg-12' );
 
     $member = new Member();
-    $member->set_naam( _get_naam( $a['veld'], $a['functie'] ) );
-    $member->set_foto( _get_meta( $a['veld'], $a['functie'], 'fotoLink' ) );
-    $member->set_functie( _get_functie( $a['veld'], $a['functie'] ) );
-    $member->set_functie_beschrijving( get_field( 'pagina_contactInfo' ) );
-    $member->set_mail( _get_mail( $a['veld'], $a['functie'] ) );
-    $member->set_telefoon( _get_meta( $a['veld'], $a['functie'], 'telefoon' ) );
+    $member->set_naam( _get_naam( $veld, $functie ) );
+    $member->set_foto( _get_meta( $veld, $functie, 'fotoLink' ) );
+    $member->set_functie( _get_functie( $veld, $functie ) );
+    $functie_beschrijving = empty( get_field( 'pagina_contactInfo' ) ) ? '' : get_field( 'pagina_contactInfo' );
+    $member->set_functie_beschrijving( $functie_beschrijving );
+    $member->set_mail( _get_mail( $veld, $functie ) );
+    $member->set_telefoon( _get_meta( $veld, $functie, 'telefoon' ) );
     return $member->create_member_card( $card_properties );
 }
 add_shortcode( 'lid_container', 'lid_container_func' );

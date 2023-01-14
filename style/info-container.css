@@ -1,0 +1,26 @@
+.info-container {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    display: flex;
+    flex-direction: row;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 1vw;
+    padding: 1vw;
+    align-items: center;
+}
+
+
+/* Icon styling */
+
+.info-container .icon-wrapper {
+    margin-right: 1vw;
+}
+
+.info-container .icon-wrapper.small>span {
+    font-size: 18px;
+}
+
+.info-container .icon-wrapper.big>span {
+    font-size: 45px;
+}
