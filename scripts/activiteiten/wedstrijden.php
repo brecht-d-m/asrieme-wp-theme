@@ -164,18 +164,20 @@ function _create_uitslagen_tabellen( $uitslagen_mapping ) : string {
         $uitslag_container .=
             "<div class='uitslagen-subcontainer'>
                 <h2 class='uitslagen-subcontainer-titel'>Resultaten $jaar</h2>
-                <table class='uitslagen-tabel'>
-                    <thead>
-                        <tr>
-                            <th class='datum'>Datum</th>
-                            <th class='wedstrijd'>Wedstrijd</th>
-                            <th class='link'>Uitslag</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        $uitslagen
-                    </tbody>
-                </table>
+                <div class='table-responsive'>
+                    <table class='table uitslagen-tabel'>
+                        <thead class='thead-light'>
+                            <tr>
+                                <th class='datum'>Datum</th>
+                                <th class='wedstrijd'>Wedstrijd</th>
+                                <th class='link'>Uitslag</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            $uitslagen
+                        </tbody>
+                    </table>
+                </div>
             </div>";
     }
 

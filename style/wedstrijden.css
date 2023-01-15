@@ -10,6 +10,12 @@
     width: 100%;
 }
 
+.uitslagen-container .uitslagen-subcontainer table>thead>tr>th,
+.uitslagen-container .uitslagen-subcontainer table>tbody>tr>td {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 .uitslagen-container .uitslagen-subcontainer table>thead>tr>th {
     background-color: #d3d3d3;
 }
