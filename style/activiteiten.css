@@ -293,3 +293,30 @@
     margin-left: 1.5vw;
     padding: 0vw;
 }
+
+.actie-knop {
+    text-align: center;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
+.actie-knop>a {
+    color: #ffc72b;
+    padding: .3em 1em;
+    background-color: #549cde;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1.7em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid;
+    border-color: #549cde;
+}
+
+.actie-knop>a:hover {
+    border-color: #041d3d;
+    color: #041d3d;
+    background-color: #ffc72b;
+}

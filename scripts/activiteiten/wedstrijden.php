@@ -188,7 +188,7 @@ function _create_uitslagen_tabellen( $uitslagen_mapping ) : string {
 function gerelateerde_wedstrijd_button_func() : string {
     $wedstrijd_id = get_field( 'wedstrijdverslag_wedstrijd' );
     $eigen_organisatie = get_field( 'activiteit_eigenOrganisatie', $wedstrijd_id );
-    if ( ! $eigen_organisatie ) {
+    if( ! $eigen_organisatie ) {
         return '';
     }
 
