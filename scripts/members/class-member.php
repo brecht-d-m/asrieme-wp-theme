@@ -9,6 +9,7 @@ class Member {
     public string $mail = '';
     public string $telefoon = '';
     public string $foto = '';
+    public string $member_type = '';
 
     public function set_naam( string $naam ) : void {
         $this->naam = $naam;
@@ -32,6 +33,10 @@ class Member {
 
     public function set_foto( string $foto ) : void {
         $this->foto = $foto;
+    }
+
+    public function set_member_type( string $member_type ) : void {
+        $this->member_type = $member_type;
     }
 
     public function create_member_card( Member_Card_Properties $member_card_properties ) : string {

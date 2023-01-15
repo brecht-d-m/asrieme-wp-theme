@@ -137,6 +137,8 @@ function _get_mail( $veld, $functie ) {
         $mail = get_field( 'clubfunctie_mail', $lid_id );
     } else if ( $post_type == 'lid' ) {
         $mail = get_field( 'lid_mail', $lid_id );
+    } else if ( $post_type == 'trainer' ) {
+        $mail = get_field( 'trainer_mail', $lid_id );
     }
     return !empty ( $mail ) ? $mail : '' ;
 }
@@ -155,7 +157,7 @@ function _get_mail_clubfunctie( $functie ) {
         $mail = get_field( 'clubfunctie_mail' );
     }
     wp_reset_postdata();
-    return ! empty ( $mail ) ? $mail : '' ;
+    return !empty ( $mail ) ? $mail : '' ;
 }
 
 /**
@@ -197,9 +199,12 @@ function lid_container_func( $atts ) {
         return '';
     }
 
+    $member_type = _get_member_type( $veld, $functie );
+    $foto_aspect_ratio = $member_type == 'lid' ? 'square' : 'rectangle'; 
+    $foto_vergroot = $member_type == 'lid' ? true : false;
     $card_properties = new Member_Card_Properties();
-    $card_properties->set_foto_aspect_ratio( 'square' );
-    $card_properties->set_foto_vergroot( true );
+    $card_properties->set_foto_aspect_ratio( $foto_aspect_ratio );
+    $card_properties->set_foto_vergroot( $foto_vergroot );
     $card_properties->set_card_relative_width( 'col-lg-12' );
 
     $member = new Member();
@@ -210,16 +215,58 @@ function lid_container_func( $atts ) {
     $member->set_functie_beschrijving( $functie_beschrijving );
     $member->set_mail( _get_mail( $veld, $functie ) );
     $member->set_telefoon( _get_meta( $veld, $functie, 'telefoon' ) );
+    $member->set_member_type( $member_type );
     return $member->create_member_card( $card_properties );
 }
 add_shortcode( 'lid_container', 'lid_container_func' );
 
-function _get_functie( $veld, $functie ) {
+function _get_member_type( $veld, $functie ) : string {
+    if ( ! empty( $veld ) ) { 
+        $lid_id = get_field( $veld );
+    } else if ( empty( $veld ) && empty( $functie )) {
+        $lid_id = get_field( 'pagina_contact' );
+    }
+
+    if ( ! empty( $lid_id ) ) {
+        $lid_post_type = get_post_type( $lid_id );
+        if ( $lid_post_type != 'clubfunctie' ) {
+            return $lid_post_type;
+        } else {
+            $leden = get_field( 'clubfunctie_lid', $lid_id );
+            if ( count( $leden ) == 1 ) {
+                return get_post_type( $leden[0] );
+            } else {
+                return '';
+            }
+        }
+    }
+
+    $functie_post_type = '';
+    $args = array(
+        'post_type'      => 'clubfunctie', 
+        'posts_per_page' => 1,
+        'meta_key'       => 'clubfunctie_slugNaam',
+        'meta_value'     => $functie
+    );
+    $query = new WP_Query( $args );
+    if ( $query->have_posts() ) {
+        $query->the_post();
+        $leden = get_field( 'clubfunctie_lid' );
+        if ( count( $leden ) == 1 ) {
+            $functie_post_type = get_post_type( $leden[0] );
+        } else {
+            $functie_post_type = '';
+        }
+    }
+    wp_reset_postdata();
+    return $functie_post_type;
+}
+
+function _get_functie( $veld, $functie ) : string {
     if ( ! empty( $functie ) ) {
         return _get_titel_clubfunctie( $functie );
     }
 
-    echo "$functie";
     if ( ! empty( $veld ) ) { 
         $lid_id = get_field( $veld );
     } else if ( empty( $veld ) && empty( $functie )) {
@@ -235,7 +282,7 @@ function _get_functie( $veld, $functie ) {
     if ( $post_type == 'clubfunctie' ) {
         $value = get_the_title( $lid_id );
     }
-    return ! empty( $value ) ? $value : '';
+    return !empty( $value ) ? $value : '';
 }
 
 // Helperfunctie om de titel van een clubfunctie te weten te komen
@@ -280,6 +327,8 @@ function _get_meta( $veld, $functie, $key ) {
         $value = _get_meta_value_clubfunctie( $functie, $key );
     } else if ( $post_type == 'lid' ) {
         $value = get_field( 'lid_'.$key, $lid_id );
+    } else if ( $post_type == 'trainer' ) {
+        $value = get_field( 'trainer_'.$key, $lid_id );
     }
     return ! empty( $value ) ? $value : '';
 }
@@ -303,7 +352,12 @@ function _get_meta_value_clubfunctie( $functie, $key ) {
         if ( $count == 0 || $count > 1 ) {
             $meta = '';
         } else {
-            $meta = get_field( 'lid_'.$key, $leden[0] );
+            $post_type = get_post_type( $leden[0] );
+            if ( $post_type == 'lid' ) {
+                $meta = get_field( 'lid_'.$key, $leden[0] );
+            } else if ( $post_type == 'trainer' ) {
+                $meta = get_field( 'trainer_'.$key, $leden[0] );
+            }
         }
     }
     wp_reset_postdata();

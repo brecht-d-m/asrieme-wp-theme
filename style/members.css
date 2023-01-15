@@ -63,6 +63,9 @@
     padding-bottom: 0vw;
     margin-bottom: 0vw;
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .member-card .info-wrapper .functie {
@@ -71,6 +74,9 @@
     margin-bottom: 0.5vw;
     color: #aaaaaa;
     font-size: 1rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .member-card .info-wrapper .functie-beschrijving {
@@ -88,6 +94,7 @@
 .member-card .info-wrapper .contact-info-container .value-wrapper .value {
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .member-card .info-wrapper .contact-info-container .value-wrapper .icon {
