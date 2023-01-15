@@ -23,16 +23,19 @@
 }
 
 .back-button-container .titel {
-    max-width: 0;
-    -webkit-transition: max-width 1s;
-    transition: max-width 1s;
     display: inline-block;
     vertical-align: top;
     white-space: nowrap;
     overflow: hidden;
 }
 
-.back-button-container>a:hover .titel {
+.back-button-container .titel.animated {
+    max-width: 0;
+    -webkit-transition: max-width 1s;
+    transition: max-width 1s;
+}
+
+.back-button-container>a:hover .titel.animated {
     max-width: 10rem;
 }
 

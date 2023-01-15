@@ -1,7 +1,7 @@
 <?php
 
 /** Wedstrijden Container **/
-function create_wedstrijden_container( $volgende_wedstrijden, $wedstrijd_type, $minimaal ) {
+function _create_wedstrijden_container( $volgende_wedstrijden, $wedstrijd_type, $minimaal ) : string {
     $type_mapping = array(
         'jeugd'   => 'jeugdwedstrijden',
         'veld'    => 'veldlopen',
@@ -13,7 +13,7 @@ function create_wedstrijden_container( $volgende_wedstrijden, $wedstrijd_type, $
 }
 
 /** Post-Wedstrijden Container**/
-function _post_wedstrijd_container( $wedstrijd_id ) {
+function _post_wedstrijd_container( $wedstrijd_id ) : string {
     $post_wedstrijd_container = '';
     if ( $wedstrijd_id != NULL ) {
         $post_wedstrijd_container .= _create_resultaat_card( $wedstrijd_id );
@@ -27,7 +27,7 @@ function _post_wedstrijd_container( $wedstrijd_id ) {
         </div>";
 }
 
-function _create_resultaat_card( $wedstrijd_id ) {
+function _create_resultaat_card( $wedstrijd_id ) : string {
     $uitslagen_links = _create_info_listing( 'wedstrijduitslag', $wedstrijd_id );
     if ( empty( $uitslagen_links ) ) {
         return '';
@@ -36,7 +36,7 @@ function _create_resultaat_card( $wedstrijd_id ) {
     return _create_info_card( 'Uitslag', 'fa-trophy', $container_content );
 }
 
-function _create_verslag_card( $wedstrijd_id ) {
+function _create_verslag_card( $wedstrijd_id ) : string {
     $verslagen_links = _create_info_listing( 'wedstrijdverslag', $wedstrijd_id );
     if ( empty( $verslagen_links ) ) {
         return '';
@@ -45,7 +45,7 @@ function _create_verslag_card( $wedstrijd_id ) {
     return _create_info_card( 'Verslagen', 'fa-pen', $container_content );
 }
 
-function _create_album_card( $wedstrijd_id ) {
+function _create_album_card( $wedstrijd_id ) : string {
     $album_links = _create_info_listing( 'wedstrijdalbum', $wedstrijd_id );
     if ( empty( $album_links ) ) {
         return '';
@@ -54,7 +54,7 @@ function _create_album_card( $wedstrijd_id ) {
     return _create_info_card( 'Fotoalbums', 'fa-images', $container_content );
 }
 
-function _create_info_listing( $post_type, $wedstrijd_id ) {
+function _create_info_listing( $post_type, $wedstrijd_id ) : string {
     $wedstrijd_args = array(
         'posts_per_page' => -1,
         'post_type'      => $post_type,
@@ -83,12 +83,12 @@ function _create_info_listing( $post_type, $wedstrijd_id ) {
     return $post_links;
 }
 
-function laatste_verslagen_container_func () {
+function laatste_verslagen_container_func () : string {
     return laatste_posts ( 'wedstrijdverslag', 'Laatste verslagen' );
 }
 add_shortcode( 'laatste_verslagen_container', 'laatste_verslagen_container_func' );
 
-function laatste_uitslagen_container_func () {
+function laatste_uitslagen_container_func () : string {
     $huidig_jaar = date( 'Y' );
     $vorig_jaar = $huidig_jaar - 1;
     $date_filter = strtotime( '01-01-'.$vorig_jaar );
@@ -126,7 +126,7 @@ function laatste_uitslagen_container_func () {
 }
 add_shortcode( 'laatste_uitslagen_container', 'laatste_uitslagen_container_func' );
 
-function _create_uitslag_array() {
+function _create_uitslag_array() : array {
     $wedstrijd_id = get_field( 'wedstrijduitslag_wedstrijd' );
     $uitslag_datum = get_field( 'activiteit_datum', $wedstrijd_id );
     $datum = DateTime::createFromFormat( 'Ymd', $uitslag_datum );
@@ -143,7 +143,7 @@ function _create_uitslag_array() {
     );
 }
 
-function _create_uitslagen_tabellen( $uitslagen_mapping ) {
+function _create_uitslagen_tabellen( $uitslagen_mapping ) : string {
     $uitslag_container = '';
     foreach( $uitslagen_mapping as $jaar => $jaar_uitslagen_mapping ) {
         $uitslagen = '';
@@ -184,5 +184,25 @@ function _create_uitslagen_tabellen( $uitslagen_mapping ) {
             $uitslag_container
         </div>";
 }
+
+function gerelateerde_wedstrijd_button_func() : string {
+    $wedstrijd_id = get_field( 'wedstrijdverslag_wedstrijd' );
+    $eigen_organisatie = get_field( 'activiteit_eigenOrganisatie', $wedstrijd_id );
+    if ( ! $eigen_organisatie ) {
+        return '';
+    }
+
+    $wedstrijd_link = get_permalink( $wedstrijd_id );
+    return 
+        "<div class='d-flex flex-row-reverse'>
+            <div class='back-button-container gerelateerde-wedstrijd'>
+                <a href='$wedstrijd_link'>
+                    <div class='icon'><i class='fas fa-chevron-left'></i></div>
+                    <div class='titel'>Gerelateerde wedstrijd</div>
+                </a>
+            </div>
+        </div>";
+}
+add_shortcode( 'gerelateerde_wedstrijd_button', 'gerelateerde_wedstrijd_button_func' );
 
 ?>

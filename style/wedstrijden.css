@@ -26,3 +26,7 @@
     width: 15%;
     text-align: center;
 }
+
+.back-button-container.gerelateerde-wedstrijd {
+    max-width: 15rem;
+}

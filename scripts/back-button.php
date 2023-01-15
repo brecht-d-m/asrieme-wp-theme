@@ -12,7 +12,7 @@ function back_button_func( $atts ) {
             "<div class='back-button-container'>
                 <a href='$terugknop_link'>
                     <div class='icon'><i class='fas fa-chevron-left'></i></div>
-                    <div class='titel'>$terugknop_titel</div>
+                    <div class='titel animated'>$terugknop_titel</div>
                 </a>
             </div>";
     }
