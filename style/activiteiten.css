@@ -263,12 +263,12 @@
     font-size: 1.25rem;
 }
 
-.activiteit.detail-info {
+.activiteit.value-wrapper {
     display: flex;
     flex-direction: row;
 }
 
-.activiteit.detail-info .icon {
+.activiteit.value-wrapper .icon {
     margin-right: 1vw;
     color: #ffc62b;
 }
@@ -280,12 +280,12 @@
     padding: 1vw;
 }
 
-.activiteit-info-container .activiteit-info-card .title {
+.activiteit-info-container .activiteit-info-card .titel {
     display: flex;
     flex-direction: row;
 }
 
-.activiteit-info-container .activiteit-info-card .title .icon {
+.activiteit-info-container .activiteit-info-card .titel .icon {
     margin-right: 1vw;
 }
 

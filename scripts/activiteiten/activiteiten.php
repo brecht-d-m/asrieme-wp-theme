@@ -113,7 +113,7 @@ function _create_inschrijvings_card() : string {
         $inschrijvings_info = "Inschrijven is verplicht en kan tot en met $formatted_uiterste_datum.";
     } else if ( $heeft_uiterste_datum ) {
         $inschrijvings_info = "Inschrijven kan tot en met $formatted_uiterste_datum.";
-    } else if ( $verplicht ) {
+    } else if ( $inschrijving_verplicht ) {
         $inschrijvings_info = 'Om deel te nemen is inschrijven verplicht.';
     }
     
@@ -209,10 +209,10 @@ function activiteiten_container_func( $atts ) {
     $minimaal = $a['minimaal'];
     switch ( $activiteit_klasse ) {
         case 'evenement':
-            $activiteiten_container = create_evenementen_container( $volgende_activiteiten, $activiteit_type, $minimaal );
+            $activiteiten_container = _create_evenementen_container( $volgende_activiteiten, $activiteit_type, $minimaal );
             break;
         case 'wedstrijd':
-            $activiteiten_container = create_wedstrijden_container( $volgende_activiteiten, $activiteit_type, $minimaal );
+            $activiteiten_container = _create_wedstrijden_container( $volgende_activiteiten, $activiteit_type, $minimaal );
             break;
         default:
             $activiteiten_container = _create_activiteiten_container( $volgende_activiteiten, $minimaal, 'activiteiten' );
