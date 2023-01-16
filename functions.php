@@ -67,6 +67,15 @@ function copyright_footer_func() {
 }
 add_shortcode( 'copyright_footer', 'copyright_footer_func' );
 
+function meta_value_func( $atts ) {
+    $a = shortcode_atts( array( 'veld'   => '' ), $atts );
+    if ( empty( $a['veld'] ) ) {
+        return '';
+    }
+    return get_field( $a['veld'] );
+}
+add_shortcode( 'meta_value', 'meta_value_func' );
+
 // Projecten niet weergeven in admin menu
 add_filter( 'et_project_posttype_args', 'remove_project_admin_menu', 10, 1 );
 function remove_project_admin_menu( $args ) {
