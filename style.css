@@ -39,3 +39,16 @@ table.table td {
 table.table td {
     border-bottom-width: 0px;
 }
+
+.contact.footer>div>p {
+    margin: 0;
+    padding: 0;
+}
+
+.contact.footer .onderneming-info {
+    margin-top: 1vw;
+}
+
+.adres-container.piste {
+    margin-bottom: 1vw;
+}

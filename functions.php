@@ -59,20 +59,29 @@ include 'scripts/back-button.php';
 include 'scripts/documenten.php';
 include 'scripts/socials.php';
 include 'scripts/posts.php';
-
-
-function copyright_footer_func() {
-    $huidig_jaar = date('Y');
-    return "<div class='copy-right'>&copy; $huidig_jaar AS Rieme VZW</div>";
-}
-add_shortcode( 'copyright_footer', 'copyright_footer_func' );
+include 'scripts/home.php';
 
 function meta_value_func( $atts ) {
-    $a = shortcode_atts( array( 'veld'   => '' ), $atts );
-    if ( empty( $a['veld'] ) ) {
+    $a = shortcode_atts( array( 'veld'  => '', 'pagina' => '' ), $atts );
+    $veld = $a['veld'];
+    if ( empty( $veld ) ) {
         return '';
     }
-    return get_field( $a['veld'] );
+
+    $meta_value = '';
+    if ( !empty( $a['pagina'] ) ) {
+        $query = new WP_Query([
+            'post_type' => 'page',
+            'name' => $a['pagina']
+        ]);
+        if ( $query->have_posts() ) {
+            $query->the_post();
+            $meta_value = get_field( $veld, get_the_ID() );
+        }
+        wp_reset_postdata();
+    }
+
+    return empty( $meta_value ) ? get_field( $veld ) : $meta_value;
 }
 add_shortcode( 'meta_value', 'meta_value_func' );
 

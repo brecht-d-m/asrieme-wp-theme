@@ -8,8 +8,34 @@
     align-items: center;
 }
 
+.contact .social-button {
+    margin: 0.5vw;
+    height: 75px;
+    width: 75px;
+}
+
 .social-button:hover {
     background-color: #ffebb3;
+}
+
+.contact .social-button.facebook:hover {
+    background-color: #4267b2;
+}
+
+.contact .social-button.instagram:hover {
+    background-color: #c13584;
+}
+
+.contact .social-button.strava:hover {
+    background-color: #fc4c02;
+}
+
+.contact .social-button.twizzit:hover {
+    background-color: #4ab5a3;
+}
+
+.contact .social-button.flickr:hover {
+    background-color: #ff0084;
 }
 
 .social-button>a {
@@ -17,6 +43,11 @@
     font-size: 18px;
     line-height: 24px;
     text-decoration: none;
+}
+
+.contact .social-button>a {
+    font-size: 40px;
+    color: #ffffff;
 }
 
 .social-icon-button {
