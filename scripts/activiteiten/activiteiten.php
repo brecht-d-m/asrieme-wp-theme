@@ -103,7 +103,7 @@ function _create_inschrijvings_card() : string {
         $uiterste_datum = get_field( 'inschrijvingsinfo_activiteit_uitersteInschrijfdatum' );
         $date = DateTime::createFromFormat( 'Ymd', $uiterste_datum )->getTimestamp();
         // Formatteer datum als: dag in cijfers en maand voluitgeschreven
-        $formatter = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, 'Europe/Brussels', IntlDateFormatter::GREGORIAN, 'd MMMM' );
+        $formatter = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, NULL, IntlDateFormatter::GREGORIAN, 'd MMMM' );
         $formatted_uiterste_datum = $formatter->format($date);
     }
 
@@ -190,7 +190,6 @@ function activiteiten_container_func( $atts ) {
         $post_types_filter = array ( $activiteit_klasse );
     }
 
-    // TODO
     $activiteit_type = $a['type'];
     if ( empty ( $activiteit_type )) {
         $activiteit_types_filter = array();
@@ -344,7 +343,7 @@ function _create_activiteiten_container( array $volgende_activiteiten, bool $min
 function _format_activiteit_datum( string $datum, bool $minimaal = false ) : string {
     $datum = DateTime::createFromFormat( 'Ymd', $datum )->getTimestamp();
     $date_format = $minimaal ? 'd MMM' : 'd MMMM yy';
-    $format = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, 'Europe/Brussels', IntlDateFormatter::GREGORIAN, $date_format );
+    $format = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, NULL, IntlDateFormatter::GREGORIAN, $date_format );
     return $format->format( $datum );
 }  
 

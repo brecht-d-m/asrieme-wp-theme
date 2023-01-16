@@ -1,7 +1,7 @@
 <?php
 
 /** Evenementen Container */
-function _create_evenementen_container( $volgende_evenementen, $evenement_type, $minimaal ) {
+function _create_evenementen_container( $volgende_evenementen, $evenement_type, $minimaal ) : string {
     $type_mapping = array(
         'algemeen'  => 'evenementen',
         'stage'     => 'stages',

@@ -132,7 +132,7 @@ function _create_uitslag_array() : array {
     $datum = DateTime::createFromFormat( 'Ymd', $uitslag_datum );
     $jaar = $datum->format( 'Y' );
     $datum_timestamp = $datum->getTimestamp();
-    $format = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, 'Europe/Brussels', IntlDateFormatter::GREGORIAN,'dd/MM' );
+    $format = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, NULL, IntlDateFormatter::GREGORIAN,'dd/MM' );
     $formatted_datum = $format->format( $datum );
     return array(
         'jaar'      => $jaar,

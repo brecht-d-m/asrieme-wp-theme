@@ -21,7 +21,8 @@ function my_theme_enqueue_styles() {
     wp_enqueue_style('back-button-style');
     wp_register_style('info-container-style', get_stylesheet_directory_uri().'/style/info-container.css');
     wp_enqueue_style('info-container-style');
-    
+    wp_register_style('rieme-socials-style', get_stylesheet_directory_uri().'/style/socials.css');
+    wp_enqueue_style('rieme-socials-style');
     wp_register_style('members-style', get_stylesheet_directory_uri().'/style/members.css');
     wp_enqueue_style('members-style');
     wp_register_style('posts-style', get_stylesheet_directory_uri().'/style/berichten.css');
@@ -39,8 +40,6 @@ function my_theme_enqueue_styles() {
     wp_enqueue_style('rieme-sponsors-style');
     wp_register_style('rieme-klassementen-style', get_stylesheet_directory_uri().'/style/klassementen.css');
     wp_enqueue_style('rieme-klassementen-style');
-    wp_register_style('rieme-socials-style', get_stylesheet_directory_uri().'/style/socials.css');
-    wp_enqueue_style('rieme-socials-style');
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 

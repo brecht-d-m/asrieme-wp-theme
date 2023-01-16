@@ -75,9 +75,15 @@ function _get_trainers_args() : array {
 function _create_trainer( int $trainer_id, string $specialisatie ) : Member {
     $trainer = new Member();
     $trainer->set_naam( get_the_title( $trainer_id ) );
-    $trainer->set_foto( get_field( 'trainer_fotoLink', $trainer_id ) );
+    $fotoLink = get_field( 'trainer_fotoLink', $trainer_id );
+    if ( !empty( $fotoLink ) ) {
+        $trainer->set_foto( get_field( 'trainer_fotoLink', $trainer_id ) );
+    }
     $trainer->set_functie_beschrijving( $specialisatie );
-    $trainer->set_mail( get_field( 'trainer_mail', $trainer_id ) );
+    $mail = get_field( 'trainer_mail', $trainer_id );
+    if ( !empty( $mail ) ) {
+        $trainer->set_mail( $mail );
+    }
     return $trainer;
 }
 
