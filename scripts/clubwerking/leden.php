@@ -54,7 +54,7 @@ function _get_naam( $veld, $functie ) {
     if ( $post_type == 'clubfunctie' ) {
         $functie = get_field( 'clubfunctie_slugNaam', $lid_id );
         return _get_naam_clubfunctie( $functie );
-    } elseif ( $post_type == 'lid' ) {
+    } elseif ( $post_type == 'lid' || $post_type == 'trainer' ) {
         return get_the_title( $lid_id );
     }
     return '';
