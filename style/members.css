@@ -7,15 +7,21 @@
     margin: 0.25vw;
     padding: 0.5vw;
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
 }
 
 .member-card .foto-wrapper {
     /* Make image display in the center */
     display: flex;
     align-items: center;
-    height: 100%;
+    justify-content: center;
     margin-right: 1vw;
+    background-color: #ffffff;
+}
+
+.member-card .foto-wrapper.stretch-foto {
+    min-height: 180px;
+    max-height: 180px;
 }
 
 .member-card .foto-wrapper .square.sm {
@@ -47,6 +53,7 @@
     min-width: 120px;
     max-width: 120px;
     height: auto;
+    padding: 0.25vw;
 }
 
 .member-card .foto-wrapper>img {

@@ -47,6 +47,7 @@ function trainingsgroep_trainers_container_func() {
 
     $card_properties = new Member_Card_Properties();
     $card_properties->set_foto_aspect_ratio( 'rectangle' );
+    $card_properties->set_foto_stretch( true );
     $card_properties->set_card_relative_width( 'col-lg-6' );
 
     $trainers_container = '';

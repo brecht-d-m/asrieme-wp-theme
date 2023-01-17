@@ -64,10 +64,12 @@ class Member {
         }
     
         $width_css_class = $member_card_properties->card_relative_width;
+        $foto_stretch = empty( $this->foto ) && $member_card_properties->foto_stretch ? 
+            'stretch-foto' : '';
         return 
             "<div class='member-card $width_css_class'>
                 <div class='member-card-inner rounded'>
-                    <div class='foto-wrapper'>
+                    <div class='foto-wrapper rounded $foto_stretch'>
                         $foto_wrapper
                     </div>
                     <div class='info-wrapper'>

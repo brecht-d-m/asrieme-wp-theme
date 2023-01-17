@@ -75,7 +75,7 @@ function _get_naam_slug( string $post_type, string $slug_naam ) : string {
         'post_type'      => $post_type, 
         'posts_per_page' => 1,
         'meta_key'       => $post_type . '_slugNaam',
-        'meta_value'     => $functie
+        'meta_value'     => $slug_naam
     );
     $query = new WP_Query( $args );
     if( $query->have_posts() ) {
@@ -91,7 +91,7 @@ function _get_naam_slug( string $post_type, string $slug_naam ) : string {
 function _join_names( array $leden ) : string {
     $naam = '';
     $leden_count = count( $leden );
-    $count = 0;
+    $count = 1;
     foreach ( $leden as $lid_id ) {
         $naam .= get_the_title( $lid_id );
         if( $count != $leden_count && $leden_count > 1 ) {
@@ -129,7 +129,8 @@ function lid_mail_func( $atts ) {
         'veld'      => '',
         'functie'   => '',
         'werkgroep' => '' ), $atts );
-    return _get_mail( $a['veld'], $a['functie'], $a['werkgroep'] );
+    $mail = _get_mail( $a['veld'], $a['functie'], $a['werkgroep'] ); 
+    return "<a href='mailto:$mail'>$mail</a>";
 }
 add_shortcode( 'lid_mail', 'lid_mail_func' );
 
@@ -162,7 +163,7 @@ function _get_mail_slug( string $post_type, string $slug_naam ) : string {
         'post_type'      => $post_type, 
         'posts_per_page' => 1,
         'meta_key'       => $post_type . '_slugNaam',
-        'meta_value'     => $functie
+        'meta_value'     => $slug_naam
     );
     $query = new WP_Query( $args );
     if( $query->have_posts() ) {
@@ -249,7 +250,7 @@ function _get_member_type( string $veld, string $functie, string $werkgroep ) : 
         if( $lid_post_type != 'clubfunctie' && $lid_post_type != 'werkgroep' ) {
             return $lid_post_type;
         } else {
-            $leden_field = _get_leden_field_name( $post_type );
+            $leden_field = _get_leden_field_name( $lid_post_type );
             $leden = get_field( $leden_field, $lid_id );
             if( count( $leden ) == 1 ) {
                 return get_post_type( $leden[0] );
@@ -394,7 +395,8 @@ function _parse_meta_value( string $post_type, string $key, array $leden ) : str
     } else {
         $post_type = get_post_type( $leden[0] );
         if( $post_type == 'lid' || $post_type == 'trainer' ) {
-            return get_field( $post_type . '_' . $key, $leden[0] );
+            $meta_value = get_field( $post_type . '_' . $key, $leden[0] );
+            return !empty( $meta_value ) ? $meta_value : '';
         } else {
             return '';
         }
