@@ -7,7 +7,7 @@ function documenten_container_func( $atts ) {
     ), $atts );
 
     $veld_documenten = $a['veld'];
-    if ( empty( $veld_documenten ) ) {
+    if( empty( $veld_documenten ) ) {
         return '';
     }
 
@@ -46,7 +46,7 @@ function document_link_func( $atts ) {
 
     
     $veld_document = $a['veld'];
-    if ( empty( $veld_document ) ) {
+    if( empty( $veld_document ) ) {
         return '';
     }
 
@@ -77,7 +77,7 @@ function _get_attachment_link( string $attachment_url, string $target = '', stri
 
     $attachment_link = '';
     $attachment_result = new WP_Query( $attachment_args );
-    if ( $attachment_result->have_posts() ) {
+    if( $attachment_result->have_posts() ) {
         $attachment_result->the_post();
         $attachment_title = empty( $titel ) ? get_the_title() : $titel ;
 

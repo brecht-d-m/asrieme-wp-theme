@@ -10,7 +10,7 @@ function klassementen_container_func( $atts ) {
 	), $atts );
 
     $type = $a['type'];
-    if ( $type == 'algemeen' 
+    if( $type == 'algemeen' 
             || $type == 'vergoeding' 
             || $type == 'korting' ) {
         $klassement_type = 'klassement_'.$type;
@@ -19,8 +19,8 @@ function klassementen_container_func( $atts ) {
     }
 
     $klassementen = array();
-    $query = new WP_Query( _get_klassement_args( $klassement_type ));
-    if ( $query->have_posts() ) {
+    $query = new WP_Query( _get_klassement_args( $klassement_type ) );
+    if( $query->have_posts() ) {
         while ( $query->have_posts() ) {
             $query->the_post();
             array_push( $klassementen, _create_klassement() );
@@ -28,7 +28,7 @@ function klassementen_container_func( $atts ) {
     }
     wp_reset_postdata();
 
-    if ( empty( $klassementen ) ) {
+    if( empty( $klassementen ) ) {
         return '';
     }
 
@@ -52,7 +52,7 @@ function _get_klassement_args( $klassement_type ) : array {
     	'order'          => 'ASC'
     );
 
-    if ( !empty( $klassement_type )) {
+    if( !empty( $klassement_type ) ) {
         $tax_query = array(
             array(
                 'taxonomy'  => 'type_klassement',
@@ -69,8 +69,8 @@ function _get_klassement_args( $klassement_type ) : array {
 
 function _create_klassement() : Klassement {
     $klassement = new Klassement();
-    $klassement->set_titel( get_field('pagina_hoofdTitel') );
-    $klassement->set_slogan( get_field('pagina_slogan') );
+    $klassement->set_titel( get_field( 'pagina_hoofdTitel' ) );
+    $klassement->set_slogan( get_field( 'pagina_slogan' ) );
     $klassement->set_link( get_the_permalink() );
     return $klassement;
 }

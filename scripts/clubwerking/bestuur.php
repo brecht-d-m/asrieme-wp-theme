@@ -42,7 +42,7 @@ add_shortcode( 'werkgroepen_listing', 'werkgroepen_listing_func' );
 function _get_werkgroepen() : array {    
     $werkgroepen = array();
     $query = new WP_Query( _get_werkgroepen_args() );
-    if ( $query->have_posts() ) {
+    if( $query->have_posts() ) {
         while ( $query->have_posts() ) {
             $query->the_post();
             array_push( $werkgroepen, _create_werkgroep() );
@@ -72,15 +72,15 @@ function _get_werkgroepen_args() : array {
 function _create_werkgroep() : Werkgroep {
     $leads = array();
     $werkgroep_leads = get_field( 'werkgroep_lead' );
-    if ( ! empty( $werkgroep_leads ) ) {
+    if( !empty( $werkgroep_leads ) ) {
         foreach( $werkgroep_leads as $lead_id ) {
             array_push( $leads, get_post( $lead_id ) );
         }
     }
 
     $subwerkgroepen = array();
-    $werkgroep_subwerkgroepen = get_field('werkgroep_subwerkgroepen');
-    if ( ! empty( $werkgroep_subwerkgroepen ) ) {
+    $werkgroep_subwerkgroepen = get_field( 'werkgroep_subwerkgroepen' );
+    if( !empty( $werkgroep_subwerkgroepen ) ) {
         foreach( $werkgroep_subwerkgroepen as $subwerkgroep_id ) {
             array_push( $subwerkgroepen, get_post( $subwerkgroep_id ) );
         }
@@ -89,8 +89,8 @@ function _create_werkgroep() : Werkgroep {
     $werkgroep = new Werkgroep();
     $werkgroep->set_titel( get_the_title() );
     $werkgroep->set_naam( get_post()->post_name );
-    $werkgroep->set_info( get_field('werkgroep_info') );
-    $werkgroep->set_mail( get_field('werkgroep_mail') );
+    $werkgroep->set_info( get_field( 'werkgroep_info' ) );
+    $werkgroep->set_mail( get_field( 'werkgroep_mail' ) );
     $werkgroep->set_subwerkgroepen( $subwerkgroepen );
     $werkgroep->set_leads( $leads );
     return $werkgroep;
@@ -101,7 +101,7 @@ function bestuurders_container_func( $atts ) {
 
     $bestuurders = array();
     $leden = new WP_Query( _get_bestuurders_args( $a['type'] ) );
-    if ( $leden->have_posts() ) {
+    if( $leden->have_posts() ) {
         while ( $leden->have_posts() ) {
             $leden->the_post();   
             array_push( $bestuurders, _create_bestuurder() );
@@ -109,13 +109,13 @@ function bestuurders_container_func( $atts ) {
     }
     wp_reset_postdata();
 
-    if ( empty ( $bestuurders ) ) {
+    if( empty ( $bestuurders ) ) {
         return '';
     }
 
     $card_properties = new Member_Card_Properties();
-    $card_properties->set_foto_aspect_ratio("square");
-    $card_properties->set_card_relative_width("col-lg-6");
+    $card_properties->set_foto_aspect_ratio( "square" );
+    $card_properties->set_card_relative_width( "col-lg-6" );
 
     $bestuurders_container = '';
     foreach ( $bestuurders as $b => $bestuurder ) {
@@ -154,7 +154,7 @@ function _create_bestuurder() : Member {
 function bestuursfuncties_container_func() {
     $bestuursfuncties = array();
     $leden = new WP_Query( _get_bestuursfuncties_args() );
-    if ( $leden->have_posts() ) {
+    if( $leden->have_posts() ) {
         while ( $leden->have_posts() ) {
             $leden->the_post();
             $mail = get_field( 'clubfunctie_mail' );
@@ -166,7 +166,7 @@ function bestuursfuncties_container_func() {
     }
     wp_reset_postdata();
 
-    if ( empty ( $bestuursfuncties ) ) {
+    if( empty ( $bestuursfuncties ) ) {
         return '';
     }
 
@@ -175,7 +175,7 @@ function bestuursfuncties_container_func() {
     $j = (int) floor( count( $bestuursfuncties ) / 2 );
     for ( $i = 0; $i < ceil( count( $bestuursfuncties ) / 2 ); $i++ ) {
         $bestuursfuncties_reordered[$i*2] = $bestuursfuncties[$i];
-        if ( array_key_exists( $j+$i+1 , $bestuursfuncties)) {
+        if( array_key_exists( $j+$i+1 , $bestuursfuncties) ) {
             $bestuursfuncties_reordered[$i*2+1] = $bestuursfuncties[$j+$i+1];
         }
     }
@@ -231,7 +231,7 @@ function _create_bestuurderfunctie( string $bestuursfunctie_mail, int $bestuurde
 }
 
 function _get_correct_functie( $functie, $gender ) {
-    if ($functie == 'Ondervoorzitter' ) {
+    if($functie == 'Ondervoorzitter' ) {
         return $gender == 'm' ? $functie : 'Ondervoorzitster';
     }
     return $functie;

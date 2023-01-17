@@ -5,7 +5,7 @@ function back_button_func( $atts ) {
     $heeft_terugknop = get_field( 'pagina_heeftTerugknop' );
     
     $terugknop = '';
-    if ( $heeft_terugknop ) {
+    if( $heeft_terugknop ) {
         $terugknop_link = get_field( 'pagina_terugknopLink' );
         $terugknop_titel = get_field( 'pagina_terugknopTitel' );
         $terugknop = 

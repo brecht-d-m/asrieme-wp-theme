@@ -9,11 +9,11 @@ use Member\Member_Card_Properties;
 function trainingsgroep_coordinator_func() {
     $coordinator = get_field( 'trainingsgroep_coordinator' );
 
-    $coordinator_titel = strtolower(get_the_title( $coordinator ));
+    $coordinator_titel = strtolower(get_the_title( $coordinator ) );
     $coordinator_mail = get_field( 'clubfunctie_mail', $coordinator );
     $coordinator_leden = get_field( 'clubfunctie_lid', $coordinator );
 
-    if ( empty( $coordinator_leden )) {
+    if( empty( $coordinator_leden ) ) {
         return '';
     }
     
@@ -31,7 +31,7 @@ add_shortcode( 'trainingsgroep_coordinator', 'trainingsgroep_coordinator_func' )
 function trainingsgroep_trainers_container_func() {
     $trainers = array();
     $query = new WP_Query( _get_trainers_args() );
-    if ( $query->have_posts() ) {
+    if( $query->have_posts() ) {
         while ( $query->have_posts() ) {
             $query->the_post();
             $trainer_id = get_field( 'trainingsopdracht_trainer' );
@@ -41,7 +41,7 @@ function trainingsgroep_trainers_container_func() {
     }
     wp_reset_postdata();
 
-    if ( empty ( $trainers ) ) {
+    if( empty ( $trainers ) ) {
         return '';
     }
 
@@ -77,12 +77,12 @@ function _create_trainer( int $trainer_id, string $specialisatie ) : Member {
     $trainer = new Member();
     $trainer->set_naam( get_the_title( $trainer_id ) );
     $fotoLink = get_field( 'trainer_fotoLink', $trainer_id );
-    if ( !empty( $fotoLink ) ) {
+    if( !empty( $fotoLink ) ) {
         $trainer->set_foto( get_field( 'trainer_fotoLink', $trainer_id ) );
     }
     $trainer->set_functie_beschrijving( $specialisatie );
     $mail = get_field( 'trainer_mail', $trainer_id );
-    if ( !empty( $mail ) ) {
+    if( !empty( $mail ) ) {
         $trainer->set_mail( $mail );
     }
     return $trainer;

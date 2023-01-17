@@ -40,7 +40,7 @@ add_shortcode( 'lid_naam', 'lid_naam_func' );
 function _get_naam( string $veld, string $functie = '', string $werkgroep = '' ) : string {
     if( !empty( $functie ) ) {
         return _get_naam_slug( 'clubfunctie', $functie );
-    } else if( !empty( $werkgroep ) ) {
+    } elseif( !empty( $werkgroep ) ) {
         return _get_naam_slug( 'werkgroep', $werkgroep );
     }
 

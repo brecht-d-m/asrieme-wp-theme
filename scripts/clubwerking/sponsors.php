@@ -11,13 +11,13 @@ function sponsor_willekeurig_func ( $atts ) {
 
     // Don't filter on sponsor type and return max 1 sponsor
     $query = new WP_Query( _get_sponsors_args( '', 1 ) );
-    if ( $query->have_posts() ) {
+    if( $query->have_posts() ) {
         $query->the_post();
         $sponsor = _create_sponsor( 'random' );
     }
     wp_reset_postdata();
 
-    if ( $sponsor == NULL ) {
+    if( $sponsor == NULL ) {
         return '';
     }
 
@@ -35,7 +35,7 @@ function sponsors_container_func ( $atts ) {
         'type' => '' ), $atts );
 
     $type = $a['type'];
-    if ( !empty ( $type ) ) {
+    if( !empty ( $type ) ) {
         $sponsor_type = 'sponsor_'.$type;
     } else {
         $sponsor_type = '';
@@ -43,7 +43,7 @@ function sponsors_container_func ( $atts ) {
 
     $sponsors = array();
     $query = new WP_Query( _get_sponsors_args( $sponsor_type, -1 ) );
-    if ( $query->have_posts() ) {
+    if( $query->have_posts() ) {
         while ( $query->have_posts() ) {
             $query->the_post();
             array_push( $sponsors, _create_sponsor( $type ) );
@@ -51,7 +51,7 @@ function sponsors_container_func ( $atts ) {
     }
     wp_reset_postdata();
 
-    if ( empty( $sponsors ) ) {
+    if( empty( $sponsors ) ) {
         return '';
     }
 
@@ -79,7 +79,7 @@ function _get_sponsors_args( string $sponsor_type, int $aantal ) : array {
         'orderby'        => 'rand'
     );
 
-    if ( !empty( $sponsor_type ) ) {
+    if( !empty( $sponsor_type ) ) {
         $tax_query = array(
             array(
                 'taxonomy'  => 'type_sponsor',
@@ -97,9 +97,9 @@ function _get_sponsors_args( string $sponsor_type, int $aantal ) : array {
 function _create_sponsor( string $sponsor_type ) : Sponsor {
     $sponsor = new Sponsor();
     $sponsor->set_naam( get_the_title() );
-    $sponsor->set_logo( get_field('sponsor_fotoLink') );
-    $sponsor->set_link( get_field('sponsor_link') );
-    $sponsor->set_slogan( get_field('sponsor_slogan') );
+    $sponsor->set_logo( get_field( 'sponsor_fotoLink' ) );
+    $sponsor->set_link( get_field( 'sponsor_link' ) );
+    $sponsor->set_slogan( get_field( 'sponsor_slogan' ) );
     $sponsor->set_type( $sponsor_type );
     return $sponsor;
 }

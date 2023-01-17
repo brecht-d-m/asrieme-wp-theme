@@ -73,7 +73,7 @@ class Werkgroep {
     }
 
     private function _create_mail_wrapper( string $mail ) : string {
-        if ( empty( $mail ) ) {
+        if( empty( $mail ) ) {
             return '';
         }
     
@@ -97,13 +97,13 @@ class Werkgroep {
         $counter = 1;
         foreach ( $leads as $lead ) {
             $lead_tekst .= get_the_title( $lead->ID );
-            if ( $counter != $nm_leads ) {
+            if( $counter != $nm_leads ) {
                 $lead_tekst .= " & ";
             }
             $counter++;
         }
     
-        if ( $counter == 1 ) {
+        if( $counter == 1 ) {
             return '';
         }
         
@@ -112,7 +112,7 @@ class Werkgroep {
     
     private function _create_sub_cards() : string {
         $subwerkgroepen_container = '';
-        if ( empty( $this->subwerkgroepen ) ) {
+        if( empty( $this->subwerkgroepen ) ) {
             return '';
         }
     
@@ -149,7 +149,7 @@ class Werkgroep {
     }
 
     private function _create_value_wrapper( string $value, string $type, string $fa_icon ) : string {
-        if ( empty( $value ) ) {
+        if( empty( $value ) ) {
             return '';
         }
 

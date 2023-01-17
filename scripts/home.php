@@ -1,7 +1,7 @@
 <?php
 
 function copyright_footer_func() {
-    $huidig_jaar = date('Y');
+    $huidig_jaar = date( 'Y' );
     return "<div class='copy-right'>&copy; $huidig_jaar AS Rieme VZW</div>";
 }
 add_shortcode( 'copyright_footer', 'copyright_footer_func' );
@@ -57,7 +57,7 @@ function _get_home_id() : int {
         'name' => 'home'
     ]);
     $home_id = NULL;
-    if ( $query->have_posts() ) {
+    if( $query->have_posts() ) {
         $query->the_post();
         $home_id = get_the_ID();
     }

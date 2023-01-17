@@ -10,14 +10,14 @@
  *  - ofwel de huidige post een activiteit is
  */
 function activiteit_datum_container_func() : string {
-    if ( get_post_type() == 'wedstrijdverslag' ) {
+    if( get_post_type() == 'wedstrijdverslag' ) {
         $activiteit_id = get_field( 'wedstrijdverslag_wedstrijd' );
         $activiteit_datum = get_field( 'activiteit_datum', $activiteit_id );
     } else {
         $activiteit_datum = get_field( 'activiteit_datum' );
     }
     
-    if ( empty( $activiteit_datum )) {
+    if( empty( $activiteit_datum ) ) {
         return '';
     }
 
@@ -40,14 +40,14 @@ add_shortcode( 'activiteit_datum_container', 'activiteit_datum_container_func' )
  *  - ofwel de huidige post een activiteit is
  */
 function activiteit_tijd_container_func() : string {
-    if ( get_post_type() == 'wedstrijdverslag') {
+    if( get_post_type() == 'wedstrijdverslag' ) {
         $activiteit_id = get_field( 'wedstrijdverslag_wedstrijd' );
         $activiteit_datum = get_field( 'activiteit_tijd', $activiteit_id );
     } else {
         $activiteit_tijd = get_field( 'activiteit_tijd' );
     }
 
-    if ( empty( $activiteit_tijd )) {
+    if( empty( $activiteit_tijd ) ) {
         return '';
     }
 
@@ -70,21 +70,21 @@ function pre_activiteit_container_func() : string {
     $activiteit_info_container = '';
     $activiteit_datum = get_field( 'activiteit_datum' );
     // Enkel renderen als evenement nog niet is geweest
-    if ( date( 'Ymd' ) <= $activiteit_datum ) {
-        if ( get_field( 'inschrijvingsinfo_activiteit_heeftInschrijvingsinfo' ) ) {
+    if( date( 'Ymd' ) <= $activiteit_datum ) {
+        if( get_field( 'inschrijvingsinfo_activiteit_heeftInschrijvingsinfo' ) ) {
             $activiteit_info_container .= _create_inschrijvings_card();
         }
 
-        if ( get_field( 'locatieinfo_activiteit_heeftLocatieinfo' ) ) {
+        if( get_field( 'locatieinfo_activiteit_heeftLocatieinfo' ) ) {
             $activiteit_info_container .= _create_locatie_card();
         }
 
-        if ( get_field( 'contactpersoon_activiteit_heeftContactpersoon' ) ) { 
+        if( get_field( 'contactpersoon_activiteit_heeftContactpersoon' ) ) { 
             $activiteit_info_container .= _create_contact_card();
         }
     }
 
-    if ( empty( $activiteit_info_container ) ) {
+    if( empty( $activiteit_info_container ) ) {
         return '';
     }
 
@@ -99,7 +99,7 @@ function _create_inschrijvings_card() : string {
     $container_content = '';
     
     $heeft_uiterste_datum = get_field( 'inschrijvingsinfo_activiteit_heeftUitersteInschrijfdatum' );
-    if ( $heeft_uiterste_datum ) {
+    if( $heeft_uiterste_datum ) {
         $uiterste_datum = get_field( 'inschrijvingsinfo_activiteit_uitersteInschrijfdatum' );
         $date = DateTime::createFromFormat( 'Ymd', $uiterste_datum )->getTimestamp();
         // Formatteer datum als: dag in cijfers en maand voluitgeschreven
@@ -109,11 +109,11 @@ function _create_inschrijvings_card() : string {
 
     $inschrijvings_info = '';
     $inschrijving_verplicht = get_field( 'inschrijvingsinfo_activiteit_heeftVerplichtInschrijven' );
-    if ( $heeft_uiterste_datum && $inschrijving_verplicht ) {
+    if( $heeft_uiterste_datum && $inschrijving_verplicht ) {
         $inschrijvings_info = "Inschrijven is verplicht en kan tot en met $formatted_uiterste_datum.";
-    } else if ( $heeft_uiterste_datum ) {
+    } elseif( $heeft_uiterste_datum ) {
         $inschrijvings_info = "Inschrijven kan tot en met $formatted_uiterste_datum.";
-    } else if ( $inschrijving_verplicht ) {
+    } elseif( $inschrijving_verplicht ) {
         $inschrijvings_info = 'Om deel te nemen is inschrijven verplicht.';
     }
     
@@ -122,7 +122,7 @@ function _create_inschrijvings_card() : string {
     }
 
     $inschrijving_extra_info = get_field( 'inschrijvingsinfo_activiteit_extraInfotekst' );
-    if ( !empty( $inschrijving_extra_info )) {
+    if( !empty( $inschrijving_extra_info ) ) {
         $container_content .= "<div>$inschrijving_extra_info</div>";
     }
 
@@ -163,7 +163,7 @@ function _create_info_card( $titel, $titel_icoon, $content ) {
 
 /** Post-Activiteit Shortcode **/
 function post_activiteit_container_func() {
-    if ( get_post_type() == 'wedstrijdverslag' ) {
+    if( get_post_type() == 'wedstrijdverslag' ) {
         $activiteit_id = get_field( 'wedstrijdverslag_wedstrijd' );
     } else {
         $activiteit_id = get_the_ID();
@@ -184,17 +184,17 @@ function activiteiten_container_func( $atts ) {
 	), $atts );
     
     $activiteit_klasse = $a['klasse'];
-    if ( empty( $activiteit_klasse )) {
+    if( empty( $activiteit_klasse ) ) {
         $post_types_filter = array ( 'wedstrijd', 'evenement' );
     } else {
         $post_types_filter = array ( $activiteit_klasse );
     }
 
     $activiteit_type = $a['type'];
-    if ( empty ( $activiteit_type )) {
+    if( empty ( $activiteit_type ) ) {
         $activiteit_types_filter = array();
     } else {
-        if ( empty( !$activiteit_klasse )) {
+        if( empty( !$activiteit_klasse ) ) {
             $activiteit_types_filter = array( $activiteit_klasse.'_'.$activiteit_type );
         } else {
             $activiteit_types_filter = array( 
@@ -227,7 +227,7 @@ function _get_activiteiten( array $post_types_filter, array $activiteit_types_fi
 
     $activiteit_args = _get_activiteiten_args( $post_types_filter, $activiteit_types_filter, $aantal );
     $activiteit_query = new WP_Query( $activiteit_args );
-    if ( $activiteit_query->have_posts() ) {
+    if( $activiteit_query->have_posts() ) {
         while ( $activiteit_query->have_posts() ) {
             $activiteit_query->the_post();
             // wedstrijd_type of evenement_type
@@ -235,13 +235,14 @@ function _get_activiteiten( array $post_types_filter, array $activiteit_types_fi
             $activiteit_type_naam = $activiteit_type_waarde->name;
             $activiteit_type_slug = $activiteit_type_waarde->slug;
             $activiteit = array(
-                'typeSlug'     => $activiteit_type_slug,
-                'typeNaam'     => $activiteit_type_naam,
-                'titel'        => get_field( 'activiteit_titel' ),
-                'datum'        => get_field( 'activiteit_datum' ),
-                'tijd'         => get_field( 'activiteit_tijd' ),
-                'link'         => get_permalink(),
-                'samenvatting' => get_the_excerpt()
+                'typeSlug'         => $activiteit_type_slug,
+                'typeNaam'         => $activiteit_type_naam,
+                'titel'            => get_field( 'activiteit_titel' ),
+                'datum'            => get_field( 'activiteit_datum' ),
+                'tijd'             => get_field( 'activiteit_tijd' ),
+                'link'             => get_permalink(),
+                'alternatieveLink' => get_field( 'activiteit_alternatieveLink' ),
+                'samenvatting'     => get_the_excerpt()
             );
             array_push( $volgende_activiteiten, $activiteit );
         }
@@ -269,7 +270,7 @@ function _get_activiteiten_args( array $post_types_filter, array $activiteit_typ
         'order'          => 'ASC'
     );
 
-    if ( !empty( $activiteit_types_filter )) {
+    if( !empty( $activiteit_types_filter ) ) {
         $tax_query = array(
             'relation' => 'OR',
             array(
@@ -292,7 +293,7 @@ function _get_activiteiten_args( array $post_types_filter, array $activiteit_typ
 }
 
 function _create_activiteiten_container( array $volgende_activiteiten, bool $minimaal, string $multiple_label ) {
-    if ( empty( $volgende_activiteiten )) {
+    if( empty( $volgende_activiteiten ) ) {
         return 
             "<div class='activiteit-container'>
                 <p class='no-event'>
@@ -303,22 +304,25 @@ function _create_activiteiten_container( array $volgende_activiteiten, bool $min
 
     $activiteit_container = '';
     foreach ( $volgende_activiteiten as $activiteit ) {
-        $type_slug    = $activiteit['typeSlug'];
-        $type_naam    = $activiteit['typeNaam'];
-        $titel        = $activiteit['titel'];
-        $datum        = _format_activiteit_datum( $activiteit['datum'], $minimaal );
-        $tijd         = $activiteit['tijd'];
-        $link         = $activiteit['link'];
-        $samenvatting = $activiteit['samenvatting'];
+        $type_slug         = $activiteit['typeSlug'];
+        $type_naam         = $activiteit['typeNaam'];
+        $titel             = $activiteit['titel'];
+        $datum             = _format_activiteit_datum( $activiteit['datum'], $minimaal );
+        $tijd              = $activiteit['tijd'];
+        $link              = $activiteit['link'];
+        $alternatieve_link = $activiteit['alternatieveLink'];
+        $samenvatting      = $activiteit['samenvatting'];
 
         $slug = explode( '_', $type_slug );
         $activiteit_klasse = $slug[0];
         $activiteit_type   = $slug[1];
 
+        $activiteit_url = empty( $alternatieve_link ) ? $link : $alternatieve_link;
+
         $samenvatting = $minimaal ? '' : "<p class='samenvatting'>$samenvatting</p>";
         $activiteit_container .= 
             "<div class='activiteit-blok'>
-                <a class='activiteit $activiteit_type $activiteit_klasse' href='$link'>
+                <a class='activiteit $activiteit_type $activiteit_klasse' href='$activiteit_url'>
                     <div class='activiteit-info'>
                         <div class='activiteit-header'>
                             <div class='datum'>$datum</div>

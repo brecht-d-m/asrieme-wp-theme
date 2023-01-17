@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'asrieme';
     src: url('icomoon/icomoon.eot?h1a6bx');
-    src: url('icomoon/icomoon.eot?h1a6bx#iefix') format('embedded-opentype'), url('icomoon/icomoon.ttf?h1a6bx') format('truetype'), url('icomoon/icomoon.woff?h1a6bx') format('woff'), url('icomoon/icomoon.svg?h1a6bx#icomoon') format('svg');
+    src: url('icomoon/icomoon.eot?h1a6bx#iefix') format( 'embedded-opentype'), url('icomoon/icomoon.ttf?h1a6bx') format( 'truetype'), url('icomoon/icomoon.woff?h1a6bx') format( 'woff'), url('icomoon/icomoon.svg?h1a6bx#icomoon') format( 'svg');
     font-weight: normal;
     font-style: normal;
     font-display: block;

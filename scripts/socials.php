@@ -70,7 +70,7 @@ function _get_button_twizzit() : string {
 function _get_button_flickr( bool $is_icon ) : string {
     $url = 'https://www.flickr.com/photos/asrieme/albums';
     $knop_titel = 'Volg ons op Flickr';
-    if ( $is_icon ) {
+    if( $is_icon ) {
         $knop_class = 'fab fa-flickr';
         return _create_social_button( $url, 'flickr', $knop_class, $knop_titel );
     } else {

@@ -51,7 +51,7 @@ class Sponsor {
     }
 
     private function _create_value_wrapper( string $value, string $type, string $fa_icon, bool $gebruik_info ) : string {
-        if ( empty( $value ) || !$gebruik_info ) {
+        if( empty( $value ) || !$gebruik_info ) {
             return '';
         }
 

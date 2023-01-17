@@ -48,14 +48,14 @@ class Member {
         $functie_beschrijving = empty( $this->functie_beschrijving ) ? '' : "<div class='functie-beschrijving'>$this->functie_beschrijving</div>";
     
         $mail = $this->mail;
-        if ( ! empty( $mail ) ) {
+        if( !empty( $mail ) ) {
             $mail = "<a href='mailto:$mail'>$mail</a>";
         }
         $mail = $this->_create_value_wrapper( $mail, 'mail', 'envelope' );
     
         $telefoon = $this->_create_value_wrapper( $this->telefoon, 'telefoon', 'phone' );
         $contact_container = '';
-        if ( ! empty( $mail ) || ! empty( $telefoon ) ) {
+        if( !empty( $mail ) || !empty( $telefoon ) ) {
             $contact_container = 
                 "<div class='contact-info-container'>
                     $mail
@@ -88,7 +88,7 @@ class Member {
         $foto_grootte = $member_card_properties->foto_vergroot == true ? 'bg' : 'sm';
     
         $foto = $this->foto;
-        if ( empty ($foto ) ) {
+        if( empty ($foto ) ) {
             $foto = 'https://asrieme.be/wp-content/uploads/2020/09/asrieme-logo-full-color-rgb.png';
             $foto_aspect_ratio = "ratio-unknown";
         }
@@ -98,7 +98,7 @@ class Member {
     }
     
     private function _create_value_wrapper( string $value, string $type, string $fa_icon ) : string {
-        if ( empty( $value ) ) {
+        if( empty( $value ) ) {
             return '';
         }
         

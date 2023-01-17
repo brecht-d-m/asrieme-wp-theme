@@ -15,7 +15,7 @@ function _create_wedstrijden_container( $volgende_wedstrijden, $wedstrijd_type, 
 /** Post-Wedstrijden Container**/
 function _post_wedstrijd_container( $wedstrijd_id ) : string {
     $post_wedstrijd_container = '';
-    if ( $wedstrijd_id != NULL ) {
+    if( $wedstrijd_id != NULL ) {
         $post_wedstrijd_container .= _create_resultaat_card( $wedstrijd_id );
         $post_wedstrijd_container .= _create_verslag_card( $wedstrijd_id );
         $post_wedstrijd_container .= _create_album_card( $wedstrijd_id );
@@ -29,7 +29,7 @@ function _post_wedstrijd_container( $wedstrijd_id ) : string {
 
 function _create_resultaat_card( $wedstrijd_id ) : string {
     $uitslagen_links = _create_info_listing( 'wedstrijduitslag', $wedstrijd_id );
-    if ( empty( $uitslagen_links ) ) {
+    if( empty( $uitslagen_links ) ) {
         return '';
     }
     $container_content = "<ul>$uitslagen_links</ul>";
@@ -38,7 +38,7 @@ function _create_resultaat_card( $wedstrijd_id ) : string {
 
 function _create_verslag_card( $wedstrijd_id ) : string {
     $verslagen_links = _create_info_listing( 'wedstrijdverslag', $wedstrijd_id );
-    if ( empty( $verslagen_links ) ) {
+    if( empty( $verslagen_links ) ) {
         return '';
     }
     $container_content = "<ul>$verslagen_links</ul>";
@@ -47,7 +47,7 @@ function _create_verslag_card( $wedstrijd_id ) : string {
 
 function _create_album_card( $wedstrijd_id ) : string {
     $album_links = _create_info_listing( 'wedstrijdalbum', $wedstrijd_id );
-    if ( empty( $album_links ) ) {
+    if( empty( $album_links ) ) {
         return '';
     }
     $container_content = "<ul>$album_links</ul>";
@@ -65,14 +65,14 @@ function _create_info_listing( $post_type, $wedstrijd_id ) : string {
     $post_links = '';
     $post_count = 0;
     $posts = new WP_Query( $wedstrijd_args );
-    if ( $posts->have_posts() ) {
+    if( $posts->have_posts() ) {
         while ( $posts->have_posts() ) {
             $post_count++;
             $posts->the_post();
 
             $post_title = get_the_title();
             $post_url = get_field( $post_type.'_link' );
-            if ( empty( $post_url ) ) {
+            if( empty( $post_url ) ) {
                 $post_url = get_the_permalink();
             }
 
@@ -102,22 +102,28 @@ function laatste_uitslagen_container_func () : string {
         )
     );
     
+    $uitslag_map = array();
     $query = new WP_Query( $args );
-    if ( $query->have_posts() ) {
-        $uitslag_map = array();
+    if( $query->have_posts() ) {
         while ( $query->have_posts() ) {
             $query->the_post();
-            $uitslag = _create_uitslag_array();
-            $jaar = $uitslag['jaar'];
-            if ( !array_key_exists( $jaar, $uitslag_map )) {
-                $uitslag_map[$jaar] = array();
+            $wedstrijd_id = get_field( 'wedstrijduitslag_wedstrijd' );
+            $eigen_organisatie = get_field( 'activiteit_eigenOrganisatie', $wedstrijd_id );
+            if( $eigen_organisatie ) {
+                $uitslag = _create_uitslag_array( $wedstrijd_id );
+                $jaar = $uitslag['jaar'];
+                if( !array_key_exists( $jaar, $uitslag_map ) ) {
+                    $uitslag_map[$jaar] = array();
+                }
+                array_push( $uitslag_map[$jaar], $uitslag );
             }
-            array_push( $uitslag_map[$jaar], $uitslag );
         }
-        wp_reset_postdata();
+    }
+    wp_reset_postdata();
+
+    if( !empty( $uitslag_map ) ) {
         return _create_uitslagen_tabellen( $uitslag_map );
     } else {
-        wp_reset_postdata();
         return 
             "<div class='uitslagen-container'>
                 <p class='no-uitslagen'>Er zijn geen uitslagen beschikbaar op dit moment...</p>
@@ -126,8 +132,7 @@ function laatste_uitslagen_container_func () : string {
 }
 add_shortcode( 'laatste_uitslagen_container', 'laatste_uitslagen_container_func' );
 
-function _create_uitslag_array() : array {
-    $wedstrijd_id = get_field( 'wedstrijduitslag_wedstrijd' );
+function _create_uitslag_array( int $wedstrijd_id ) : array {
     $uitslag_datum = get_field( 'activiteit_datum', $wedstrijd_id );
     $datum = DateTime::createFromFormat( 'Ymd', $uitslag_datum );
     $jaar = $datum->format( 'Y' );

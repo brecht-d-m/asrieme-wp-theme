@@ -20,7 +20,7 @@ function _laatste_posts( $post_type, $label_titel ) {
         'post_type'      => $post_type
     );
     $posts_results = new WP_Query( $posts_args );
-    if ( $posts_results->have_posts() ) {
+    if( $posts_results->have_posts() ) {
         while ( $posts_results->have_posts() ) {
             $posts_results->the_post();
             $post_datum = get_the_date( 'd/m' );
