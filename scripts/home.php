@@ -51,6 +51,12 @@ function adres_container_func() {
 }
 add_shortcode( 'adres_container', 'adres_container_func' );
 
+function jaarkalender_link_func() {
+    $home_id = _get_home_id();
+    return get_field( 'pagina_home_jaarkalender', $home_id );
+}
+add_shortcode( 'jaarkalender_link', 'jaarkalender_link_func' );
+
 function _get_home_id() : int {
     $query = new WP_Query([
         'post_type' => 'page',
