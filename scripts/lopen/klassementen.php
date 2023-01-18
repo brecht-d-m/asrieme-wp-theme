@@ -13,7 +13,7 @@ function klassementen_container_func( $atts ) {
     if( $type == 'algemeen' 
             || $type == 'vergoeding' 
             || $type == 'korting' ) {
-        $klassement_type = 'klassement_'.$type;
+        $klassement_type = 'klassement_' . $type;
     } else {
         return '';
     }
@@ -21,7 +21,7 @@ function klassementen_container_func( $atts ) {
     $klassementen = array();
     $query = new WP_Query( _get_klassement_args( $klassement_type ) );
     if( $query->have_posts() ) {
-        while ( $query->have_posts() ) {
+        while( $query->have_posts() ) {
             $query->the_post();
             array_push( $klassementen, _create_klassement() );
         }
@@ -33,7 +33,7 @@ function klassementen_container_func( $atts ) {
     }
 
     $klassement_container = '';
-    foreach ($klassementen as $k => $klassement ) {
+    foreach( $klassementen as $k => $klassement ) {
         $klassement_container .= $klassement->create_klassement_card();
     }
 

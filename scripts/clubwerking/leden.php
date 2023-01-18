@@ -92,7 +92,7 @@ function _join_names( array $leden ) : string {
     $naam = '';
     $leden_count = count( $leden );
     $count = 1;
-    foreach ( $leden as $lid_id ) {
+    foreach( $leden as $lid_id ) {
         $naam .= get_the_title( $lid_id );
         if( $count != $leden_count && $leden_count > 1 ) {
             $naam .= ' & ';
@@ -154,7 +154,7 @@ function _get_mail( $veld, string $functie = '', string $werkgroep = '' ) : stri
     $mail = '';
     $post_type = get_post_type( $lid_id );
     $mail = get_field( $post_type . '_mail', $lid_id );
-    return !empty ( $mail ) ? $mail : '' ;
+    return !empty( $mail ) ? $mail : '' ;
 }
 
 function _get_mail_slug( string $post_type, string $slug_naam ) : string {
@@ -171,7 +171,7 @@ function _get_mail_slug( string $post_type, string $slug_naam ) : string {
         $mail = get_field( $post_type . '_mail' );
     }
     wp_reset_postdata();
-    return !empty ( $mail ) ? $mail : '' ;
+    return !empty( $mail ) ? $mail : '' ;
 }
 
 /**

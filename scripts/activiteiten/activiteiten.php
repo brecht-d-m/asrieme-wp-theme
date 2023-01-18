@@ -104,7 +104,7 @@ function _create_inschrijvings_card() : string {
         $date = DateTime::createFromFormat( 'Ymd', $uiterste_datum )->getTimestamp();
         // Formatteer datum als: dag in cijfers en maand voluitgeschreven
         $formatter = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, NULL, IntlDateFormatter::GREGORIAN, 'd MMMM' );
-        $formatted_uiterste_datum = $formatter->format($date);
+        $formatted_uiterste_datum = $formatter->format( $date );
     }
 
     $inschrijvings_info = '';
@@ -185,28 +185,28 @@ function activiteiten_container_func( $atts ) {
     
     $activiteit_klasse = $a['klasse'];
     if( empty( $activiteit_klasse ) ) {
-        $post_types_filter = array ( 'wedstrijd', 'evenement' );
+        $post_types_filter = array( 'wedstrijd', 'evenement' );
     } else {
-        $post_types_filter = array ( $activiteit_klasse );
+        $post_types_filter = array( $activiteit_klasse );
     }
 
     $activiteit_type = $a['type'];
-    if( empty ( $activiteit_type ) ) {
+    if( empty( $activiteit_type ) ) {
         $activiteit_types_filter = array();
     } else {
         if( empty( !$activiteit_klasse ) ) {
-            $activiteit_types_filter = array( $activiteit_klasse.'_'.$activiteit_type );
+            $activiteit_types_filter = array( $activiteit_klasse . '_' . $activiteit_type );
         } else {
             $activiteit_types_filter = array( 
-                'wedstrijd_'.$activiteit_type,
-                'evenement_'.$activiteit_type
+                'wedstrijd_' . $activiteit_type,
+                'evenement_' . $activiteit_type
             );
         }
     }
 
     $volgende_activiteiten = _get_activiteiten( $post_types_filter, $activiteit_types_filter, $a['aantal'] );
     $minimaal = $a['minimaal'];
-    switch ( $activiteit_klasse ) {
+    switch( $activiteit_klasse ) {
         case 'evenement':
             $activiteiten_container = _create_evenementen_container( $volgende_activiteiten, $activiteit_type, $minimaal );
             break;
@@ -228,7 +228,7 @@ function _get_activiteiten( array $post_types_filter, array $activiteit_types_fi
     $activiteit_args = _get_activiteiten_args( $post_types_filter, $activiteit_types_filter, $aantal );
     $activiteit_query = new WP_Query( $activiteit_args );
     if( $activiteit_query->have_posts() ) {
-        while ( $activiteit_query->have_posts() ) {
+        while( $activiteit_query->have_posts() ) {
             $activiteit_query->the_post();
             // wedstrijd_type of evenement_type
             $activiteit_type_waarde = get_field( get_post_type().'_type' );
@@ -303,7 +303,7 @@ function _create_activiteiten_container( array $volgende_activiteiten, bool $min
     }
 
     $activiteit_container = '';
-    foreach ( $volgende_activiteiten as $activiteit ) {
+    foreach( $volgende_activiteiten as $activiteit ) {
         $type_slug         = $activiteit['typeSlug'];
         $type_naam         = $activiteit['typeNaam'];
         $titel             = $activiteit['titel'];

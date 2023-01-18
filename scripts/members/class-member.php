@@ -64,7 +64,8 @@ class Member {
         }
     
         $width_css_class = $member_card_properties->card_relative_width;
-        $foto_stretch = empty( $this->foto ) && $member_card_properties->foto_stretch ? 
+        $foto_aspect_ratio = $member_card_properties->foto_aspect_ratio;
+        $foto_stretch = ( empty( $this->foto ) || $foto_aspect_ratio == 'square' ) && $member_card_properties->foto_stretch ? 
             'stretch-foto' : '';
         return 
             "<div class='member-card $width_css_class'>
@@ -88,7 +89,7 @@ class Member {
         $foto_grootte = $member_card_properties->foto_vergroot == true ? 'bg' : 'sm';
     
         $foto = $this->foto;
-        if( empty ($foto ) ) {
+        if( empty( $foto ) ) {
             $foto = 'https://asrieme.be/wp-content/uploads/2020/09/asrieme-logo-full-color-rgb.png';
             $foto_aspect_ratio = "ratio-unknown";
         }

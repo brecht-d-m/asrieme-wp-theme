@@ -58,7 +58,7 @@ function _create_info_listing( $post_type, $wedstrijd_id ) : string {
     $wedstrijd_args = array(
         'posts_per_page' => -1,
         'post_type'      => $post_type,
-        'meta_key'       => $post_type.'_wedstrijd',
+        'meta_key'       => $post_type . '_wedstrijd',
         'meta_value'     => $wedstrijd_id
     );
 
@@ -66,12 +66,12 @@ function _create_info_listing( $post_type, $wedstrijd_id ) : string {
     $post_count = 0;
     $posts = new WP_Query( $wedstrijd_args );
     if( $posts->have_posts() ) {
-        while ( $posts->have_posts() ) {
+        while( $posts->have_posts() ) {
             $post_count++;
             $posts->the_post();
 
             $post_title = get_the_title();
-            $post_url = get_field( $post_type.'_link' );
+            $post_url = get_field( $post_type . '_link' );
             if( empty( $post_url ) ) {
                 $post_url = get_the_permalink();
             }
@@ -83,15 +83,15 @@ function _create_info_listing( $post_type, $wedstrijd_id ) : string {
     return $post_links;
 }
 
-function laatste_verslagen_container_func () : string {
-    return laatste_posts ( 'wedstrijdverslag', 'Laatste verslagen' );
+function laatste_verslagen_container_func() : string {
+    return laatste_posts( 'wedstrijdverslag', 'Laatste verslagen' );
 }
 add_shortcode( 'laatste_verslagen_container', 'laatste_verslagen_container_func' );
 
-function laatste_uitslagen_container_func () : string {
+function laatste_uitslagen_container_func() : string {
     $huidig_jaar = date( 'Y' );
     $vorig_jaar = $huidig_jaar - 1;
-    $date_filter = strtotime( '01-01-'.$vorig_jaar );
+    $date_filter = strtotime( '01-01-' . $vorig_jaar );
     $date_filter = date( 'Y-m-d', $date_filter );
 
     $args = array(
@@ -105,7 +105,7 @@ function laatste_uitslagen_container_func () : string {
     $uitslag_map = array();
     $query = new WP_Query( $args );
     if( $query->have_posts() ) {
-        while ( $query->have_posts() ) {
+        while( $query->have_posts() ) {
             $query->the_post();
             $wedstrijd_id = get_field( 'wedstrijduitslag_wedstrijd' );
             $eigen_organisatie = get_field( 'activiteit_eigenOrganisatie', $wedstrijd_id );

@@ -12,7 +12,7 @@ function werkgroepen_container_func() {
     $werkgroepen_info = _get_werkgroepen();
     
     $werkgroepen_info_cards = '';
-    foreach ( $werkgroepen_info as $info ) {
+    foreach( $werkgroepen_info as $info ) {
         $werkgroepen_info_cards .= $info->create_werkgroep_card();
     }
     
@@ -27,7 +27,7 @@ function werkgroepen_listing_func() {
     $werkgroepen_info = _get_werkgroepen();
     
     $werkgroep_oplijsting = '';
-    foreach ( $werkgroepen_info as $info ) {
+    foreach( $werkgroepen_info as $info ) {
         $groep_titel = $info->get_titel();
         $groep_naam = $info->get_naam();
         $werkgroep_oplijsting .= "<li><a href='#werkgroep-$groep_naam'>$groep_titel</a></li>";
@@ -43,7 +43,7 @@ function _get_werkgroepen() : array {
     $werkgroepen = array();
     $query = new WP_Query( _get_werkgroepen_args() );
     if( $query->have_posts() ) {
-        while ( $query->have_posts() ) {
+        while( $query->have_posts() ) {
             $query->the_post();
             array_push( $werkgroepen, _create_werkgroep() );
         }
@@ -102,14 +102,14 @@ function bestuurders_container_func( $atts ) {
     $bestuurders = array();
     $leden = new WP_Query( _get_bestuurders_args( $a['type'] ) );
     if( $leden->have_posts() ) {
-        while ( $leden->have_posts() ) {
+        while( $leden->have_posts() ) {
             $leden->the_post();   
             array_push( $bestuurders, _create_bestuurder() );
         }
     }
     wp_reset_postdata();
 
-    if( empty ( $bestuurders ) ) {
+    if( empty( $bestuurders ) ) {
         return '';
     }
 
@@ -118,7 +118,7 @@ function bestuurders_container_func( $atts ) {
     $card_properties->set_card_relative_width( "col-lg-6" );
 
     $bestuurders_container = '';
-    foreach ( $bestuurders as $b => $bestuurder ) {
+    foreach( $bestuurders as $b => $bestuurder ) {
         $bestuurders_container .= $bestuurder->create_member_card( $card_properties );
     }
 
@@ -136,7 +136,7 @@ function _get_bestuurders_args( string $bestuurder_type ) : array {
         'tax_query'      => array(
             array(
                 'taxonomy'  => 'type_lid',
-                'terms'     => 'bestuurder_'.$bestuurder_type,
+                'terms'     => 'bestuurder_' . $bestuurder_type,
                 'field'     => 'slug',
                 'operator'  => 'IN'
             )
@@ -155,10 +155,10 @@ function bestuursfuncties_container_func() {
     $bestuursfuncties = array();
     $leden = new WP_Query( _get_bestuursfuncties_args() );
     if( $leden->have_posts() ) {
-        while ( $leden->have_posts() ) {
+        while( $leden->have_posts() ) {
             $leden->the_post();
             $mail = get_field( 'clubfunctie_mail' );
-            foreach ( get_field( 'clubfunctie_lid' ) as $bestuurder_id ) {
+            foreach( get_field( 'clubfunctie_lid' ) as $bestuurder_id ) {
                 $bestuurder = _create_bestuurderfunctie( $mail, $bestuurder_id );
                 array_push( $bestuursfuncties, $bestuurder );                
             }
@@ -166,14 +166,14 @@ function bestuursfuncties_container_func() {
     }
     wp_reset_postdata();
 
-    if( empty ( $bestuursfuncties ) ) {
+    if( empty( $bestuursfuncties ) ) {
         return '';
     }
 
     // Herorder bestuursfuncties (zodat voorzitter/ondervoorzitter onder elkaar staat)
     $bestuursfuncties_reordered = array();
     $j = (int) floor( count( $bestuursfuncties ) / 2 );
-    for ( $i = 0; $i < ceil( count( $bestuursfuncties ) / 2 ); $i++ ) {
+    for( $i = 0; $i < ceil( count( $bestuursfuncties ) / 2 ); $i++ ) {
         $bestuursfuncties_reordered[$i*2] = $bestuursfuncties[$i];
         if( array_key_exists( $j+$i+1 , $bestuursfuncties) ) {
             $bestuursfuncties_reordered[$i*2+1] = $bestuursfuncties[$j+$i+1];
@@ -181,11 +181,14 @@ function bestuursfuncties_container_func() {
     }
 
     $card_properties = new Member_Card_Properties();
+    // TODO Info rechts moet vanboven blijven
+    // Foto is 180px hoog. 
+    $card_properties->set_foto_stretch( true );
     $card_properties->set_foto_aspect_ratio( 'square' );
     $card_properties->set_card_relative_width( 'col-lg-6' );
 
     $bestuursfuncties_container = '';
-    foreach ( $bestuursfuncties_reordered as $b => $bestuurder ) {
+    foreach( $bestuursfuncties_reordered as $b => $bestuurder ) {
         $bestuursfuncties_container .= $bestuurder->create_member_card( $card_properties );
     }
     
@@ -219,7 +222,7 @@ function _get_bestuursfuncties_args() : array {
 }
 
 function _create_bestuurderfunctie( string $bestuursfunctie_mail, int $bestuurder_id ) : Member {
-    $gender = get_field ( 'lid_gender', $bestuurder_id );
+    $gender = get_field( 'lid_gender', $bestuurder_id );
     $functie = _get_correct_functie( get_the_title(), $gender );
     $bestuurder = new Member();
     $bestuurder->set_naam( get_the_title( $bestuurder_id ) );
@@ -231,7 +234,7 @@ function _create_bestuurderfunctie( string $bestuursfunctie_mail, int $bestuurde
 }
 
 function _get_correct_functie( $functie, $gender ) {
-    if($functie == 'Ondervoorzitter' ) {
+    if( functie == 'Ondervoorzitter' ) {
         return $gender == 'm' ? $functie : 'Ondervoorzitster';
     }
     return $functie;

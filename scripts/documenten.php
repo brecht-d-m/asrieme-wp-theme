@@ -18,7 +18,7 @@ function documenten_container_func( $atts ) {
     $exploded_links = explode( "\n", $document_links );
 
     $listed_documents = '';
-    foreach ( $exploded_links as $attachment_url ) {
+    foreach( $exploded_links as $attachment_url ) {
         $attachment_link = _get_attachment_link( $attachment_url, $target );
         $listed_documents .= 
                 "<li class='document'>

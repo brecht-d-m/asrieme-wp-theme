@@ -79,7 +79,7 @@ class Werkgroep {
     
         $exploded_mails = explode( "\n", $mail );
         $adressen = '';
-        foreach ( $exploded_mails as $adres ) {
+        foreach( $exploded_mails as $adres ) {
             $adressen .= "<div class='mail-adres'><a href='mailto:$adres'>$adres</a></div>";
         }
     
@@ -95,7 +95,7 @@ class Werkgroep {
     
         $lead_tekst = 'Wordt geleid door ';
         $counter = 1;
-        foreach ( $leads as $lead ) {
+        foreach( $leads as $lead ) {
             $lead_tekst .= get_the_title( $lead->ID );
             if( $counter != $nm_leads ) {
                 $lead_tekst .= " & ";
@@ -116,11 +116,11 @@ class Werkgroep {
             return '';
         }
     
-        foreach ( $this->subwerkgroepen as $subwerkgroep ) {
+        foreach( $this->subwerkgroepen as $subwerkgroep ) {
             $sub_id = $subwerkgroep->ID;
     
             $leads = array();
-            foreach ( get_field( 'werkgroep_lead', $sub_id ) as $lead_id ) {
+            foreach( get_field( 'werkgroep_lead', $sub_id ) as $lead_id ) {
                 array_push( $leads, get_post( $lead_id ) );
             }
     

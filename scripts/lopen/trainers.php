@@ -9,7 +9,7 @@ use Member\Member_Card_Properties;
 function trainingsgroep_coordinator_func() {
     $coordinator = get_field( 'trainingsgroep_coordinator' );
 
-    $coordinator_titel = strtolower(get_the_title( $coordinator ) );
+    $coordinator_titel = strtolower( get_the_title( $coordinator ) );
     $coordinator_mail = get_field( 'clubfunctie_mail', $coordinator );
     $coordinator_leden = get_field( 'clubfunctie_lid', $coordinator );
 
@@ -32,7 +32,7 @@ function trainingsgroep_trainers_container_func() {
     $trainers = array();
     $query = new WP_Query( _get_trainers_args() );
     if( $query->have_posts() ) {
-        while ( $query->have_posts() ) {
+        while( $query->have_posts() ) {
             $query->the_post();
             $trainer_id = get_field( 'trainingsopdracht_trainer' );
             $specialisatie = get_field( 'trainingsopdracht_specialisatie' );
@@ -41,7 +41,7 @@ function trainingsgroep_trainers_container_func() {
     }
     wp_reset_postdata();
 
-    if( empty ( $trainers ) ) {
+    if( empty( $trainers ) ) {
         return '';
     }
 
@@ -51,7 +51,7 @@ function trainingsgroep_trainers_container_func() {
     $card_properties->set_card_relative_width( 'col-lg-6' );
 
     $trainers_container = '';
-    foreach ($trainers as $t => $trainer ) {
+    foreach( $trainers as $t => $trainer ) {
         $trainers_container .= $trainer->create_member_card( $card_properties );
     }
 

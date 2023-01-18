@@ -6,7 +6,7 @@ require_once 'class-sponsor-card-properties.php';
 use Sponsor\Sponsor;
 use Sponsor\Sponsor_Card_Properties;
 
-function sponsor_willekeurig_func ( $atts ) {
+function sponsor_willekeurig_func( $atts ) {
     $a = shortcode_atts( array( 'bordered' => false ), $atts );
 
     // Don't filter on sponsor type and return max 1 sponsor
@@ -29,14 +29,14 @@ function sponsor_willekeurig_func ( $atts ) {
 }
 add_shortcode( 'sponsor_willekeurig', 'sponsor_willekeurig_func' );
 
-function sponsors_container_func ( $atts ) {
+function sponsors_container_func( $atts ) {
     $a = shortcode_atts( array(
         'bordered' => false,
         'type' => '' ), $atts );
 
     $type = $a['type'];
-    if( !empty ( $type ) ) {
-        $sponsor_type = 'sponsor_'.$type;
+    if( !empty( $type ) ) {
+        $sponsor_type = 'sponsor_' . $type;
     } else {
         $sponsor_type = '';
     }
@@ -44,7 +44,7 @@ function sponsors_container_func ( $atts ) {
     $sponsors = array();
     $query = new WP_Query( _get_sponsors_args( $sponsor_type, -1 ) );
     if( $query->have_posts() ) {
-        while ( $query->have_posts() ) {
+        while( $query->have_posts() ) {
             $query->the_post();
             array_push( $sponsors, _create_sponsor( $type ) );
         }
@@ -61,7 +61,7 @@ function sponsors_container_func ( $atts ) {
     $card_properties->set_card_relative_width( 'col-lg-4' );
 
     $sponsor_container = '';
-    foreach ($sponsors as $s => $sponsor ) {
+    foreach( $sponsors as $s => $sponsor ) {
         $sponsor_container .= $sponsor->create_sponsor_card( $card_properties );
     }
 

@@ -13,7 +13,7 @@ function contact_footer_func() {
     $adres = str_replace( "\r", '', $adres );
     $exploded_adres = explode( "\n", $adres );
     $adres_container = '';
-    foreach ($exploded_adres as $line) {
+    foreach( $exploded_adres as $line) {
         $adres_container .= "<p>$line</p>";
     }
 
@@ -41,7 +41,7 @@ function adres_container_func() {
     $adres = str_replace( "\r", '', $adres );
     $exploded_adres = explode( "\n", $adres );
     $adres_container = '';
-    foreach ($exploded_adres as $line) {
+    foreach( $exploded_adres as $line) {
         $adres_container .= "<div>$line</div>";
     }
     return 
