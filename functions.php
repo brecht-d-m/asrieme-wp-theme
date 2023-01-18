@@ -113,15 +113,15 @@ function remove_comments_admin_bar() {
 }
 add_action( 'wp_before_admin_bar_render', 'remove_comments_admin_bar' );
 
-// Tag and Categories archive paginas verbergen
-function remove_archives_tag_category() {
-    if( is_tag() || is_category() ) {
-        $target = get_option( 'siteurl' );
-        if ( wp_redirect( $target, 301 ) ) {
-            exit;
+function remove_built_in_roles() {
+    global $wp_roles;
+    $roles_to_remove = array( 'subscriber', 'contributor', 'author', 'editor' );
+    foreach( $roles_to_remove as $role ) {
+        if( isset( $wp_roles->roles[$role] ) ) {
+            $wp_roles->remove_role( $role );
         }
     }
 }
-add_action( 'template_redirect', 'remove_archives_tag_category');
+add_action( 'admin_menu', 'remove_built_in_roles' );
 
 ?>

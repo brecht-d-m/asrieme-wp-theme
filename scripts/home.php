@@ -53,7 +53,11 @@ add_shortcode( 'adres_container', 'adres_container_func' );
 
 function jaarkalender_link_func() {
     $home_id = _get_home_id();
-    return get_field( 'pagina_home_jaarkalender', $home_id );
+    $jaarkalender_link = get_field( 'pagina_home_jaarkalender', $home_id );
+    return 
+        "<div class='actie-knop'>
+            <a href='$jaarkalender_link' target='_blank'>Jaarkalender</a>
+        </div>";
 }
 add_shortcode( 'jaarkalender_link', 'jaarkalender_link_func' );
 
