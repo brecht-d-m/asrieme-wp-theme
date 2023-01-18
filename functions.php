@@ -113,4 +113,15 @@ function remove_comments_admin_bar() {
 }
 add_action( 'wp_before_admin_bar_render', 'remove_comments_admin_bar' );
 
+// Tag and Categories archive paginas verbergen
+function remove_archives_tag_category() {
+    if( is_tag() || is_category() ) {
+        $target = get_option( 'siteurl' );
+        if ( wp_redirect( $target, 301 ) ) {
+            exit;
+        }
+    }
+}
+add_action( 'template_redirect', 'remove_archives_tag_category');
+
 ?>
