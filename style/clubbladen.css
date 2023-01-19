@@ -26,6 +26,7 @@
     color: #808080;
 }
 
+
 /* Minimaal type clubbad card */
 
 .minimaal .clubblad-card-inner {
@@ -34,21 +35,32 @@
     margin: 0.25vw;
 }
 
+.minimaal .clubblad-card-inner:hover {
+    background-color: #445e85;
+}
+
 .minimaal .clubblad-card-inner a {
     text-decoration: none;
     color: #808080;
 }
 
+.minimaal .clubblad-card-inner a:hover,
+.minimaal .clubblad-card-inner a:hover .info-wrapper h4,
+.minimaal .clubblad-card-inner a:hover .uitgave-wrapper,
+.minimaal .clubblad-card-inner a:hover .uitgave-wrapper .datum,
+.minimaal .clubblad-card-inner a:hover .uitgave-wrapper .uitgave {
+    color: #e4e7ed;
+}
+
 .minimaal .clubblad-card-inner .info-wrapper {
-    padding: 0.75vw 0.5vw 0.75vw 0.5vw;
+    padding: 0.75vw;
 }
 
 .minimaal .clubblad-card-inner .foto-wrapper img {
-    border-top-left-radius: 1vw;
-    border-top-right-radius: 1vw;
     height: auto !important;
     width: 100% !important;
 }
+
 
 /* Standaard type clubbad card */
 
@@ -59,16 +71,7 @@
 }
 
 .standaard .clubblad-card-inner .info-wrapper {
-    padding: 0.75vw 0.5vw 0.75vw 0.5vw;
-}
-
-.standaard .clubblad-card-inner .info-wrapper h4 {
-    color: #041d3d;
-    width: 100%;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #041d3d;
-    font-weight: bold;
+    padding: 0.75vw 0.5vw 0.75vw 0.75vw;
 }
 
 .standaard .clubblad-card-inner .info-wrapper .info-icon-wrapper {
@@ -80,23 +83,7 @@
     margin-left: 1vw;
 }
 
-.standaard .clubblad-card-inner .foto-wrapper img {
-    border-radius: 1vw;
-}
-
-.standaard .clubblad-card-inner .uitgave-wrapper {
-    vertical-align: baseline;
-    font-size: 0.95rem;
-    line-height: 1.25em;
-    color: #a6a6a6;
-}
-
-.standaard .clubblad-card-inner .uitgave-wrapper .datum,
-.standaard .clubblad-card-inner .uitgave-wrapper .uitgave {
-    font-weight: bold;
-    color: #808080;
-}
-
 .standaard .clubblad-card-inner .actie-knop {
+    margin-top: 3vw;
     width: 100%;
 }

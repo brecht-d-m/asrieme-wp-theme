@@ -9,7 +9,6 @@ class Clubblad {
     public int $uitgelichte_afbeelding_id;
     public int $uitgave;
     public string $uitgave_datum;
-    public string $inhoudstafel = '';
     public string $link = '';
 
     public function set_titel( string $titel = '' ) : void {
@@ -32,10 +31,6 @@ class Clubblad {
         $this->uitgave_datum = $uitgave_datum;
     }
 
-    public function set_inhoudstafel( string $inhoudstafel = '' ) : void {
-        $this->inhoudstafel = $inhoudstafel;
-    }
-
     public function set_link( string $link ) : void {
         $this->link = $link;
     }
@@ -53,7 +48,11 @@ class Clubblad {
     }
 
     private function _create_minimaal_clubblad_card( Clubblad_Card_Properties $properties ) : string {
-        $foto_wrapper = wp_get_attachment_image( $this->uitgelichte_afbeelding_id, 'medium' );
+        if( $this->uitgelichte_afbeelding_id == NULL ) {
+            return '';
+        }
+
+        $foto_wrapper = wp_get_attachment_image( $this->uitgelichte_afbeelding_id, 'medium', false, array( 'class' => 'rounded-top' )  );
 
         $thema = empty( $this->thema ) ? '' : "<h4 class='thema'>$this->thema</h4>";
         $info_wapper = $this->_create_uitgave_container();
@@ -76,7 +75,7 @@ class Clubblad {
     }
 
     private function _create_standaard_clubblad_card( Clubblad_Card_Properties $properties ) : string {
-        $foto_wrapper = wp_get_attachment_image( $this->uitgelichte_afbeelding_id, 'full' );
+        $foto_wrapper = wp_get_attachment_image( $this->uitgelichte_afbeelding_id, 'full', false, array( 'class' => 'rounded' ) );
 
         $thema = empty( $this->thema ) ? '' : "<h4 class='thema'>$this->thema</h4>";
         $info_wrapper = $this->_create_uitgave_container();
