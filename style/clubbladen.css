@@ -1,0 +1,102 @@
+.clubblad-card-inner .info-wrapper h4 {
+    color: #041d3d;
+    width: 100%;
+    font-weight: bold;
+    border-bottom-width: 1px;
+    border-style: solid;
+    border-color: #041d3d;
+}
+
+.clubblad-card-inner .info-icon-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.clubblad-card-inner .uitgave-wrapper {
+    vertical-align: baseline;
+    font-size: 0.95rem;
+    line-height: 1.25em;
+    color: #a6a6a6;
+}
+
+.clubblad-card-inner .uitgave-wrapper .datum,
+.clubblad-card-inner .uitgave-wrapper .uitgave {
+    font-weight: bold;
+    color: #808080;
+}
+
+/* Minimaal type clubbad card */
+
+.minimaal .clubblad-card-inner {
+    background-color: #f8f8f8;
+    width: 95%;
+    margin: 0.25vw;
+}
+
+.minimaal .clubblad-card-inner a {
+    text-decoration: none;
+    color: #808080;
+}
+
+.minimaal .clubblad-card-inner .info-wrapper {
+    padding: 0.75vw 0.5vw 0.75vw 0.5vw;
+}
+
+.minimaal .clubblad-card-inner .foto-wrapper img {
+    border-top-left-radius: 1vw;
+    border-top-right-radius: 1vw;
+    height: auto !important;
+    width: 100% !important;
+}
+
+/* Standaard type clubbad card */
+
+.standaard .clubblad-card-inner .info-icon-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.standaard .clubblad-card-inner .info-wrapper {
+    padding: 0.75vw 0.5vw 0.75vw 0.5vw;
+}
+
+.standaard .clubblad-card-inner .info-wrapper h4 {
+    color: #041d3d;
+    width: 100%;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #041d3d;
+    font-weight: bold;
+}
+
+.standaard .clubblad-card-inner .info-wrapper .info-icon-wrapper {
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
+.standaard .clubblad-card-inner .info-wrapper ul {
+    margin-left: 1vw;
+}
+
+.standaard .clubblad-card-inner .foto-wrapper img {
+    border-radius: 1vw;
+}
+
+.standaard .clubblad-card-inner .uitgave-wrapper {
+    vertical-align: baseline;
+    font-size: 0.95rem;
+    line-height: 1.25em;
+    color: #a6a6a6;
+}
+
+.standaard .clubblad-card-inner .uitgave-wrapper .datum,
+.standaard .clubblad-card-inner .uitgave-wrapper .uitgave {
+    font-weight: bold;
+    color: #808080;
+}
+
+.standaard .clubblad-card-inner .actie-knop {
+    width: 100%;
+}

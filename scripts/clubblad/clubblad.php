@@ -22,13 +22,13 @@ function laatste_clubblad_func() {
     $card_properties = new Clubblad_Card_Properties();
     $card_properties->set_card_minimaal( false );
     $card_properties->set_card_relative_width( 'col-12' );
-    return $clubblad->create_clubblad_card( $card_properties );
+    return $laatste_clubblad->create_clubblad_card( $card_properties );
 }
 add_shortcode( 'laatste_clubblad', 'laatste_clubblad_func' );
 
 function clubbladen_container_func() {
     $laatste_clubbladen = array();
-    $query = new WP_Query( _get_clubbladen_args( 11 ) );
+    $query = new WP_Query( _get_clubbladen_args( 7 ) );
     if( $query->have_posts() ) {
         while( $query->have_posts() ) {
             $query->the_post();
@@ -45,15 +45,15 @@ function clubbladen_container_func() {
 
     $card_properties = new Clubblad_Card_Properties();
     $card_properties->set_card_minimaal( true );
-    $card_properties->set_card_relative_width( 'col-4' );
+    $card_properties->set_card_relative_width( 'col-xl-4 col-md-6 col-sm-12' );
     
     $clubblad_container = '';
-    foreach( $clubblad as $c => $clubblad ) {
+    foreach( $laatste_clubbladen as $c => $clubblad ) {
         $clubblad_container .= $clubblad->create_clubblad_card( $card_properties );
     }
 
     return 
-        "<div class='clubbladen-container row'>
+        "<div class='clubbladen-container row gy-4'>
             $clubblad_container
         </div>";
 }
@@ -72,11 +72,21 @@ function _get_clubbladen_args( int $aantal ) : array {
 function _create_clubblad() : Clubblad {
     $clubblad = new Clubblad();
     $clubblad->set_titel( get_the_title() );
+    $thema = get_field( 'clubblad_thema' );
+    if ( !empty( $thema ) ) {
+        $clubblad->set_thema( $thema );
+    }
     $clubblad->set_uitgave( get_field( 'clubblad_uitgave' ) );
-    $clubblad->set_uitgave_datum( get_field( 'clubblad_uitgave_datum' ) );
+    $clubblad->set_uitgave_datum( get_field( 'clubblad_uitgaveDatum' ) );
     $clubblad->set_inhoudstafel( get_field( 'clubblad_inhoudstafel' ) );
+    $clubblad->set_link( get_field( 'clubblad_link' ) );
+    $excerpt = get_the_excerpt();
+    if( !empty($excerpt) ) {
+        $clubblad->set_excerpt( $excerpt );
+    }
+    $clubblad->set_excerpt( get_the_excerpt() );
     if( has_post_thumbnail() ) {
-        $clubblad->set_uitgelichte_afbeelding( get_the_post_thumbnail_id() );
+        $clubblad->set_uitgelichte_afbeelding( get_post_thumbnail_id() );
     }
     return $clubblad;
 }
