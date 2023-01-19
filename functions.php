@@ -55,6 +55,7 @@ include 'scripts/clubwerking/leden.php';
 include 'scripts/clubwerking/sponsors.php';
 include 'scripts/lopen/trainers.php';
 include 'scripts/lopen/klassementen.php';
+include 'scripts/clubblad/clubblad.php';
 include 'scripts/back-button.php';
 include 'scripts/documenten.php';
 include 'scripts/socials.php';
