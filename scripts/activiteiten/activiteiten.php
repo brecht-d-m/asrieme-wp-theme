@@ -231,7 +231,7 @@ function _get_activiteiten( array $post_types_filter, array $activiteit_types_fi
         while( $activiteit_query->have_posts() ) {
             $activiteit_query->the_post();
             // wedstrijd_type of evenement_type
-            $activiteit_type_waarde = get_field( get_post_type().'_type' );
+            $activiteit_type_waarde = get_field( get_post_type() . '_type' );
             $activiteit_type_naam = $activiteit_type_waarde->name;
             $activiteit_type_slug = $activiteit_type_waarde->slug;
             $activiteit = array(

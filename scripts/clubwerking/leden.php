@@ -41,7 +41,7 @@ function _get_naam( string $veld, string $functie = '', string $werkgroep = '' )
     if( !empty( $functie ) ) {
         return _get_naam_slug( 'clubfunctie', $functie );
     } elseif( !empty( $werkgroep ) ) {
-        return _get_naam_slug( 'werkgroep', $werkgroep );
+        return 'Werkgroep ' . _get_naam_slug( 'werkgroep', $werkgroep );
     }
 
     if( !empty( $veld ) ) { 
@@ -56,7 +56,10 @@ function _get_naam( string $veld, string $functie = '', string $werkgroep = '' )
     
     $post_type = get_post_type( $lid_id );
     if( $post_type == 'clubfunctie' || $post_type == 'werkgroep' ) {
-        return _get_naam_id( $post_type, $lid_id );
+        $naam = _get_naam_id( $post_type, $lid_id );
+        $naam = ( $post_type == 'werkgroep' ) ? strtolower( $naam ) : $naam;
+        $prefix = ( $post_type == 'werkgroep' ) ? 'Werkgroep ' : '';
+        return $prefix . $naam;
     } elseif( $post_type == 'lid' || $post_type == 'trainer' ) {
         return get_the_title( $lid_id );
     }

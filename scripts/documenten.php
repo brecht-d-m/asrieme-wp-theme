@@ -67,7 +67,7 @@ add_shortcode( 'document_link', 'document_link_func' );
 
 function _get_attachment_link( string $attachment_url, string $target = '', string $titel = '' ) : string {
     $uploads = wp_get_upload_dir();
-    $attachment = trim( str_replace( $uploads['baseurl'].'/', '', $attachment_url ) );
+    $attachment = trim( str_replace( $uploads['baseurl'] . '/', '', $attachment_url ) );
     $attachment_args = array(
         'post_type'      => 'attachment',
         'post_status'    => 'any',

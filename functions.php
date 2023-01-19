@@ -40,6 +40,8 @@ function my_theme_enqueue_styles() {
     wp_enqueue_style( 'rieme-sponsors-style' );
     wp_register_style( 'rieme-klassementen-style', get_stylesheet_directory_uri() . '/style/klassementen.css' );
     wp_enqueue_style( 'rieme-klassementen-style' );
+    wp_register_style( 'rieme-clubbladen-style', get_stylesheet_directory_uri() . '/style/clubbladen.css' );
+    wp_enqueue_style( 'rieme-clubbladen-style' );
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 

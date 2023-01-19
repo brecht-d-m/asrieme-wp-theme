@@ -38,6 +38,10 @@
     background-color: #ff0084;
 }
 
+.contact .social-button.issuu:hover {
+    background-color: #ef5350;
+}
+
 .social-button>a {
     color: #041d3d;
     font-size: 18px;
