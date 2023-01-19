@@ -19,11 +19,13 @@ function documenten_container_func( $atts ) {
 
     $listed_documents = '';
     foreach( $exploded_links as $attachment_url ) {
-        $attachment_link = _get_attachment_link( $attachment_url, $target );
-        $listed_documents .= 
+        if( !empty( $attachment_url ) ) {
+            $attachment_link = _get_attachment_link( $attachment_url, $target );
+            $listed_documents .= 
                 "<li class='document'>
                     $attachment_link
                 </li>";
+        }
     }
 
     return
@@ -55,7 +57,11 @@ function document_link_func( $atts ) {
 
     $document_url = get_field( $veld_document );
     $document_url = str_replace( "\r", '', $document_url );
-    return _get_attachment_link( $document_url, $target, $titel );
+    if( empty( $document_url ) ) {
+        return '';
+    } else {
+        return _get_attachment_link( $document_url, $target, $titel );
+    }  
 }
 add_shortcode( 'document_link', 'document_link_func' );
 
