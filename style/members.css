@@ -91,6 +91,10 @@
     font-size: 1rem;
 }
 
+.member-card .info-wrapper .contact-info-container {
+    margin-bottom: 1vw;
+}
+
 .member-card .info-wrapper .contact-info-container .value-wrapper {
     display: flex;
     flex-direction: row;

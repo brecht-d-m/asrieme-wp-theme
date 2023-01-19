@@ -78,7 +78,6 @@ function _create_clubblad() : Clubblad {
     }
     $clubblad->set_uitgave( get_field( 'clubblad_uitgave' ) );
     $clubblad->set_uitgave_datum( get_field( 'clubblad_uitgaveDatum' ) );
-    $clubblad->set_inhoudstafel( get_field( 'clubblad_inhoudstafel' ) );
     $clubblad->set_link( get_field( 'clubblad_link' ) );
     $excerpt = get_the_excerpt();
     if( !empty($excerpt) ) {

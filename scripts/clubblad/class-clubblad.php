@@ -81,15 +81,6 @@ class Clubblad {
         $thema = empty( $this->thema ) ? '' : "<h4 class='thema'>$this->thema</h4>";
         $info_wrapper = $this->_create_uitgave_container();
 
-        $inhoudstafel = $this->inhoudstafel;
-        $inhoudstafel = str_replace( "\r", '', $inhoudstafel );
-        $exploded_inhoudstafel = explode( "\n", $inhoudstafel );
-        $inhoudstafel_listing = '';
-        foreach( $exploded_inhoudstafel as $subtitel ) {
-            $inhoudstafel_listing .= "<li>$subtitel</li>";
-        }
-        $inhoudstafel_listing = "<ul>$inhoudstafel_listing</ul>";
-
         $leer_meer_knop =
             "<div class='actie-knop'>
                 <a href='$this->link' target='_blank'>Bekijk online</a>
@@ -105,7 +96,6 @@ class Clubblad {
                         $thema
                         $info_wrapper
                         <p>$this->excerpt</p>
-                        $inhoudstafel_listing
                         $leer_meer_knop
                     </div>
                 </div>

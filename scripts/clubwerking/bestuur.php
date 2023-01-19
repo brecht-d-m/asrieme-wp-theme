@@ -181,9 +181,6 @@ function bestuursfuncties_container_func() {
     }
 
     $card_properties = new Member_Card_Properties();
-    // TODO Info rechts moet vanboven blijven
-    // Foto is 180px hoog. 
-    $card_properties->set_foto_stretch( true );
     $card_properties->set_foto_aspect_ratio( 'square' );
     $card_properties->set_card_relative_width( 'col-lg-6' );
 
@@ -234,7 +231,7 @@ function _create_bestuurderfunctie( string $bestuursfunctie_mail, int $bestuurde
 }
 
 function _get_correct_functie( $functie, $gender ) {
-    if( functie == 'Ondervoorzitter' ) {
+    if( $functie == 'Ondervoorzitter' ) {
         return $gender == 'm' ? $functie : 'Ondervoorzitster';
     }
     return $functie;
