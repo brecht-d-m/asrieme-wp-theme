@@ -79,6 +79,11 @@
     margin-bottom: 1vw;
 }
 
+.standaard .clubblad-card-inner .info-wrapper p {
+    font-size: 1rem;
+    line-height: 1.5em;
+}
+
 .standaard .clubblad-card-inner .info-wrapper ul {
     margin-left: 1vw;
 }

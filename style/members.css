@@ -1,13 +1,9 @@
 .member-card-inner {
     background-color: #f8f8f8;
-    /* A little bit smaller than the trainer card, so the background color shows nice */
-    width: 95%;
-    height: 95%;
+    height: 100%;
     /* Make inner elements display next to eachother */
     margin: 0.25vw;
-    padding: 0.5vw;
-    display: flex;
-    align-items: stretch;
+    padding: 0.2vw;
 }
 
 .member-card .foto-wrapper {

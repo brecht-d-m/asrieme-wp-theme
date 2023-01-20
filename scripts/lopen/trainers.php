@@ -56,7 +56,7 @@ function trainingsgroep_trainers_container_func() {
     }
 
     return
-        "<div class='trainers-container row'>
+        "<div class='trainers-container row gy-3'>
             $trainers_container
         </div>";
 }

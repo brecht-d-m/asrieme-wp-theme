@@ -69,11 +69,11 @@ class Member {
             'stretch-foto' : '';
         return 
             "<div class='member-card $width_css_class'>
-                <div class='member-card-inner rounded'>
-                    <div class='foto-wrapper rounded $foto_stretch'>
+                <div class='member-card-inner rounded d-flex flex-column flex-md-row'>
+                    <div class='foto-wrapper mx-1 mt-1 mx-sm-1 mt-sm-1 mx-md-2 my-md-2 my-lg-0 rounded $foto_stretch'>
                         $foto_wrapper
                     </div>
-                    <div class='info-wrapper'>
+                    <div class='info-wrapper px-1 pt-1 px-sm-1 pt-sm-2 px-md-2 py-md-2 py-lg-0'>
                         <h4 class='naam'>$this->naam</h4>
                         $functie
                         $functie_beschrijving

@@ -26,6 +26,7 @@
 
 .uitslagen-container .uitslagen-subcontainer .wedstrijd {
     width: 75%;
+    white-space: nowrap;
 }
 
 .uitslagen-container .uitslagen-subcontainer .link {

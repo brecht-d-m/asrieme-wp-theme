@@ -123,7 +123,7 @@ function bestuurders_container_func( $atts ) {
     }
 
     return 
-        "<div class='bestuurders-container row'>
+        "<div class='bestuurders-container row gy-2'>
             $bestuurders_container
         </div>";
 }
@@ -190,7 +190,7 @@ function bestuursfuncties_container_func() {
     }
     
     return 
-        "<div class='bestuurders-container row'>
+        "<div class='bestuurders-container row gy-2'>
             $bestuursfuncties_container
         </div>";
 }
