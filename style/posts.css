@@ -1,15 +1,15 @@
-.wedstrijdverslag-card-inner {
+.post-card-inner {
     width: 95%;
     margin: 0.25vw;
 }
 
-.wedstrijdverslag-card-inner a {
+.post-card-inner a {
     text-decoration: none;
     display: flex;
     flex-direction: column;
 }
 
-.wedstrijdverslag-card-inner a .foto-wrapper {
+.post-card-inner a .foto-wrapper {
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -18,25 +18,25 @@
     background-color: #f8f8f8;
 }
 
-.wedstrijdverslag-card-inner a .info-wrapper .wedstrijd,
-.wedstrijdverslag-card-inner a .info-wrapper .datum {
+.post-card-inner a .info-wrapper .activiteit-titel,
+.post-card-inner a .info-wrapper .datum {
     color: #808080;
     font-size: 0.9rem;
 }
 
-.wedstrijdverslag-card-inner a .info-wrapper h4 {
+.post-card-inner a .info-wrapper h4 {
     color: #041d3d;
 }
 
-.wedstrijdverslag-card-inner a:hover .info-wrapper {
+.post-card-inner a:hover .info-wrapper {
     color: #e4e7ed;
 }
 
-.wedstrijdverslag-card-inner .info-wrapper {
+.post-card-inner .info-wrapper {
     padding: 0.75vw;
 }
 
-.wedstrijdverslag-card-inner .foto-wrapper .meer-lezen {
+.post-card-inner .foto-wrapper .meer-lezen {
     height: 30px;
     position: absolute;
     bottom: 1vw;
@@ -48,15 +48,15 @@
     visibility: hidden;
 }
 
-.wedstrijdverslag-card-inner a:hover .foto-wrapper .meer-lezen {
+.post-card-inner a:hover .foto-wrapper .meer-lezen {
     visibility: visible;
 }
 
-.wedstrijdverslag-card-inner .foto-wrapper img {
+.post-card-inner .foto-wrapper img {
     width: 100%;
 }
 
-.wedstrijdverslag-card-inner .foto-wrapper img.no-image {
+.post-card-inner .foto-wrapper img.no-image {
     min-height: 200px;
     max-height: 200px;
     width: auto;
@@ -78,4 +78,8 @@
 
 .archief-filter .dropdown a.dropdown-item {
     color: var(--bs-dropdown-link-color) !important;
+}
+
+.archief-filter .filter-value {
+    color: #808080;
 }

@@ -42,8 +42,8 @@ function my_theme_enqueue_styles() {
     wp_enqueue_style( 'rieme-klassementen-style' );
     wp_register_style( 'rieme-clubbladen-style', get_stylesheet_directory_uri() . '/style/clubbladen.css' );
     wp_enqueue_style( 'rieme-clubbladen-style' );
-    wp_register_style( 'rieme-wedstrijdverslagen-style', get_stylesheet_directory_uri() . '/style/wedstrijdverslagen.css' );
-    wp_enqueue_style( 'rieme-wedstrijdverslagen-style' );
+    wp_register_style( 'rieme-posts-style', get_stylesheet_directory_uri() . '/style/posts.css' );
+    wp_enqueue_style( 'rieme-posts-style' );
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 
@@ -58,6 +58,7 @@ include 'scripts/activiteiten/wedstrijdverslagen.php';
 include 'scripts/clubwerking/bestuur.php';
 include 'scripts/clubwerking/leden.php';
 include 'scripts/clubwerking/sponsors.php';
+include 'scripts/clubwerking/nieuwsberichten.php';
 include 'scripts/lopen/trainers.php';
 include 'scripts/lopen/klassementen.php';
 include 'scripts/clubblad/clubblad.php';
@@ -133,7 +134,8 @@ add_action( 'admin_menu', 'remove_built_in_roles' );
 // Filters voor verslagen en berichten artikelen
 function add_blog_query_variables() { 
     global $wp; 
-    $wp->add_query_var('jaar'); 
+    $wp->add_query_var('j'); 
+    $wp->add_query_var('z'); 
 }
 add_action('init','add_blog_query_variables');
 

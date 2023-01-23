@@ -20,6 +20,10 @@
     background-color: #d3d3d3;
 }
 
+.uitslagen-container .uitslagen-subcontainer table a {
+    text-decoration: none;
+}
+
 .uitslagen-container .uitslagen-subcontainer .datum {
     width: 10%;
 }
