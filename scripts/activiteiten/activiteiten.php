@@ -12,6 +12,9 @@
 function activiteit_datum_container_func() : string {
     if( get_post_type() == 'wedstrijdverslag' ) {
         $activiteit_id = get_field( 'wedstrijdverslag_wedstrijd' );
+        if( $activiteit_id == NULL ) {
+            return '';
+        }
         $activiteit_datum = get_field( 'activiteit_datum', $activiteit_id );
     } else {
         $activiteit_datum = get_field( 'activiteit_datum' );
@@ -42,6 +45,9 @@ add_shortcode( 'activiteit_datum_container', 'activiteit_datum_container_func' )
 function activiteit_tijd_container_func() : string {
     if( get_post_type() == 'wedstrijdverslag' ) {
         $activiteit_id = get_field( 'wedstrijdverslag_wedstrijd' );
+        if( $activiteit_id == NULL ) {
+            return '';
+        }
         $activiteit_datum = get_field( 'activiteit_tijd', $activiteit_id );
     } else {
         $activiteit_tijd = get_field( 'activiteit_tijd' );
@@ -70,7 +76,7 @@ function pre_activiteit_container_func() : string {
     $activiteit_info_container = '';
     $activiteit_datum = get_field( 'activiteit_datum' );
     // Enkel renderen als evenement nog niet is geweest
-    if( date( 'Ymd' ) <= $activiteit_datum ) {
+    if( $activiteit_datum != NULL && date( 'Ymd' ) <= $activiteit_datum ) {
         if( get_field( 'inschrijvingsinfo_activiteit_heeftInschrijvingsinfo' ) ) {
             $activiteit_info_container .= _create_inschrijvings_card();
         }
@@ -167,6 +173,10 @@ function post_activiteit_container_func() {
         $activiteit_id = get_field( 'wedstrijdverslag_wedstrijd' );
     } else {
         $activiteit_id = get_the_ID();
+    }
+
+    if( $activiteit_id == NULL ) {
+        return '';
     }
     
     // Enkel wedstrijd is ondersteund op dit moment

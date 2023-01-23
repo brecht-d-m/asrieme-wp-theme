@@ -14,13 +14,14 @@ function _create_wedstrijden_container( $volgende_wedstrijden, $wedstrijd_type, 
 
 /** Post-Wedstrijden Container**/
 function _post_wedstrijd_container( $wedstrijd_id ) : string {
-    $post_wedstrijd_container = '';
-    if( $wedstrijd_id != NULL ) {
-        $post_wedstrijd_container .= _create_resultaat_card( $wedstrijd_id );
-        $post_wedstrijd_container .= _create_verslag_card( $wedstrijd_id );
-        $post_wedstrijd_container .= _create_album_card( $wedstrijd_id );
+    if( $wedstrijd_id == NULL ) {
+        return '';
     }
-
+        
+    $post_wedstrijd_container = '';
+    $post_wedstrijd_container .= _create_resultaat_card( $wedstrijd_id );
+    $post_wedstrijd_container .= _create_verslag_card( $wedstrijd_id );
+    $post_wedstrijd_container .= _create_album_card( $wedstrijd_id );
     return
         "<div class='activiteit-info-container'>
             $post_wedstrijd_container
@@ -55,6 +56,10 @@ function _create_album_card( $wedstrijd_id ) : string {
 }
 
 function _create_info_listing( $post_type, $wedstrijd_id ) : string {
+    if( $wedstrijd_id == NULL ) {
+        return '';
+    }
+
     $wedstrijd_args = array(
         'posts_per_page' => -1,
         'post_type'      => $post_type,
@@ -126,7 +131,7 @@ function laatste_uitslagen_container_func() : string {
     } else {
         return 
             "<div class='uitslagen-container'>
-                <p class='no-uitslagen'>Er zijn geen uitslagen beschikbaar op dit moment...</p>
+                <p class='no-uitslagen'>Er zijn geen nog uitslagen beschikbaar op dit moment...</p>
             </div>";
     }
 }
@@ -194,6 +199,10 @@ function _create_uitslagen_tabellen( $uitslagen_mapping ) : string {
 
 function gerelateerde_wedstrijd_button_func() : string {
     $wedstrijd_id = get_field( 'wedstrijdverslag_wedstrijd' );
+    if( $wedstrijd_id == NULL ) {
+        return '';
+    }
+
     $eigen_organisatie = get_field( 'activiteit_eigenOrganisatie', $wedstrijd_id );
     if( ! $eigen_organisatie ) {
         return '';

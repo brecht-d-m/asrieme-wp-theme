@@ -42,6 +42,8 @@ function my_theme_enqueue_styles() {
     wp_enqueue_style( 'rieme-klassementen-style' );
     wp_register_style( 'rieme-clubbladen-style', get_stylesheet_directory_uri() . '/style/clubbladen.css' );
     wp_enqueue_style( 'rieme-clubbladen-style' );
+    wp_register_style( 'rieme-wedstrijdverslagen-style', get_stylesheet_directory_uri() . '/style/wedstrijdverslagen.css' );
+    wp_enqueue_style( 'rieme-wedstrijdverslagen-style' );
 }
 add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 
@@ -52,6 +54,7 @@ add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 include 'scripts/activiteiten/activiteiten.php';
 include 'scripts/activiteiten/wedstrijden.php';
 include 'scripts/activiteiten/evenementen.php';
+include 'scripts/activiteiten/wedstrijdverslagen.php';
 include 'scripts/clubwerking/bestuur.php';
 include 'scripts/clubwerking/leden.php';
 include 'scripts/clubwerking/sponsors.php';
@@ -126,5 +129,12 @@ function remove_built_in_roles() {
     }
 }
 add_action( 'admin_menu', 'remove_built_in_roles' );
+
+// Filters voor verslagen en berichten artikelen
+function add_blog_query_variables() { 
+    global $wp; 
+    $wp->add_query_var('jaar'); 
+}
+add_action('init','add_blog_query_variables');
 
 ?>
