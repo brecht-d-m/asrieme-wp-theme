@@ -55,4 +55,9 @@ function _create_wedstrijdverslag() : Wedstrijdverslag {
     return $wedstrijdverslag;
 }
 
+function infobar_container_func() {
+
+}
+add_shortcode( 'infobar_container', 'infobar_container_func' );
+
 ?>
