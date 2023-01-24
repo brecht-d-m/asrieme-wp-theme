@@ -1,8 +1,10 @@
 <?php
 function post_subtitel_func() {
-    $author = get_the_author();
-    $datum = get_the_date( 'l j F Y' );
-    return "<div class='bericht subtitel'>door $author &ensp; &vert; &ensp; $datum</div>";
+    $datum = get_the_date( 'l j F' );
+    $user_info = get_userdata( get_current_user_id() );
+    $voornaam = $user_info->first_name; 
+
+    return "<div class='bericht subtitel'>$voornaam &ensp; &vert; &ensp; $datum</div>";
 }
 add_shortcode( 'post_subtitel', 'post_subtitel_func' );
 
