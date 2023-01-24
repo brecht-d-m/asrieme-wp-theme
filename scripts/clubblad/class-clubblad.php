@@ -53,7 +53,6 @@ class Clubblad {
         }
 
         $foto_wrapper = wp_get_attachment_image( $this->uitgelichte_afbeelding_id, 'large', false, array( 'class' => 'rounded-top' ) );
-        $thema = empty( $this->thema ) ? '' : "<h4 class='thema'>$this->thema</h4>";
         $info_wapper = $this->_create_uitgave_container();
 
         $width_css_class = $properties->card_relative_width;
@@ -65,7 +64,6 @@ class Clubblad {
                             $foto_wrapper
                         </div>
                         <div class='info-wrapper'>
-                            $thema
                             $info_wapper
                         </div>
                     </a>
