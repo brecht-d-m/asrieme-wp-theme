@@ -1,69 +1,58 @@
 <?php 
 
-/**
- * Creeert een container met de datum van de activiteit. 
- *
- * Dit kan opgeroepen worden via de [activiteit_datum_container] shortcode.
- * Om de activiteit te weten, wordt:
- *  - ofwel aangenomen dat de huidige post een wedstrijdverslag is (en dan 
- *    wordt wedstrijdverslag_wedstrijd genomen om aan  de id te geraken)
- *  - ofwel de huidige post een activiteit is
- */
-function activiteit_datum_container_func() : string {
-    if( get_post_type() == 'wedstrijdverslag' ) {
-        $activiteit_id = get_field( 'wedstrijdverslag_wedstrijd' );
-        if( $activiteit_id == NULL ) {
-            return '';
-        }
-        $activiteit_datum = get_field( 'activiteit_datum', $activiteit_id );
-    } else {
-        $activiteit_datum = get_field( 'activiteit_datum' );
+function activiteit_info_container_func() : string {
+    $datum = _get_activiteit_meta_value( 'datum' );
+    $datum = _format_activiteit_datum( $datum );
+    $tijd = _get_activiteit_meta_value( 'tijd' );
+
+    $datum_wrapper = _get_activiteit_meta_value_wrapper( $datum, 'fa-calendar-alt' );
+    $tijd_wrapper = _get_activiteit_meta_value_wrapper( $tijd , 'fa-clock' );
+
+    switch( get_post_type() ) {
+        case 'wedstrijd':
+            $suffix_infobar_card = _create_wedstrijd_suffix_infobar();
+            break;
+        case 'evenement':
+            $suffix_infobar_card = _create_evenement_suffix_infobar();
+            break;
+        default:
+            $suffix_infobar_card = '';
+            break;
     }
-    
-    if( empty( $activiteit_datum ) ) {
+
+    return 
+
+        "<div class='post-info-card d-flex flex-column'>
+            <div class='mt-3 d-flex justify-content-between align-items-center'>
+                $datum_wrapper
+                $tijd_wrapper
+            </div>
+            $suffix_infobar_card
+            <hr>
+        </div>";
+}
+add_shortcode( 'activiteit_info_container', 'activiteit_info_container_func' );
+
+function _get_activiteit_meta_value( $key ) : string {
+    $activiteit_meta_value = get_field( 'activiteit_' . $key );
+    if( empty( $activiteit_meta_value ) ) {
         return '';
     }
 
-    $activiteit_datum = _format_activiteit_datum( $activiteit_datum );
-    return
-        "<div class='activiteit value-wrapper'>
-            <div class='icon'><i class='fas fa-calendar-alt'></i></div>
-            <h2 class='value datum'>$activiteit_datum</h2>
-        </div>";
+    return $activiteit_meta_value;    
 }
-add_shortcode( 'activiteit_datum_container', 'activiteit_datum_container_func' );
 
-/**
- * Creeert een container met de tijd van de activiteit. 
- *
- * Dit kan opgeroepen worden via de [activiteit_tijd_container] shortcode.
- * Om de activiteit te weten, wordt:
- *  - ofwel aangenomen dat de huidige post een wedstrijdverslag is (en dan 
- *    wordt wedstrijdverslag_wedstrijd genomen om aan  de id te geraken)
- *  - ofwel de huidige post een activiteit is
- */
-function activiteit_tijd_container_func() : string {
-    if( get_post_type() == 'wedstrijdverslag' ) {
-        $activiteit_id = get_field( 'wedstrijdverslag_wedstrijd' );
-        if( $activiteit_id == NULL ) {
-            return '';
-        }
-        $activiteit_datum = get_field( 'activiteit_tijd', $activiteit_id );
-    } else {
-        $activiteit_tijd = get_field( 'activiteit_tijd' );
-    }
-
-    if( empty( $activiteit_tijd ) ) {
+function _get_activiteit_meta_value_wrapper( $value, $fa_icon ) : string {
+    if( empty( $value ) ) {
         return '';
     }
 
     return
-        "<div class='activiteit value-wrapper'>
-            <div class='icon'><i class='fas fa-clock'></i></div>
-            <h2 class='value tijd'>$activiteit_tijd</h2>
+        "<div class='d-flex'>
+            <span class='me-3'><i class='fas $fa_icon'></i></span>
+            <span>$value</span>
         </div>";
 }
-add_shortcode( 'activiteit_tijd_container', 'activiteit_tijd_container_func' );
 
 /**
  * Creeert een container met de info over de activiteit:
@@ -356,7 +345,7 @@ function _create_activiteiten_container( array $volgende_activiteiten, bool $min
 
 function _format_activiteit_datum( string $datum, bool $minimaal = false ) : string {
     $datum = DateTime::createFromFormat( 'Ymd', $datum )->getTimestamp();
-    $date_format = $minimaal ? 'd MMM' : 'd MMMM yy';
+    $date_format = $minimaal ? 'd MMM' : 'd MMMM yyyy';
     $format = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, NULL, IntlDateFormatter::GREGORIAN, $date_format );
     return $format->format( $datum );
 }  

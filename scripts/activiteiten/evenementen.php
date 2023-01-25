@@ -1,5 +1,9 @@
 <?php
 
+function _create_evenement_suffix_infobar() : string {
+    return '';
+}
+
 /** Evenementen Container */
 function _create_evenementen_container( $volgende_evenementen, $evenement_type, $minimaal ) : string {
     $type_mapping = array(
