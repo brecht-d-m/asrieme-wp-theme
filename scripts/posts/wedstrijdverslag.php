@@ -5,12 +5,13 @@ function _get_wedstrijdverslag_auteur() : string {
     if( empty( $auteur ) ) {
         $auteur = get_the_author();
     }
-    return $auteur;
+    return $auteur == NULL ? '' : $auteur;
 }
 
 function _get_wedstrijdverslag_datum() : string {
     $wedstrijd_id = get_field( 'wedstrijdverslag_wedstrijd' );
-    return get_field( 'activiteit_datum', $wedstrijd_id );
+    $wedstrijd_datum = get_field( 'activiteit_datum', $wedstrijd_id );
+    return $wedstrijd_datum == NULL ? '' : $wedstrijd_datum;
 }
 
 function _create_wedstrijdverslag_suffix_infobar() : string {

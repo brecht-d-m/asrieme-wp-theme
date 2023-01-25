@@ -5,8 +5,29 @@ function post_infobar_card_func() {
 
     $titel = get_the_title();
     $samenvatting = get_the_excerpt();
+    
     $auteur = _get_infobar_auteur( $post_type );
+    if( !empty( $auteur ) ) {
+        $auteur_wrapper = 
+            "<div class='d-flex small text-muted'>
+                <span class='me-3'><i class='fas fa-pen'></i></span>
+                <span>$auteur</span>
+            </div>";
+    } else {
+        $auteur_wrapper = '';
+    }
+    
     $datum = _get_infobar_datum( $post_type );
+    if( !empty( $datum ) ) {
+        $datum_wrapper = 
+            "<div class='d-flex small text-muted'>
+                <span class='me-3'><i class='fas fa-calendar-alt'></i></span>
+                <span>$datum</span>
+            </div>";
+    } else {
+        $datum_wrapper = '';
+    }
+
     $suffix_infobar_card = _get_suffix_infobar_card( $post_type );
     $uitgelichte_afbeelding = _get_infobar_image();
 
@@ -17,14 +38,8 @@ function post_infobar_card_func() {
                 <div><h1><strong>$titel</strong></h1></div>
                 <div class='lead'>$samenvatting</div>
                 <div class='mt-3 d-flex justify-content-between align-items-center'>
-                    <div class='d-flex small text-muted'>
-                        <span class='me-3'><i class='fas fa-pen'></i></span>
-                        <span>$auteur</span>
-                    </div>
-                    <div class='d-flex small text-muted'>
-                        <span class='me-3'><i class='fas fa-calendar-alt'></i></span>
-                        <span>$datum</span>
-                    </div>
+                    $auteur_wrapper
+                    $datum_wrapper
                 </div>
                 $suffix_infobar_card
                 <hr>
