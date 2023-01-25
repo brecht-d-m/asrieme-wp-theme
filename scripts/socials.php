@@ -5,10 +5,12 @@ function socials_top_func() {
     $instagram_knop = _get_button_instagram();
     $flickr_knop = _get_button_flickr( false );
     return 
-        "<div class='social-buttons-container d-flex justify-content-xs-center justify-content-lg-end'>
-            $facebook_knop
-            $instagram_knop
-            $flickr_knop
+        "<div class='d-none d-xl-block'>
+            <div class='social-buttons-container d-flex justify-content-xs-center justify-content-lg-end'>
+                $facebook_knop
+                $instagram_knop
+                $flickr_knop
+            </div>
         </div>";
 }
 add_shortcode( 'socials_top', 'socials_top_func' );

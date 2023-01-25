@@ -25,7 +25,7 @@ class Nieuwsbericht {
         $this->uitgelichte_afbeelding_id = $uitgelichte_afbeelding_id;
     }
 
-    public function create_nieuwsbericht_card() : string {
+    public function create_archief_card() : string {
         if ( $this->uitgelichte_afbeelding_id != NULL) {
             $foto_wrapper = wp_get_attachment_image( $this->uitgelichte_afbeelding_id, 'large', false, array( 'class' => 'rounded' ) );
         } else {
@@ -52,6 +52,10 @@ class Nieuwsbericht {
                     </a>
                 </div>
             </div>";
+    }
+
+    public function create_info_card() : string {
+        return '';
     }
 
 }

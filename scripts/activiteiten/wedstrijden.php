@@ -20,8 +20,8 @@ function _post_wedstrijd_container( $wedstrijd_id ) : string {
         
     $post_wedstrijd_container = '';
     $post_wedstrijd_container .= _create_resultaat_card( $wedstrijd_id );
-    $post_wedstrijd_container .= _create_verslag_card( $wedstrijd_id );
     $post_wedstrijd_container .= _create_album_card( $wedstrijd_id );
+    $post_wedstrijd_container .= _create_verslag_card( $wedstrijd_id );
     return
         "<div class='activiteit-info-container'>
             $post_wedstrijd_container
@@ -29,12 +29,25 @@ function _post_wedstrijd_container( $wedstrijd_id ) : string {
 }
 
 function _create_resultaat_card( $wedstrijd_id ) : string {
-    $uitslagen_links = _create_info_listing( 'wedstrijduitslag', $wedstrijd_id );
+    $uitslagen_links = _create_link_array( 'wedstrijduitslag', 'titel', $wedstrijd_id );
     if( empty( $uitslagen_links ) ) {
         return '';
     }
-    $container_content = "<ul>$uitslagen_links</ul>";
-    return _create_info_card( 'Uitslag', 'fa-trophy', $container_content );
+
+    $knoppen = '';
+    foreach( $uitslagen_links as $l ) {
+        $titel = $l['titel'];
+        $link = $l['link'];
+        $knoppen .= 
+            "<div class='activiteit-knop d-flex my-1 mx-1'>
+                <a href='$link' class='text-truncate'>
+                    <div class='icon me-2'><i class='fas fa-trophy'></i></div>
+                    <div class='titel small'>Uitslag - $titel</div>
+                </a>
+            </div>";
+    }
+
+    return $knoppen;
 }
 
 function _create_verslag_card( $wedstrijd_id ) : string {
@@ -47,12 +60,64 @@ function _create_verslag_card( $wedstrijd_id ) : string {
 }
 
 function _create_album_card( $wedstrijd_id ) : string {
-    $album_links = _create_info_listing( 'wedstrijdalbum', $wedstrijd_id );
+    $uitslagen_links = _create_link_array( 'wedstrijdalbum', 'fotograaf', $wedstrijd_id );
+    if( empty( $uitslagen_links ) ) {
+        return '';
+    }
+
+    $knoppen = '';
+    foreach( $uitslagen_links as $l ) {
+        $titel = $l['titel'];
+        $link = $l['link'];
+        $knoppen .= 
+            "<div class='activiteit-knop d-flex my-1 mx-1'>
+                <a href='$link' class='text-truncate'>
+                    <div class='icon me-2'><i class='fas fa-camera'></i></div>
+                    <div class='titel small'>Fotos - $titel</div>
+                </a>
+            </div>";
+    }
+
+    return $knoppen;
+
+
+    /*$album_links = _create_info_listing( 'wedstrijdalbum', $wedstrijd_id );
     if( empty( $album_links ) ) {
         return '';
     }
     $container_content = "<ul>$album_links</ul>";
-    return _create_info_card( 'Fotoalbums', 'fa-images', $container_content );
+    return _create_info_card( 'Fotoalbums', 'fa-images', $container_content );*/
+}
+
+function _create_link_array( string $post_type, string $key_titel, int $wedstrijd_id ) : array {
+    if( $wedstrijd_id == NULL ) {
+        return array();
+    }
+
+    $wedstrijd_args = array(
+        'posts_per_page' => -1,
+        'post_type'      => $post_type,
+        'meta_key'       => $post_type . '_wedstrijd',
+        'meta_value'     => $wedstrijd_id
+    );
+
+    $post_links = array();
+    $posts = new WP_Query( $wedstrijd_args );
+    if( $posts->have_posts() ) {
+        while( $posts->have_posts() ) {
+            $posts->the_post();
+
+            $post_titel = get_field( $post_type . '_' . $key_titel );
+            $post_url = get_field( $post_type . '_link' );
+
+            array_push( $post_links, array( 
+                'link' => $post_url,
+                'titel' => $post_titel
+            ) );
+        }
+    }
+    wp_reset_postdata();
+    return $post_links;
 }
 
 function _create_info_listing( $post_type, $wedstrijd_id ) : string {

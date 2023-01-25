@@ -54,18 +54,20 @@ add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 include 'scripts/activiteiten/activiteiten.php';
 include 'scripts/activiteiten/wedstrijden.php';
 include 'scripts/activiteiten/evenementen.php';
-include 'scripts/activiteiten/wedstrijdverslagen.php';
 include 'scripts/clubwerking/bestuur.php';
 include 'scripts/clubwerking/leden.php';
 include 'scripts/clubwerking/sponsors.php';
-include 'scripts/clubwerking/nieuwsberichten.php';
+include 'scripts/posts/posts.php';
+include 'scripts/posts/nieuwsbericht.php';
+include 'scripts/posts/nieuwsbericht-archief.php';
+include 'scripts/posts/wedstrijdverslag.php';
+include 'scripts/posts/wedstrijdverslag-archief.php';
 include 'scripts/lopen/trainers.php';
 include 'scripts/lopen/klassementen.php';
 include 'scripts/clubblad/clubblad.php';
 include 'scripts/back-button.php';
 include 'scripts/documenten.php';
 include 'scripts/socials.php';
-include 'scripts/posts.php';
 include 'scripts/home.php';
 
 function meta_value_func( $atts ) {

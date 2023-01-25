@@ -83,3 +83,27 @@
 .archief-filter .filter-value {
     color: #808080;
 }
+
+.post-info-card {
+    /*background-color: #f8f8f8*/
+}
+
+.post-info-card .gerelateerde-wedstrijd {
+    max-width: 15rem;
+}
+
+.activiteit-knop>a:hover {
+    background-color: #ffebb3;
+}
+
+.activiteit-knop>a {
+    padding: .3em .75em;
+    border-radius: 100px;
+    background-color: #ffc72b;
+    display: flex;
+    flex-direction: row;
+    color: #041d3d !important;
+    text-decoration: none;
+    letter-spacing: 0px;
+    font-size: 1rem;
+}
