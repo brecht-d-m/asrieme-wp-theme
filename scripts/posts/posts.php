@@ -100,5 +100,9 @@ function _get_infobar_image() : string {
     return $uitgelichte_afbeelding;
 }
 
+function gerelateerde_posts_func() {
+    // TODO Implementeren
+}
+add_shortcode( 'gerelateerde_posts', 'gerelateerde_posts_func' );
 
 ?>
