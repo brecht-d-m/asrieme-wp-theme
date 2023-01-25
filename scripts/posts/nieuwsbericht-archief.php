@@ -3,8 +3,8 @@
 require_once 'class-nieuwsbericht.php';
 use Nieuwsbericht\Nieuwsbericht;
 
-function _create_nieuwsberichten_zoek_container() : string {
-    return _posts_zoek_container( 'berichtenarchief/' );
+function _get_nieuwsberichtenarchief_link() : string {
+    return 'berichtenarchief/';
 }
 
 function _get_nieuwsbericht_type() : string {

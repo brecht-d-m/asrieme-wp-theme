@@ -7,17 +7,17 @@ function posts_zoek_container_func( $atts ) {
     $a = shortcode_atts( array( 'type' => '' ), $atts );
     switch( $a['type'] ) {
         case 'wedstrijdverslag':
-            $posts_zoek_container = _create_westrijdverslagen_zoek_container();
+            $postsachief_link = _get_wedstrijdverslagenarchief_link();
             break;
         case 'nieuwsbericht':
-            $posts_zoek_container = _create_nieuwsberichten_zoek_container();
+            $postsachief_link = _get_nieuwsberichtenarchief_link();
             break;
         default:
-            $posts_zoek_container = '';
+            $postsachief_link = '';
             break;
     }
 
-    return $posts_zoek_container;
+    return _posts_zoek_container( $postsachief_link );
 }
 add_shortcode( 'posts_zoek_container', 'posts_zoek_container_func' );
 

@@ -3,8 +3,8 @@
 require_once 'class-wedstrijdverslag.php';
 use Wedstrijdverslag\Wedstrijdverslag;
 
-function _create_wedstrijdverslagen_zoek_container() : string {
-    return _posts_zoek_container( 'wedstrijdoverzicht/verslagenarchief/' );
+function _get_wedstrijdverslagenarchief_link() : string {
+    return 'wedstrijdoverzicht/verslagenarchief/';
 }
 
 function _get_wedstrijdverslag_type() : string {
