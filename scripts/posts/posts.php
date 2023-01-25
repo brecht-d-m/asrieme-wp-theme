@@ -16,7 +16,7 @@ function post_infobar_card_func() {
             <div class='post-info-card pt-3 d-flex flex-column'>
                 <div><h1><strong>$titel</strong></h1></div>
                 <div class='lead'>$samenvatting</div>
-                <div class='mt-2 d-flex justify-content-between align-items-center'>
+                <div class='mt-3 d-flex justify-content-between align-items-center'>
                     <div class='d-flex small text-muted'>
                         <span class='me-3'><i class='fas fa-pen'></i></span>
                         <span>$auteur</span>
