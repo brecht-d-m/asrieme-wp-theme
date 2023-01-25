@@ -10,11 +10,8 @@
 }
 
 .post-card-inner a .foto-wrapper {
-    overflow: hidden;
     position: relative;
     width: 100%;
-    min-height: 200px;
-    max-height: 200px;
     background-color: #f8f8f8;
 }
 
@@ -82,10 +79,6 @@
 
 .archief-filter .filter-value {
     color: #808080;
-}
-
-.post-info-card {
-    /*background-color: #f8f8f8*/
 }
 
 .post-info-card .gerelateerde-wedstrijd {

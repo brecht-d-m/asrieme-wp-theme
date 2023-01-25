@@ -82,17 +82,6 @@ function _posts_zoek_container( string $zoek_link ) : string {
 function posts_archief_container_func( $atts ) {
     $a = shortcode_atts( array( 'type' => '' ), $atts );
     $post_type = $a['type'];
-    switch( $post_type ) {
-        case 'wedstrijdverslag':
-            $posts_archief_container = _create_wedstrijdverslagen_archief_container();
-            break;
-        case 'nieuwsbericht':
-            $posts_archief_container = _create_nieuwsberichten_archief_container();
-            break;
-        default:
-            $posts_archief_container = '';
-            break;
-    }
 
     $posts_query = new WP_Query( _get_posts_args( $post_type ) );
     $posts = array();
@@ -112,9 +101,9 @@ function posts_archief_container_func( $atts ) {
             </div>";
     }
 
-    $posts_container = '';
-    foreach( $posts as $p => $posts ) {
-        $posts_container .= $bericht->create_archief_card();
+    $posts_archief_container = '';
+    foreach( $posts as $p => $post ) {
+        $posts_archief_container .= _create_minimal_card( $post );
     }    
 
     return 
@@ -204,7 +193,10 @@ function _create_minimal_card( $post_object ) : string {
     if ( $post_object->uitgelichte_afbeelding_id != NULL) {
         $foto_wrapper = wp_get_attachment_image( $post_object->uitgelichte_afbeelding_id, 'large', false, array( 'class' => 'object-fit-cover rounded' ) );
     } else {
-        $foto_wrapper = "<img src='https://asrieme.be/wp-content/uploads/2020/09/asrieme-logo-full-color-rgb.png' class='no-image p-3'>";
+        $foto_wrapper = 
+            "<div class='w-100 text-center'>
+                <img src='https://asrieme.be/wp-content/uploads/2020/09/asrieme-logo-full-color-rgb.png' class='no-image p-3 mx-auto d-block'>
+            </div>";
     }
 
     $meta_data_info = $post_object->get_meta_data_info();
@@ -213,8 +205,10 @@ function _create_minimal_card( $post_object ) : string {
         "<div class='post-card col-lg-4 col-md-6 col-sm-12'>
             <div class='post-card-inner'>
                 <a href='$post_object->link'>
-                    <div class='foto-wrapper ratio ratio-21x9 d-flex align-items-center justify-content-center rounded'>
-                        $foto_wrapper
+                    <div class='foto-wrapper d-flex align-items-center justify-content-center rounded'>
+                        <div class='ratio ratio-16x9'>
+                            $foto_wrapper
+                        </div>
                         <div class='meer-lezen rounded px-1 ms-2 d-flex'>
                             <div>Meer lezen</div>
                             <div class='icon mx-2'><i class='fas fa-chevron-right'></i></div>

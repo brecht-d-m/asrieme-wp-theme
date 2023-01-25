@@ -58,6 +58,7 @@ include 'scripts/clubwerking/bestuur.php';
 include 'scripts/clubwerking/leden.php';
 include 'scripts/clubwerking/sponsors.php';
 include 'scripts/posts/posts.php';
+include 'scripts/posts/posts-archief.php';
 include 'scripts/posts/nieuwsbericht.php';
 include 'scripts/posts/nieuwsbericht-archief.php';
 include 'scripts/posts/wedstrijdverslag.php';
