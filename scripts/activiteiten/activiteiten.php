@@ -1,6 +1,8 @@
 <?php 
 
 function activiteit_info_container_func() : string {
+    $uitgelichte_afbeelding = _get_activiteit_image();
+
     $datum = _get_activiteit_meta_value( 'datum' );
     $datum = _format_activiteit_datum( $datum );
     $tijd = _get_activiteit_meta_value( 'tijd' );
@@ -10,25 +12,27 @@ function activiteit_info_container_func() : string {
 
     switch( get_post_type() ) {
         case 'wedstrijd':
-            $suffix_infobar_card = _create_wedstrijd_suffix_infobar();
+            $suffix_activiteit_card = _create_wedstrijd_suffix_infobar();
             break;
         case 'evenement':
-            $suffix_infobar_card = _create_evenement_suffix_infobar();
+            $suffix_activiteit_card = _create_evenement_suffix_infobar();
             break;
         default:
             $suffix_infobar_card = '';
             break;
     }
 
-    return 
-
-        "<div class='post-info-card d-flex flex-column'>
-            <div class='mt-3 d-flex justify-content-between align-items-center'>
-                $datum_wrapper
-                $tijd_wrapper
+    return
+        "<div class='d-flex flex-column'>
+            $uitgelichte_afbeelding
+            <div class='activiteit-info-card pt-3 d-flex flex-column'>
+                <div class='mt-3 d-flex justify-content-between align-items-center'>
+                    $datum_wrapper
+                    $tijd_wrapper
+                </div>
+                $suffix_activiteit_card
+                <hr>
             </div>
-            $suffix_infobar_card
-            <hr>
         </div>";
 }
 add_shortcode( 'activiteit_info_container', 'activiteit_info_container_func' );
@@ -40,6 +44,19 @@ function _get_activiteit_meta_value( $key ) : string {
     }
 
     return $activiteit_meta_value;    
+}
+
+function _get_activiteit_image() : string {
+    $uitgelichte_afbeelding_id = get_post_thumbnail_id();
+    $uitgelichte_afbeelding = '';
+    if( !empty( $uitgelichte_afbeelding_id ) ) {
+        $uitgelichte_afbeelding = wp_get_attachment_image( $uitgelichte_afbeelding_id, 'full', false, array( 'class' => 'object-fit-cover rounded' ) );
+        $uitgelichte_afbeelding =
+            "<div class='ratio ratio-21x9 rounded'>
+                $uitgelichte_afbeelding
+            </div>";
+    }
+    return $uitgelichte_afbeelding;
 }
 
 function _get_activiteit_meta_value_wrapper( $value, $fa_icon ) : string {

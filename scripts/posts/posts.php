@@ -115,8 +115,68 @@ function _get_infobar_image() : string {
     return $uitgelichte_afbeelding;
 }
 
-function gerelateerde_posts_func() {
-    // TODO Implementeren
+function gerelateerde_posts_func( $atts ) {
+    $a = shortcode_atts( array( 'type' => '' ), $atts );
+    switch( $a['type'] ) {
+        case 'wedstrijdverslag':
+            $gerelateerde_wedstrijd = get_field( 'wedstrijdverslag_wedstrijd' );
+            $gerelateerde_posts = _get_gerelateerde_wedstrijdverslagen( $gerelateerde_wedstrijd );
+            $gerelateerde_posts_titel = _get_gerelateerde_wedstrijdverslagen_titel();
+            break;
+        case 'wedstrijd':
+            $gerelateerde_wedstrijd = get_the_ID();
+            $gerelateerde_posts = _get_gerelateerde_wedstrijdverslagen( $gerelateerde_wedstrijd );
+            $gerelateerde_posts_titel = _get_gerelateerde_wedstrijdverslagen_titel();
+            break;
+        case 'nieuwsbericht':
+            $gerelateerde_posts = _get_gerelateerde_nieuwsberichten();
+            $gerelateerde_posts_titel = _get_gerelateerde_nieuwsberichten_titel();
+            break;
+        default:
+            $gerelateerde_posts = array();
+            break;
+    }
+
+    if( empty( $gerelateerde_posts ) ) {
+        return '';
+    }
+
+    $posts_container = '';
+    foreach( $gerelateerde_posts as $p => $post ) {
+        $uitgelichte_afbeelding = '';
+        if( !empty( $post->uitgelichte_afbeelding_id ) ) {
+            $uitgelichte_afbeelding = wp_get_attachment_image( $post->uitgelichte_afbeelding_id, 'large', false, array( 'class' => 'object-fit-cover rounded-top' ) );
+            $uitgelichte_afbeelding =
+                "<div class='ratio ratio-21x9 rounded'>
+                    $uitgelichte_afbeelding
+                </div>";
+        }
+
+        // TODO seperate per post_type? -> toestaan om meer lezen bij wedstrijdverslag te hebben
+        $titel = $post->titel;
+        $meta_data = $post->get_meta_data_info();
+        $posts_container .= 
+            "<div class='related-post d-flex flex-column rounded'>
+                <a href='$post->link' class='text-decoration-none'>
+                    $uitgelichte_afbeelding
+                    <div class='post-info-card pt-2 px-2 d-flex flex-column'>
+                        <div class='text-muted'>$meta_data</div>
+                        <h3><strong>$titel</strong></h3>
+                    </div>
+                </a>
+            </div>";
+    }
+
+    return 
+        "<div class='d-flex small text-muted'>
+            <h2><span class='me-3 strong'><i class='fas fa-file-alt'></i></span></h2>
+            <h2><strong>$gerelateerde_posts_titel</strong></h2>
+        </div>
+        <div class='row'>
+            <div class='col justify-content-center'>
+                $posts_container
+            </div>
+        </div>";
 }
 add_shortcode( 'gerelateerde_posts', 'gerelateerde_posts_func' );
 

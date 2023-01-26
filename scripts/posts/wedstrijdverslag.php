@@ -29,4 +29,43 @@ function _create_wedstrijdverslag_suffix_infobar() : string {
         </div>";
 }
 
+function _get_gerelateerde_wedstrijdverslagen( int $wedstrijd_id ) : array {
+    $huidig_wedstrijdverslag_id = -1;
+    if( get_post_type() == 'wedstrijdverslag' ) {
+        $huidig_wedstrijdverslag_id = get_the_ID();
+    }
+
+    $wedstrijdverslag_args = array(
+        'post_type'      => 'wedstrijdverslag',
+        'posts_per_page' => -1,
+        'orderby'        => 'publish_date', 
+        'order'          => 'DESC',
+        'meta_query'     => array(
+            array(
+                'key'     => 'wedstrijdverslag_wedstrijd',
+                'value'   => $wedstrijd_id
+            )
+        )
+    );
+
+    $gerelateerde_wedstrijdverslagen = array();
+    $wedstrijdverslag_query = new WP_Query( $wedstrijdverslag_args );
+    if( $wedstrijdverslag_query->have_posts() ) {
+        while( $wedstrijdverslag_query->have_posts() ) {
+            $wedstrijdverslag_query->the_post();
+            $wedstrijdverslag_id = get_the_ID();
+            if( $huidig_wedstrijdverslag_id != $wedstrijdverslag_id ) {
+                $wedstrijdverslag = _create_wedstrijdverslag();
+                array_push( $gerelateerde_wedstrijdverslagen, $wedstrijdverslag );
+            }
+        }
+    }
+
+    return $gerelateerde_wedstrijdverslagen;
+}
+
+function _get_gerelateerde_wedstrijdverslagen_titel() : string {
+    return 'Gerelateerde verslagen';
+}
+
 ?>

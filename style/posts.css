@@ -100,3 +100,12 @@
     letter-spacing: 0px;
     font-size: 1rem;
 }
+
+.related-post {
+    background-color: #f8f8f8;
+}
+
+.related-post .activiteit-titel,
+.related-post .datum {
+    font-size: 0.8rem;
+}
