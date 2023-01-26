@@ -196,7 +196,8 @@ function activiteiten_container_func( $atts ) {
         'klasse'   => '', // wedstrijd of evenement
 		'type'     => '', // (veld, piste, jeugd, jogging) of (algemeen, sportkamp, stage)
         'aantal'   => 5,
-        'minimaal' => true
+        'minimaal' => true,
+        'titel'    => false
 	), $atts );
     
     $activiteit_klasse = $a['klasse'];
@@ -220,17 +221,20 @@ function activiteiten_container_func( $atts ) {
         }
     }
 
+    $titel = $a['titel'];
+
     $volgende_activiteiten = _get_activiteiten( $post_types_filter, $activiteit_types_filter, $a['aantal'] );
     $minimaal = $a['minimaal'];
     switch( $activiteit_klasse ) {
         case 'evenement':
-            $activiteiten_container = _create_evenementen_container( $volgende_activiteiten, $activiteit_type, $minimaal );
+            $activiteiten_container = _create_evenementen_container( $volgende_activiteiten, $activiteit_type, $minimaal, $titel );
             break;
         case 'wedstrijd':
-            $activiteiten_container = _create_wedstrijden_container( $volgende_activiteiten, $activiteit_type, $minimaal );
+            $activiteiten_container = _create_wedstrijden_container( $volgende_activiteiten, $activiteit_type, $minimaal, $titel );
             break;
         default:
-            $activiteiten_container = _create_activiteiten_container( $volgende_activiteiten, $minimaal, 'activiteiten' );
+            $hoofdtitel_label = $titel ? _create_hoofdtitel_activiteiten_container() : '';
+            $activiteiten_container = _create_activiteiten_container( $volgende_activiteiten, $minimaal, 'activiteiten', $hoofdtitel_label );
             break;
     }
 
@@ -308,14 +312,26 @@ function _get_activiteiten_args( array $post_types_filter, array $activiteit_typ
     return $activiteit_args;
 }
 
-function _create_activiteiten_container( array $volgende_activiteiten, bool $minimaal, string $multiple_label ) {
+function _create_hoofdtitel_activiteiten_container() : string {
+    return 
+        "<div class='d-flex small text-muted'>
+            <h2><span class='me-3 strong'><i class='fas fa-running'></i></span></h2>
+            <h2><strong>Volgende activiteiten</strong></h2>
+        </div>";
+}
+
+function _create_activiteiten_container( array $volgende_activiteiten, bool $minimaal, string $multiple_label, string $hoofdtitel ) {
     if( empty( $volgende_activiteiten ) ) {
-        return 
-            "<div class='activiteit-container'>
-                <p class='no-event'>
-                    Er zijn momenteel geen $multiple_label gepland...
-                </p>
-            </div>";
+        if( !empty( $hoofdtitel ) ) {
+            return '';
+        } else {
+            return 
+                "<div class='activiteit-container'>
+                    <p class='no-event'>
+                        Er zijn momenteel geen $multiple_label gepland...
+                    </p>
+                </div>";
+        }
     }
 
     $activiteit_container = '';
@@ -336,18 +352,35 @@ function _create_activiteiten_container( array $volgende_activiteiten, bool $min
         $activiteit_url = empty( $alternatieve_link ) ? $link : $alternatieve_link;
 
         $samenvatting = $minimaal ? '' : "<p class='samenvatting'>$samenvatting</p>";
+        $type_label = ucfirst( $type_naam );
+
+        if( $minimaal ) {
+            $body = 
+                "<div class='activiteit-header'>
+                    <div class='type'>$type_label</div>
+                    <div class='datum'>$datum</div>
+                </div>
+                <div class='activiteit-body'>
+                    <p class='titel'>$titel</p>
+                    $samenvatting
+                </div>";
+        } else {
+            $body = 
+                "<div class='activiteit-body'>
+                    <p class='titel'>$titel</p>
+                    $samenvatting
+                </div>
+                <div class='activiteit-header'>
+                    <div class='type'>$type_label</div>
+                    <div class='datum'>$datum</div>
+                </div>";
+        }
+
         $activiteit_container .= 
             "<div class='activiteit-blok'>
                 <a class='activiteit $activiteit_type $activiteit_klasse' href='$activiteit_url'>
                     <div class='activiteit-info'>
-                        <div class='activiteit-header'>
-                            <div class='datum'>$datum</div>
-                            <div class='type'>$type_naam</div>
-                        </div>
-                        <div class='activiteit-body'>
-                            <p class='titel'>$titel</p>
-                            $samenvatting
-                        </div>
+                        $body
                     </div>
                 </a>
             </div>";
@@ -355,7 +388,8 @@ function _create_activiteiten_container( array $volgende_activiteiten, bool $min
 
     $minimaal_class = $minimaal ? ' minimaal' : ' uitgebreid';
     return 
-        "<div class='activiteiten-container $minimaal_class'>
+        "$hoofdtitel
+        <div class='activiteiten-container $minimaal_class'>
             $activiteit_container
         </div>";
 }

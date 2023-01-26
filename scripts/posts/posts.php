@@ -117,7 +117,8 @@ function _get_infobar_image() : string {
 
 function gerelateerde_posts_func( $atts ) {
     $a = shortcode_atts( array( 'type' => '' ), $atts );
-    switch( $a['type'] ) {
+    $type = $a['type'];
+    switch( $type ) {
         case 'wedstrijdverslag':
             $gerelateerde_wedstrijd = get_field( 'wedstrijdverslag_wedstrijd' );
             $gerelateerde_posts = _get_gerelateerde_wedstrijdverslagen( $gerelateerde_wedstrijd );
@@ -143,28 +144,19 @@ function gerelateerde_posts_func( $atts ) {
 
     $posts_container = '';
     foreach( $gerelateerde_posts as $p => $post ) {
-        $uitgelichte_afbeelding = '';
-        if( !empty( $post->uitgelichte_afbeelding_id ) ) {
-            $uitgelichte_afbeelding = wp_get_attachment_image( $post->uitgelichte_afbeelding_id, 'large', false, array( 'class' => 'object-fit-cover rounded-top' ) );
-            $uitgelichte_afbeelding =
-                "<div class='ratio ratio-21x9 rounded'>
-                    $uitgelichte_afbeelding
-                </div>";
+        switch( $a['type'] ) {
+            case 'wedstrijdverslag':
+                $posts_container .= _create_minimal_related_wedstrijdverslag_card( $post );
+                break;
+            case 'wedstrijd':
+                $posts_container .= _create_minimal_related_wedstrijdverslag_card( $post );
+                break;
+            case 'nieuwsbericht':
+                $posts_container .=  _create_minimal_related_nieuwsbericht_card( $post );
+                break;
+            default:
+                break;
         }
-
-        // TODO seperate per post_type? -> toestaan om meer lezen bij wedstrijdverslag te hebben
-        $titel = $post->titel;
-        $meta_data = $post->get_meta_data_info();
-        $posts_container .= 
-            "<div class='related-post d-flex flex-column rounded'>
-                <a href='$post->link' class='text-decoration-none'>
-                    $uitgelichte_afbeelding
-                    <div class='post-info-card pt-2 px-2 d-flex flex-column'>
-                        <div class='text-muted'>$meta_data</div>
-                        <h3><strong>$titel</strong></h3>
-                    </div>
-                </a>
-            </div>";
     }
 
     return 

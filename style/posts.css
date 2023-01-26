@@ -15,7 +15,7 @@
     background-color: #f8f8f8;
 }
 
-.post-card-inner a .info-wrapper .activiteit-titel,
+.post-card-inner a .info-wrapper .titel,
 .post-card-inner a .info-wrapper .datum {
     color: #808080;
     font-size: 0.9rem;
@@ -101,11 +101,49 @@
     font-size: 1rem;
 }
 
-.related-post {
+.related-post a {
     background-color: #f8f8f8;
 }
 
-.related-post .activiteit-titel,
+.related-post .titel,
 .related-post .datum {
     font-size: 0.8rem;
+}
+
+.related-post.wedstrijdverslag .foto-wrapper {
+    position: relative;
+    width: 100%;
+    background-color: #f8f8f8;
+}
+
+.related-post.wedstrijdverslag a .foto-wrapper .meer-lezen {
+    height: 30px;
+    position: absolute;
+    bottom: 1vw;
+    left: 1vw;
+    background-color: #ffebb3;
+    color: #041d3d;
+    font-size: 0.85rem;
+    font-weight: bold;
+    visibility: hidden;
+}
+
+.related-post.wedstrijdverslag a:hover .foto-wrapper .meer-lezen {
+    visibility: visible;
+}
+
+.related-post.nieuwsbericht a:hover {
+    background-color: #445e85;
+}
+
+.related-post.nieuwsbericht a .post-info-card h3 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.related-post.nieuwsbericht a:hover .post-info-card h3,
+.related-post.nieuwsbericht a:hover .post-info-card .titel,
+.related-post.nieuwsbericht a:hover .post-info-card .datum {
+    color: #e4e7ed;
 }

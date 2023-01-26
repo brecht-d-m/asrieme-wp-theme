@@ -13,6 +13,7 @@ function _get_nieuwsbericht_type() : string {
 
 function _create_nieuwsbericht() : Nieuwsbericht {
     $nieuwsbericht = new Nieuwsbericht();
+    $nieuwsbericht->set_id( get_the_ID() );
     $nieuwsbericht->set_titel( get_the_title() );
     $nieuwsbericht->set_datum( get_the_date( 'j F' ) );
     $nieuwsbericht->set_link( get_the_permalink() );

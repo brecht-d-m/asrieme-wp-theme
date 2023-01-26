@@ -1,12 +1,19 @@
 <?php
 
-function socials_top_func() {
+function socials_top_func( $atts ) {
+    $a = shortcode_atts( array( 'type' => '' ), $atts );
+
+    $placing_css = '';
+    if( $a['type'] == 'post' ) {
+        $placing_css = 'position-absolute end-0';
+    }
+
     $facebook_knop = _get_button_facebook();
     $instagram_knop = _get_button_instagram();
     $flickr_knop = _get_button_flickr( false );
     return 
         "<div class='d-none d-xl-block'>
-            <div class='social-buttons-container d-flex justify-content-xs-center justify-content-lg-end'>
+            <div class='social-buttons-container $placing_css d-flex justify-content-xs-center justify-content-lg-end'>
                 $facebook_knop
                 $instagram_knop
                 $flickr_knop

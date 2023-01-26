@@ -39,7 +39,7 @@ class Wedstrijdverslag {
 
         return 
             "<div class='d-flex justify-content-between'>
-                <div class='activiteit-titel'>$wedstrijd_titel</div> 
+                <div class='titel'>$wedstrijd_titel</div> 
                 <div class='datum'>$this->datum</div>
             </div>";
     }

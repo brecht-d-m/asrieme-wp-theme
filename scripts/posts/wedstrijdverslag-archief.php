@@ -16,7 +16,7 @@ function _create_wedstrijdverslag() : Wedstrijdverslag {
     $wedstrijd_datum = get_field( 'activiteit_datum', $wedstrijd_id );
     if( !empty( $wedstrijd_datum ) ) {
         $datum = DateTime::createFromFormat( 'Ymd', $wedstrijd_datum )->getTimestamp();
-        $format = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, NULL, IntlDateFormatter::GREGORIAN, 'd MMMM' );
+        $format = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, NULL, IntlDateFormatter::GREGORIAN, 'd MMM' );
         $wedstrijd_datum = $format->format( $datum );
     } else {
         $wedstrijd_datum = '';

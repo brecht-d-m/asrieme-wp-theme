@@ -14,15 +14,40 @@ function _create_wedstrijd_suffix_infobar() : string {
 }
 
 /** Wedstrijden Container **/
-function _create_wedstrijden_container( $volgende_wedstrijden, $wedstrijd_type, $minimaal ) : string {
-    $type_mapping = array(
-        'jeugd'   => 'jeugdwedstrijden',
-        'veld'    => 'veldlopen',
-        'piste'   => 'pistewedstrijden',
-        'jogging' => 'joggings'
-    );
-    $multiple_label = array_key_exists( $wedstrijd_type, $type_mapping ) ? $type_mapping[$wedstrijd_type] : 'wedstrijden';
-    return _create_activiteiten_container( $volgende_wedstrijden, $minimaal, $multiple_label );
+function _create_wedstrijden_container( $volgende_wedstrijden, $wedstrijd_type, $minimaal, $titel ) : string {
+    $hoofdtitel_label = $titel ? _create_hoofdtitel_wedstrijden_container( $wedstrijd_type ) : '';
+    $multiple_label = _get_wedstrijd_label( $wedstrijd_type );
+    return _create_activiteiten_container( $volgende_wedstrijden, $minimaal, $multiple_label, $hoofdtitel_label );
+}
+
+function _create_hoofdtitel_wedstrijden_container( string $wedstrijd_type ) : string {
+    $label = _get_wedstrijd_label( $wedstrijd_type );
+    return 
+        "<div class='d-flex small text-muted'>
+            <h2><span class='me-3 strong'><i class='fas fa-running'></i></span></h2>
+            <h2><strong>Volgende $label</strong></h2>
+        </div>";
+}
+
+function _get_wedstrijd_label( $wedstrijd_type ) : string {
+    switch( $wedstrijd_type ) {
+        case 'jeugd': 
+            $label = 'jeugdwedstrijden';
+            break;
+        case 'veld': 
+            $label = 'veldlopen';
+            break;
+        case 'piste':
+            $label = 'pistewedstrijden';
+            break;
+        case 'jogging':
+            $label = 'joggings';
+            break;
+        default:
+            $label = 'wedstrijden';
+            break;
+    }
+    return $label;
 }
 
 /** Post-Wedstrijden Container**/
@@ -92,14 +117,6 @@ function _create_album_card( $wedstrijd_id ) : string {
     }
 
     return $knoppen;
-
-
-    /*$album_links = _create_info_listing( 'wedstrijdalbum', $wedstrijd_id );
-    if( empty( $album_links ) ) {
-        return '';
-    }
-    $container_content = "<ul>$album_links</ul>";
-    return _create_info_card( 'Fotoalbums', 'fa-images', $container_content );*/
 }
 
 function _create_link_array( string $post_type, string $key_titel, int $wedstrijd_id ) : array {

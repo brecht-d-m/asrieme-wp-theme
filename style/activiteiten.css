@@ -228,24 +228,31 @@
 /** Minimaal **/
 
 .activiteiten-container.minimaal .activiteit-blok {
-    margin: 1rem 0;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .activiteiten-container.minimaal .activiteit-blok .activiteit {
     display: block;
     text-decoration: none;
-    padding: 0.5vw;
-    transition: all 350ms ease-in-out;
-    border: 1px solid #041D3D;
-    border-radius: 1vw;
-    color: #041d3d
+    border: 1px;
+    border-radius: var(--bs-border-radius);
+    color: #041d3d;
+    background-color: #f8f8f8;
+}
+
+.activiteiten-container.minimaal .activiteit-blok .activiteit .activiteit-info {
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .activiteiten-container.minimaal .activiteit-blok .activiteit .activiteit-info .activiteit-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 0.75vw;
+    font-size: 0.8rem;
+    color: var(--bs-secondary-color);
 }
 
 .activiteiten-container.minimaal .activiteit-blok .activiteit:hover,
@@ -254,13 +261,18 @@
 }
 
 .activiteiten-container.minimaal .activiteit-blok .activiteit:hover,
-.activiteiten-container.minimaal .activiteit-blok .activiteit:focus {
+.activiteiten-container.minimaal .activiteit-blok .activiteit:focus,
+.activiteiten-container.minimaal .activiteit-blok .activiteit:hover .activiteit-info .activiteit-header,
+.activiteiten-container.minimaal .activiteit-blok .activiteit:focus .activiteit-info .activiteit-header {
     color: #e4e7ed;
 }
 
 .activiteiten-container.minimaal .activiteit-blok .activiteit-body .titel {
-    margin: 0.2vw;
+    font-weight: bolder;
     font-size: 1.25rem;
+    font-family: 'PT Sans Narrow', Helvetica, Arial, Lucida, sans-serif;
+    margin-bottom: .5rem;
+    padding-bottom: 10px;
 }
 
 .activiteit.value-wrapper {
