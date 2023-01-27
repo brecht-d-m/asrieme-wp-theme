@@ -3,6 +3,9 @@
 function activiteit_info_container_func() : string {
     $uitgelichte_afbeelding = _get_activiteit_image();
 
+    $titel = get_field( 'activiteit_titel' );
+    $subtitel = get_field( 'activiteit_subtitel' );
+
     $datum = _get_activiteit_meta_value( 'datum' );
     $datum = _format_activiteit_datum( $datum );
     $tijd = _get_activiteit_meta_value( 'tijd' );
@@ -22,10 +25,15 @@ function activiteit_info_container_func() : string {
             break;
     }
 
+    $titel = "<h1 class='activiteit-titel'><strong>$titel</strong></h1>";
+    $subtitel = empty( $subtitel ) ? '' : "<h3 class='activiteit-subtitel'>$subtitel</h3>";
+
     return
         "<div class='d-flex flex-column'>
             $uitgelichte_afbeelding
             <div class='activiteit-info-card pt-3 d-flex flex-column'>
+                $titel
+                $subtitel
                 <div class='mt-3 d-flex justify-content-between align-items-center'>
                     $datum_wrapper
                     $tijd_wrapper
@@ -65,7 +73,7 @@ function _get_activiteit_meta_value_wrapper( $value, $fa_icon ) : string {
     }
 
     return
-        "<div class='d-flex'>
+        "<div class='d-flex small text-muted'>
             <span class='me-3'><i class='fas $fa_icon'></i></span>
             <span>$value</span>
         </div>";
@@ -167,7 +175,7 @@ function _create_info_card( $titel, $titel_icoon, $content ) {
         "<div class='activiteit-info-card'>
             <div class='titel'>
                 <div class='icon'><i class='fas $titel_icoon'></i></div>
-                <h2>$titel</h2>
+                <h2><strong>$titel</strong></h2>
             </div>
             <div class='content'>$content</div>
         </div>";
@@ -186,7 +194,7 @@ function post_activiteit_container_func() {
     }
     
     // Enkel wedstrijd is ondersteund op dit moment
-    return _post_wedstrijd_container( $activiteit_id );
+    return '';
 }
 add_shortcode( 'post_activiteit_container', 'post_activiteit_container_func' );
 

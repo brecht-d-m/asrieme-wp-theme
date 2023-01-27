@@ -306,6 +306,13 @@
     padding: 0vw;
 }
 
+.activiteit-info-card .activiteit-subtitel {
+    font-variant: small-caps;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: "Cantarell", Helvetica, Arial, Lucida, sans-serif;
+}
+
 .actie-knop {
     text-align: center;
     margin-top: 1vw;
