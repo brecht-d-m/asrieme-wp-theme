@@ -25,8 +25,6 @@ function my_theme_enqueue_styles() {
     wp_enqueue_style( 'rieme-socials-style' );
     wp_register_style( 'members-style', get_stylesheet_directory_uri() . '/style/members.css' );
     wp_enqueue_style( 'members-style' );
-    wp_register_style( 'posts-style', get_stylesheet_directory_uri() . '/style/berichten.css' );
-    wp_enqueue_style( 'posts-style' );
 
     wp_register_style( 'rieme-bestuur-style', get_stylesheet_directory_uri() . '/style/bestuur.css' );
     wp_enqueue_style( 'rieme-bestuur-style' );

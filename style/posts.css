@@ -60,7 +60,15 @@
 }
 
 .archief-filter {
-    background-color: #ffebb3;
+    background-color: #ffc72b;
+}
+
+.archief-filter .dropdown .btn.btn-secondary {
+    background-color: #041d3d;
+}
+
+.archief-filter .dropdown .btn.btn-secondary:hover {
+    background-color: #1d3350;
 }
 
 .archief-filter .dropdown a.dropdown-toggle {
@@ -77,8 +85,22 @@
     color: var(--bs-dropdown-link-color) !important;
 }
 
+.archief-filter .search {
+    border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+.archief-filter .clear-icon {
+    right: 10px;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.archief-filter .filter-key {
+    color: #041d3d;
+}
+
 .archief-filter .filter-value {
-    color: #808080;
+    color: #737373;
 }
 
 .archief-container .post-card-inner a .info-wrapper h4.titel {

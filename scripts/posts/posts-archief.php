@@ -4,8 +4,8 @@
  * 
  */
 function posts_zoek_container_func( $atts ) {
-    $a = shortcode_atts( array( 'type' => '' ), $atts );
-    switch( $a['type'] ) {
+    $type = get_field( 'pagina_archief_type' );
+    switch( $type ) {
         case 'wedstrijdverslag':
             $postsachief_link = _get_wedstrijdverslagenarchief_link();
             break;
@@ -45,10 +45,11 @@ function _posts_zoek_container( string $zoek_link ) : string {
         </div>";
         
     
+    $zoek_filter_value = !empty( get_query_var( 'z' ) ) ? get_query_var( 'z' ) : '';
     $zoek_filter_container = 
         "<form role='search' method='get' class='form-inline' action='$posts_link'>
             <div class='input-group'>
-                <input type='search' placeholder='Zoek...' id='search-form-input' class='form-control' value='' name='z'>
+                <input type='search' placeholder='Zoek...' id='search-form-input' class='form-control' value='$zoek_filter_value' name='z'>
             </div>
         </form>";
 
@@ -65,9 +66,11 @@ function _posts_zoek_container( string $zoek_link ) : string {
 
     return 
         "<div class='archief-filter d-flex justify-content-between rounded p-2'>
-            <div class='d-flex align-items-center ms-3 overflow-hidden'>
-                <span class='filter-key fw-bolder me-3'>$filter_key</span>
-                <span class='filter-value fw-lighter text-truncate'>$filter_value<span>
+            <div class='align-self-center d-none d-md-block'>
+                <div class='d-flex align-items-center ms-3 overflow-hidden'>
+                    <span class='filter-key fw-bolder me-3'>$filter_key</span>
+                    <span class='filter-value fw-lighter text-truncate'>$filter_value<span>
+                </div>
             </div>
             <div class='d-flex me-3'>
                 <div class='ms-3'>$jaar_knoppen_container</div>
@@ -80,8 +83,7 @@ function _posts_zoek_container( string $zoek_link ) : string {
  * 
  */
 function posts_archief_container_func( $atts ) {
-    $a = shortcode_atts( array( 'type' => '' ), $atts );
-    $post_type = $a['type'];
+    $post_type = get_field( 'pagina_archief_type' );
 
     $posts_query = new WP_Query( _get_posts_args( $post_type ) );
     $posts = array();
