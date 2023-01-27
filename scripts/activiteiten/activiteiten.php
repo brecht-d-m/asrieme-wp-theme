@@ -161,16 +161,31 @@ function _create_locatie_card() : string {
 }
 
 function _create_contact_card() : string {
-    $contact = get_field( 'contactpersoon_activiteit_contactpersoon' );
-    $naam = ( $contact != NULL ) ? get_field( 'lid_naam', $contact ) : '';
-    $mail = ( $contact != NULL ) ? get_field( 'lid_email', $contact ) : '';
+    $naam =  _get_naam( 'contactpersoon_activiteit_contactpersoon' );
+    $mail = _get_mail( 'contactpersoon_activiteit_contactpersoon' );
 
-    $container_content = empty( $mail ) ? '' : " (<a href='mailto:$mail'>$mail</a>)";
-    $container_content = "Voor meer info kan je contact opnemen met $naam$container_content.";
-    return _create_info_card( 'Contact', 'fa-question-circle', $container_content );
+    $contact_type = get_post_type( get_field( 'contactpersoon_activiteit_contactpersoon' ) );
+    if( $contact_type == 'werkgroep' || $contact_type == 'clubfunctie' ) {
+        $functie = _get_functie( 'contactpersoon_activiteit_contactpersoon' );
+        if( $contact_type == 'werkgroep' ) {
+            $naam = 'de ' . strtolower( $functie ) . " ($naam)";
+        } elseif( $contact_type == 'clubfunctie' ) {
+            $naam = strtolower( $functie ) . " $naam";
+        }
+    }
+
+    $container_content = "Voor meer info kan je contact opnemen met $naam.";
+
+    $contact_content = empty( $mail ) ? '' : 
+        "<div class='d-flex small text-muted mt-2'>
+            <span class='me-3'><i class='fas fa-envelope'></i></span>
+            <span><a href='mailto:$mail'>$mail</a></span>
+        </div>";
+
+    return _create_info_card( 'Contact', 'fa-question-circle', $container_content, $contact_content );
 }
 
-function _create_info_card( $titel, $titel_icoon, $content ) {
+function _create_info_card( $titel, $titel_icoon, $content, $post_content = '' ) {
     return
         "<div class='activiteit-info-card'>
             <div class='titel'>
@@ -178,6 +193,7 @@ function _create_info_card( $titel, $titel_icoon, $content ) {
                 <h2><strong>$titel</strong></h2>
             </div>
             <div class='content'>$content</div>
+            $post_content
         </div>";
 }
 
