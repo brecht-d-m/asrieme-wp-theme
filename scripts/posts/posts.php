@@ -172,4 +172,38 @@ function gerelateerde_posts_func( $atts ) {
 }
 add_shortcode( 'gerelateerde_posts', 'gerelateerde_posts_func' );
 
+function archief_link_container_func( $atts ) {
+    $a = shortcode_atts( array( 'type'  => '' ), $atts );
+    switch( $a['type'] ) {
+        case 'wedstrijdverslag':
+            $label = _get_wedstrijdverslagenarchief_link_label();
+            $link = _get_wedstrijdverslagenarchief_link();
+            break;
+        case 'nieuwsbericht':
+            $label = _get_nieuwsberichtenarchief_link_label();
+            $link = _get_nieuwsberichtenarchief_link();
+            break;
+        default:
+            $label = '';
+            $link = '';
+            break;
+    }
+
+    $link = get_home_url( NULL, $link );
+    return 
+        "<div class='archief-link-container p-2 ps-4'>
+            <div class='row'>
+                <div class='col-12 col-md-8 align-self-center'>
+                    $label
+                </div>
+                <div class='col-12 col-md-4'>
+                    <div class='actie-knop'>
+                        <a href='$link' target='_blank'>Archief</a>
+                    </div>
+                </div>
+            </div>
+        </div>";
+} 
+add_shortcode( 'archief_link_container', 'archief_link_container_func' );
+
 ?>

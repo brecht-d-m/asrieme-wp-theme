@@ -35,4 +35,8 @@ function _get_no_wedstrijdverslag_label() : string {
     return 'Geen wedstrijdverslagen teruggevonden...';
 }
 
+function _get_wedstrijdverslagenarchief_link_label() : string {
+    return 'Lees nog meer wedstrijdverslagen in ons archief!';
+}
+
 ?>

@@ -29,4 +29,8 @@ function _get_no_nieuwsbericht_label() : string {
     return 'Geen nieuwsberichten teruggevonden...';
 }
 
+function _get_nieuwsberichtenarchief_link_label() : string {
+    return 'Lees nog meer nieuwsberichten in ons archief!';
+}
+
 ?>

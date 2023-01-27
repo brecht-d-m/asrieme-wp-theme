@@ -103,6 +103,11 @@
     color: #737373;
 }
 
+.archief-link-container {
+    background-color: #ffebb3;
+    border-radius: 1vw;
+}
+
 .archief-container .post-card-inner a .info-wrapper h4.titel {
     font-size: 1.15rem;
     color: #041d3d;
