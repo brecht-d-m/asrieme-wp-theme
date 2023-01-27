@@ -185,24 +185,17 @@
 .activiteiten-container.uitgebreid .activiteit-header {
     display: flex;
     flex-direction: row;
-    align-items: stretch;
-}
-
-.activiteiten-container.uitgebreid .activiteit-header>div {
-    vertical-align: middle;
-    flex: 1;
+    justify-content: space-between;
 }
 
 .activiteiten-container.uitgebreid .activiteit-header .datum {
-    font-size: 1rem;
-    text-transform: capitalize;
+    font-size: .9rem;
+    text-transform: uppercase;
     font-variant: small-caps;
 }
 
 .activiteiten-container.uitgebreid .activiteit-header .type {
-    font-size: .8rem;
-    margin-right: -1rem;
-    text-align: right;
+    font-size: .9rem;
     text-transform: uppercase;
     font-variant: small-caps;
 }
@@ -210,6 +203,7 @@
 .activiteiten-container.uitgebreid .activiteit-body {
     display: flex;
     flex-direction: column;
+    margin-bottom: 1vw;
 }
 
 .activiteiten-container.uitgebreid .activiteit-body .titel {

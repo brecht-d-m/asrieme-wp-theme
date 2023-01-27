@@ -38,7 +38,7 @@
     position: absolute;
     bottom: 1vw;
     left: 1vw;
-    background-color: #ffebb3;
+    background-color: #ffc72b;
     color: #041d3d;
     font-size: 0.85rem;
     font-weight: bold;
@@ -81,6 +81,11 @@
     color: #808080;
 }
 
+.archief-container .post-card-inner a .info-wrapper h4.titel {
+    font-size: 1.15rem;
+    color: #041d3d;
+}
+
 .post-info-card .gerelateerde-wedstrijd {
     max-width: 15rem;
 }
@@ -121,7 +126,7 @@
     position: absolute;
     bottom: 1vw;
     left: 1vw;
-    background-color: #ffebb3;
+    background-color: #ffc72b;
     color: #041d3d;
     font-size: 0.85rem;
     font-weight: bold;

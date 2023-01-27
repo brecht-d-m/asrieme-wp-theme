@@ -42,14 +42,17 @@
     background-color: #ef5350;
 }
 
-.social-button>a {
-    color: #041d3d;
-    font-size: 18px;
-    line-height: 24px;
+.social-buttons-container>a {
     text-decoration: none;
 }
 
-.contact .social-button>a {
+a .social-button {
+    color: #041d3d;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.contact a .social-button {
     font-size: 40px;
     color: #ffffff;
 }
@@ -67,4 +70,8 @@
 
 .social-text-button .titel-wrapper .icon {
     margin-right: 0.5vw;
+}
+
+.social-buttons-container {
+    top: -1vw;
 }

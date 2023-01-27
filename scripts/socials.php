@@ -84,24 +84,24 @@ function _get_button_flickr( bool $is_icon ) : string {
         return _create_social_button( $url, 'flickr', $knop_class, $knop_titel );
     } else {
         return
-            "<div class='social-button social-text-button rounded flickr'>
-                <a href='$url' target='_blank' title='$knop_titel'>
+            "<a href='$url' target='_blank' title='$knop_titel'>
+                <div class='social-button social-text-button rounded flickr'>
                     <div class='titel-wrapper'>
                         <div class='icon'><i class='fas fa-camera'></i></div>
                         <div class='text'>fotos</div>
                     </div>
-                </a>
-            </div>";
+                </div>
+            </a>";
     }
 }
 
 function _create_social_button( string $url, string $media, string $knop_class, string $knop_titel ) : string {
     return 
-        "<div class='social-button social-icon-button rounded $media'>
-            <a href='$url' target='_blank' title='$knop_titel'>
+        "<a href='$url' target='_blank' title='$knop_titel'>
+            <div class='social-button social-icon-button rounded $media'>
                 <i class='$knop_class'></i>
-            </a>
-        </div>";
+            </div>
+        </a>";
 }
 
 ?>

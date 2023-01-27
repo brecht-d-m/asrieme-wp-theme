@@ -96,7 +96,7 @@ function posts_archief_container_func( $atts ) {
     if( empty( $posts ) ) {
         $empty_label = _get_empty_label( $post_type );
         return 
-            "<div class='posts-container d-flex justify-content-center my-4'>
+            "<div class='archief-container posts-container d-flex justify-content-center my-4'>
                 $empty_label
             </div>";
     }
@@ -107,7 +107,7 @@ function posts_archief_container_func( $atts ) {
     }    
 
     return 
-        "<div class='posts-container row gy-4'>
+        "<div class='archief-container posts-container row gy-4'>
             $posts_archief_container
         </div>";
 }
