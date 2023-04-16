@@ -8,22 +8,37 @@ function posts_zoek_container_func( $atts ) {
     switch( $type ) {
         case 'wedstrijdverslag':
             $postsachief_link = _get_wedstrijdverslagenarchief_link();
+            $post_type = 'wedstrijdverslag';
             break;
         case 'nieuwsbericht':
             $postsachief_link = _get_nieuwsberichtenarchief_link();
+            $post_type = 'post';
             break;
         default:
             $postsachief_link = '';
+            $post_type = '';
             break;
     }
 
-    return _posts_zoek_container( $postsachief_link );
+    return _posts_zoek_container( $postsachief_link, $post_type );
 }
 add_shortcode( 'posts_zoek_container', 'posts_zoek_container_func' );
 
-function _posts_zoek_container( string $zoek_link ) : string {
+function _posts_zoek_container( string $zoek_link, string $post_type ) : string {
     $huidig_jaar = date( 'Y' );
-    $start_jaar = 2015;
+
+    $start_jaar_args = array(
+        'post_type'      => $post_type,
+        'orderby'        => 'date',
+        'order'          => 'ASC',
+        'posts_per_page' => 1
+    );
+    $start_jaar_query = new WP_Query( $start_jaar_args );
+    $start_jaar = $huidig_jaar;
+    if( $start_jaar_query->have_posts() ) {
+        $start_jaar_query->the_post();
+        $start_jaar = get_the_date( 'Y' );
+    }
 
     $posts_link = get_home_url( NULL, $zoek_link );
 
@@ -84,6 +99,7 @@ function _posts_zoek_container( string $zoek_link ) : string {
  */
 function posts_archief_container_func( $atts ) {
     $post_type = get_field( 'pagina_archief_type' );
+    $post_type = 'post';
 
     $posts_query = new WP_Query( _get_posts_args( $post_type ) );
     $posts = array();
@@ -184,7 +200,7 @@ function _get_empty_label( string $post_type ) : string {
             $empty_label = _get_no_nieuwsbericht_label();
             break;
         default:
-        $empty_label = _get_no_nieuwsbericht_label();
+            $empty_label = _get_no_nieuwsbericht_label();
             break;
     }
 
@@ -196,9 +212,7 @@ function _create_minimal_card( $post_object ) : string {
         $foto_wrapper = wp_get_attachment_image( $post_object->uitgelichte_afbeelding_id, 'large', false, array( 'class' => 'object-fit-cover rounded' ) );
     } else {
         $foto_wrapper = 
-            "<div class='w-100 text-center'>
-                <img src='https://asrieme.be/wp-content/uploads/2020/09/asrieme-logo-full-color-rgb.png' class='no-image p-3 mx-auto d-block'>
-            </div>";
+            "<img src='https://asrieme.be/wp-content/uploads/2020/09/asrieme-logo-full-color-rgb.png' class='object-fit-scale p-3'>";
     }
 
     $meta_data_info = $post_object->get_meta_data_info();

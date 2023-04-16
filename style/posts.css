@@ -53,12 +53,6 @@
     width: 100%;
 }
 
-.post-card-inner .foto-wrapper img.no-image {
-    min-height: 200px;
-    max-height: 200px;
-    width: auto;
-}
-
 .archief-filter {
     background-color: #ffc72b;
 }

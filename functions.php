@@ -140,4 +140,10 @@ function add_blog_query_variables() {
 }
 add_action('init','add_blog_query_variables');
 
+// Dynamically set default value for acf "activiteit_eigenOrganisatie" field
+add_filter('acf/load_field/name=activiteit_eigenOrganisatie', function( $field ) {
+    $field['default_value'] = (get_post_type() == 'evenement');
+    return $field;
+});
+
 ?>

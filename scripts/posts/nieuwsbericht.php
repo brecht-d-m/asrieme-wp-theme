@@ -3,8 +3,8 @@
 require_once 'class-nieuwsbericht.php';
 use Nieuwsbericht\Nieuwsbericht;
 
-function _get_nieuwsbericht_auteur() : string {
-    $auteur = get_the_author();
+function _get_nieuwsbericht_auteur( bool $minimaal ) : string {
+    $auteur = $minimaal ? get_the_author_meta( 'first_name' ) : get_the_author();
     return $auteur == NULL ? '' : $auteur;
 }
 

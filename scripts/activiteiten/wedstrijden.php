@@ -51,21 +51,6 @@ function _get_wedstrijd_label( $wedstrijd_type ) : string {
 }
 
 /** Post-Wedstrijden Container**/
-function _post_wedstrijd_container( $wedstrijd_id ) : string {
-    if( $wedstrijd_id == NULL ) {
-        return '';
-    }
-        
-    $post_wedstrijd_container = '';
-    $post_wedstrijd_container .= _create_resultaat_card( $wedstrijd_id );
-    $post_wedstrijd_container .= _create_album_card( $wedstrijd_id );
-    $post_wedstrijd_container .= _create_verslag_card( $wedstrijd_id );
-    return
-        "<div class='activiteit-info-container'>
-            $post_wedstrijd_container
-        </div>";
-}
-
 function _create_resultaat_card( $wedstrijd_id ) : string {
     $uitslagen_links = _create_link_array( 'wedstrijduitslag', 'titel', $wedstrijd_id );
     if( empty( $uitslagen_links ) ) {
@@ -86,15 +71,6 @@ function _create_resultaat_card( $wedstrijd_id ) : string {
     }
 
     return $knoppen;
-}
-
-function _create_verslag_card( $wedstrijd_id ) : string {
-    $verslagen_links = _create_info_listing( 'wedstrijdverslag', $wedstrijd_id );
-    if( empty( $verslagen_links ) ) {
-        return '';
-    }
-    $container_content = "<ul>$verslagen_links</ul>";
-    return _create_info_card( 'Verslagen', 'fa-pen', $container_content );
 }
 
 function _create_album_card( $wedstrijd_id ) : string {
@@ -144,39 +120,6 @@ function _create_link_array( string $post_type, string $key_titel, int $wedstrij
                 'link' => $post_url,
                 'titel' => $post_titel
             ) );
-        }
-    }
-    wp_reset_postdata();
-    return $post_links;
-}
-
-function _create_info_listing( $post_type, $wedstrijd_id ) : string {
-    if( $wedstrijd_id == NULL ) {
-        return '';
-    }
-
-    $wedstrijd_args = array(
-        'posts_per_page' => -1,
-        'post_type'      => $post_type,
-        'meta_key'       => $post_type . '_wedstrijd',
-        'meta_value'     => $wedstrijd_id
-    );
-
-    $post_links = '';
-    $post_count = 0;
-    $posts = new WP_Query( $wedstrijd_args );
-    if( $posts->have_posts() ) {
-        while( $posts->have_posts() ) {
-            $post_count++;
-            $posts->the_post();
-
-            $post_title = get_the_title();
-            $post_url = get_field( $post_type . '_link' );
-            if( empty( $post_url ) ) {
-                $post_url = get_the_permalink();
-            }
-
-            $post_links .= "<li><a href='$post_url'>$post_title</a></li>";
         }
     }
     wp_reset_postdata();

@@ -7,22 +7,26 @@ function post_infobar_card_func() {
     $samenvatting = get_the_excerpt();
     
     $auteur = _get_infobar_auteur( $post_type );
+    $auteur_minimaal = _get_infobar_auteur( $post_type, true );
     if( !empty( $auteur ) ) {
         $auteur_wrapper = 
             "<div class='d-flex small text-muted'>
                 <span class='me-3'><i class='fas fa-pen'></i></span>
-                <span>$auteur</span>
+                <div class='d-none d-sm-block'><span>$auteur</span></div>
+                <div class='d-block d-sm-none'><span>$auteur_minimaal</span></div>
             </div>";
     } else {
         $auteur_wrapper = '';
     }
     
     $datum = _get_infobar_datum( $post_type );
+    $datum_minimaal = _get_infobar_datum( $post_type, true );
     if( !empty( $datum ) ) {
         $datum_wrapper = 
             "<div class='d-flex small text-muted'>
                 <span class='me-3'><i class='fas fa-calendar-alt'></i></span>
-                <span>$datum</span>
+                <div class='d-none d-sm-block'><span>$datum</span></div>
+                <div class='d-block d-sm-none'><span>$datum_minimaal</span></div>
             </div>";
     } else {
         $datum_wrapper = '';
@@ -50,13 +54,13 @@ function post_infobar_card_func() {
 }
 add_shortcode( 'post_infobar_card', 'post_infobar_card_func' );
 
-function _get_infobar_auteur( string $post_type ) : string {
+function _get_infobar_auteur( string $post_type, bool $minimaal = false ) : string {
     switch( $post_type ) {
         case 'wedstrijdverslag':
-            $auteur = _get_wedstrijdverslag_auteur();
+            $auteur = _get_wedstrijdverslag_auteur( $minimaal );
             break;
         case 'post':
-            $auteur = _get_nieuwsbericht_auteur();
+            $auteur = _get_nieuwsbericht_auteur( $minimaal );
             break;
         default:
             $auteur = '';
@@ -65,7 +69,7 @@ function _get_infobar_auteur( string $post_type ) : string {
     return $auteur;
 }
 
-function _get_infobar_datum( string $post_type ) : string {
+function _get_infobar_datum( string $post_type, bool $minimaal = false ) : string {
     switch( $post_type ) {
         case 'wedstrijdverslag':
             $post_datum = _get_wedstrijdverslag_datum();
@@ -83,7 +87,8 @@ function _get_infobar_datum( string $post_type ) : string {
     }
 
     $datum = DateTime::createFromFormat( 'Ymd', $post_datum )->getTimestamp();
-    $format = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, NULL, IntlDateFormatter::GREGORIAN, 'd MMMM yyyy' );
+    $datum_format = $minimaal ? 'd MMM' : 'd MMMM yyyy' ;
+    $format = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, NULL, IntlDateFormatter::GREGORIAN, $datum_format );
     return $format->format( $datum );
 }
 
@@ -196,8 +201,8 @@ function archief_link_container_func( $atts ) {
                 <div class='col-12 col-md-8 align-self-center'>
                     $label
                 </div>
-                <div class='col-12 col-md-4'>
-                    <div class='actie-knop'>
+                <div class='col-12 col-md-4 align-self-center'>
+                    <div class='actie-knop mt-3 mb-2 my-md-1'>
                         <a href='$link' target='_blank'>Archief</a>
                     </div>
                 </div>

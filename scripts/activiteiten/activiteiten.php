@@ -177,7 +177,7 @@ function _create_contact_card() : string {
     $container_content = "Voor meer info kan je contact opnemen met $naam.";
 
     $contact_content = empty( $mail ) ? '' : 
-        "<div class='d-flex small text-muted mt-2'>
+        "<div class='d-flex ms-1 mt-2'>
             <span class='me-3'><i class='fas fa-envelope'></i></span>
             <span><a href='mailto:$mail'>$mail</a></span>
         </div>";
@@ -424,5 +424,11 @@ function _format_activiteit_datum( string $datum, bool $minimaal = false ) : str
     $format = new IntlDateFormatter( 'nl_BE', IntlDateFormatter::FULL, IntlDateFormatter::FULL, NULL, IntlDateFormatter::GREGORIAN, $date_format );
     return $format->format( $datum );
 }  
+
+// Dynamically set default value for acf "activiteit_eigenOrganisatie" field
+add_filter('acf/load_field/name=activiteit_eigenOrganisatie', function( $field ) {
+    $field['default_value'] = (get_post_type() == 'evenement');
+    return $field;
+});
 
 ?>

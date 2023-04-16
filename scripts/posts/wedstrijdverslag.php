@@ -3,10 +3,10 @@
 require_once 'class-wedstrijdverslag.php';
 use Wedstrijdverslag\Wedstrijdverslag;
 
-function _get_wedstrijdverslag_auteur() : string {
+function _get_wedstrijdverslag_auteur( bool $minimaal ) : string {
     $auteur = get_field( 'wedstrijdverslag_auteur' );
     if( empty( $auteur ) ) {
-        $auteur = get_the_author();
+        $auteur = $minimaal ? get_the_author_meta( 'first_name' ) : get_the_author();
     }
     return $auteur == NULL ? '' : $auteur;
 }
@@ -14,6 +14,7 @@ function _get_wedstrijdverslag_auteur() : string {
 function _get_wedstrijdverslag_datum() : string {
     $wedstrijd_id = get_field( 'wedstrijdverslag_wedstrijd' );
     $wedstrijd_datum = get_field( 'activiteit_datum', $wedstrijd_id );
+    $wedstrijd_datum = $wedstrijd_datum == NULL ? '' : get_the_date( 'Ymd' );
     return $wedstrijd_datum == NULL ? '' : $wedstrijd_datum;
 }
 
