@@ -435,8 +435,9 @@ function activiteiten_vrijwilligers_func( $atts ) {
     $activiteit_naam = get_field( 'activiteit_titel' );
     return 
         "<div class='vrijwilliger-link-container p-2 ps-4'>
-            <div>
-                Wil jij meehelpen? Voor de $activiteit_naam zijn we op zoek naar extra helpende handen. Meld je gemakkelijk aan via onderstaande knop, je bent van harte welkom!
+            <div class='d-flex align-items-center'>
+                <h2 class='me-4'><i class='fas fa-handshake'></i></h2>
+                <div>Wil jij meehelpen? Voor de $activiteit_naam zijn we op zoek naar extra helpende handen. Meld je gemakkelijk aan via onderstaande knop, je bent van harte welkom!</div>
             </div>
             <div class='actie-knop mt-3 mb-2'>
                 <a href='$vrijwilligers_link' target='_blank'>Help mee!</a>
