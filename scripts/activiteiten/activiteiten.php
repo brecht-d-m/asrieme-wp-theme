@@ -235,7 +235,7 @@ function activiteiten_container_func( $atts ) {
     if( empty( $activiteit_type ) ) {
         $activiteit_types_filter = array();
     } else {
-        if( empty( !$activiteit_klasse ) ) {
+        if( !empty( $activiteit_klasse ) ) {
             $activiteit_types_filter = array( $activiteit_klasse . '_' . $activiteit_type );
         } else {
             $activiteit_types_filter = array( 
