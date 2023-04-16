@@ -8,24 +8,10 @@ use Sponsor\Sponsor_Card_Properties;
 
 function sponsor_willekeurig_func( $atts ) {
     $a = shortcode_atts( array( 'bordered' => false ), $atts );
+    $bordered = $a['bordered'];
 
     // Don't filter on sponsor type and return max 1 sponsor
-    $query = new WP_Query( _get_sponsors_args( '', 1 ) );
-    if( $query->have_posts() ) {
-        $query->the_post();
-        $sponsor = _create_sponsor( 'random' );
-    }
-    wp_reset_postdata();
-
-    if( $sponsor == NULL ) {
-        return '';
-    }
-
-    $card_properties = new Sponsor_Card_Properties();
-    $card_properties->set_gebruik_extra_info( false );
-    $card_properties->set_bordered( $a['bordered'] );
-    $card_properties->set_card_relative_width( 'col-lg-12' );
-    return $sponsor->create_sponsor_card( $card_properties );
+    return _create_single_sponsor( _get_sponsors_args( '', 1 ), $bordered );
 }
 add_shortcode( 'sponsor_willekeurig', 'sponsor_willekeurig_func' );
 
@@ -71,6 +57,49 @@ function sponsors_container_func( $atts ) {
         </div>";
 }
 add_shortcode( 'sponsors_container', 'sponsors_container_func' );
+
+function sponsors_wedstrijd_func( $atts ) {
+    $heeft_sponsors = get_field( 'sponsors_wedstrijd_heeftSponsors' );
+    if( $heeft_sponsors ) {
+        $wedstrijd_sponsors = get_field( 'sponsors_wedstrijd_sponsors' );
+
+        if( empty( $wedstrijd_sponsors ) ) {
+            return '';
+        }
+
+        $sponsor_container = '';
+        foreach( $wedstrijd_sponsors as $sponsor_id ) {
+            $sponsor_container .= _create_single_sponsor( array( 'p' => $sponsor_id ), true );
+        }
+        
+        return
+            "<div class='sponsors-wedstrijd'>
+                $sponsor_container
+            </div>";
+    } else {
+        return _create_single_sponsor( _get_sponsors_args( '', 1 ), true );
+    }
+}
+add_shortcode( 'sponsors_wedstrijd', 'sponsors_wedstrijd_func' );
+
+function _create_single_sponsor( array $sponsor_args, bool $bordered ) : string {
+    $query = new WP_Query( $sponsor_args );
+    if( $query->have_posts() ) {
+        $query->the_post();
+        $sponsor = _create_sponsor( 'random' );
+    }
+    wp_reset_postdata();
+
+    if( $sponsor == NULL ) {
+        return '';
+    }
+
+    $card_properties = new Sponsor_Card_Properties();
+    $card_properties->set_gebruik_extra_info( false );
+    $card_properties->set_bordered( $bordered );
+    $card_properties->set_card_relative_width( 'col-lg-12' );
+    return $sponsor->create_sponsor_card( $card_properties );
+}
 
 function _get_sponsors_args( string $sponsor_type, int $aantal ) : array {
     $sponsor_args = array(
