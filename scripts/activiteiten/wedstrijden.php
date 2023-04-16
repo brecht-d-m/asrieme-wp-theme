@@ -5,6 +5,10 @@ function _create_wedstrijd_suffix_infobar() : string {
     $meta_knoppen .= _create_resultaat_card( get_the_ID() );
     $meta_knoppen .= _create_album_card( get_the_ID() );
 
+    if( empty( $meta_knoppen ) ) {
+        return '';
+    }
+
     return 
         "<div class='d-none d-sm-block'>
             <div class='d-flex mt-4 overflow-scroll'>
