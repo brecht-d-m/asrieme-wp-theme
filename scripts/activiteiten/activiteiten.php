@@ -425,6 +425,26 @@ function _format_activiteit_datum( string $datum, bool $minimaal = false ) : str
     return $format->format( $datum );
 }  
 
+function activiteiten_vrijwilligers_func( $atts ) {
+    $heeft_vrijwilligers = get_field( 'vrijwilliger_activiteit_heeftVrijwilligerslink' );
+    if( ! $heeft_vrijwilligers ) {
+        return '';
+    }
+    
+    $vrijwilligers_link = get_field( 'vrijwilliger_activiteit_vrijwilligerslink' );
+    $activiteit_naam = get_field( 'activiteit_titel' );
+    return 
+        "<div class='vrijwilliger-link-container p-2 ps-4'>
+            <div>
+                Wil jij meehelpen? Voor de $activiteit_naam zijn we op zoek naar extra helpende handen. Meld je gemakkelijk aan via onderstaande knop, je bent van harte welkom!
+            </div>
+            <div class='actie-knop mt-3 mb-2'>
+                <a href='$vrijwilligers_link' target='_blank'>Help mee!</a>
+            </div>
+        </div>";
+}
+add_shortcode( 'activiteiten_vrijwilligers', 'activiteiten_vrijwilligers_func' );
+
 // Dynamically set default value for acf "activiteit_eigenOrganisatie" field
 add_filter('acf/load_field/name=activiteit_eigenOrganisatie', function( $field ) {
     $field['default_value'] = (get_post_type() == 'evenement');
